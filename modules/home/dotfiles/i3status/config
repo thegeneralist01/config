@@ -1,0 +1,32 @@
+general {
+    interval = 5
+    colors = true
+}
+
+order += "cpu_usage"
+order += "memory"
+order += "disk /"
+order += "tztime local"
+#order += "keyboard_layout"
+
+cpu_usage {
+    format = "CPU: %usage"
+}
+
+memory {
+    format = "RAM: %used/%total"
+}
+
+disk "/" {
+    format = "Disk: %avail"
+}
+
+tztime local {
+    format = "%Y-%m-%d %H:%M:%S %Z"
+}
+
+#keyboard_layout {
+#        format = "LANG: %s"
+#        interval = 1
+#        exec = "xkblayout-state print '%s'"
+#}

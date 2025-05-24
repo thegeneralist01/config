@@ -1,0 +1,57 @@
+# Edit this configuration file to define what should be installed on
+# your system. Help is available in the configuration.nix(5) man page, on
+# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
+
+{ self, config, pkgs, lib, inputs, ... }:
+
+{
+  imports =
+    [
+      ./hardware-configuration.nix
+      inputs.agenix.nixosModules.default
+      inputs.home-manager.nixosModules.default
+    ];
+
+  age.secrets.hostkey.file = ./hostkey.age;
+  services.openssh.hostKeys = [{
+    type = "ed25519";
+    path = config.age.secrets.hostkey.path;
+  }];
+
+  users.users.thegeneralist = {
+    isNormalUser = true;
+    description = "thegeneralist";
+    extraGroups = [ "wheel" "audio" "video" "input" "scanner" ];
+    shell = pkgs.nushell;
+    home = "/home/thegeneralist";
+    openssh.authorizedKeys.keys = let
+      inherit (import ../../keys.nix) thegeneralist;
+    in [ thegeneralist ];
+  };
+
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      thegeneralist = import (self + /modules/home);
+    };
+  };
+
+  # Some programs
+  services.libinput.enable = true;
+  programs.firefox.enable = true;
+  programs.zsh.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+  # console = {
+  #   font = "Lat2-Terminus16";
+  #   keyMap = "us";
+  #   useXkbConfig = true; # use xkb.options in tty.
+  # };
+
+  system.stateVersion = "24.11";
+}
+
