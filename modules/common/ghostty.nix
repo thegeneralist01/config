@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+# TODO: this
   # environment.variables = {
   #   TERMINAL = "ghostty";
   # };

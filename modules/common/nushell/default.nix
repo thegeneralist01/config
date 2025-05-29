@@ -3,24 +3,8 @@
 in {
   # TODO: starship + change the zoxide src
   # TODO: Rust tooling
-  home-manager.sharedModules = [
-    (homeArgs: {
-      xdg = {
-        enable = true;
-        configHome = "~/.config";
-      };
-      programs.nushell = {
-        enable = true;
-        package = pkgs.nushell;
-        configFile.text = readFile ./config.nu;
-        envFile.text = readFile ./env.nu;
-        environmentVariables = config.environment.variables // homeArgs.config.home.sessionVariables;
-      };
-    })
-  ];
-
-  environment =  optionalAttrs config.onLinux {
-    sessionVariables.SHELLS = getExe pkgs.nushell;
+  environment = optionalAttrs config.onLinux {
+    sessionVariables.SHELLS = [ (getExe pkgs.nushell) (getExe pkgs.zsh) ];
   } // {
     shells = mkIf (!config.onLinux) [ pkgs.nushell pkgs.zsh ];
 
@@ -58,4 +42,29 @@ in {
       rb = "nh os switch . -v -- --show-trace --verbose";
     };
   };
+
+  home-manager.sharedModules = [
+    ({
+      home.file.".zshrc" = let
+        configFile = ./config.nu;
+        envFile = ./env.nu;
+      in {
+        text = "exec nu --env-config ${envFile} --config ${configFile}";
+        force = true;
+      };
+    })
+    (homeArgs: {
+      programs.nushell = {
+        enable = true;
+        package = pkgs.nushell;
+        configFile.text = readFile ./config.nu;
+        envFile.text = readFile ./env.nu;
+        environmentVariables = config.environment.variables // homeArgs.config.home.sessionVariables;
+      };
+      programs.zsh = {
+        enable = true;
+        sessionVariables = config.environment.variables // homeArgs.config.home.sessionVariables;
+      };
+    })
+  ];
 }

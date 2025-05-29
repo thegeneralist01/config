@@ -7,27 +7,27 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
+  users.knownUsers = [
+    "thegeneralist"
+  ];
+
   users.users.thegeneralist = {
     name = "thegeneralist";
     home = "/Users/thegeneralist";
     shell = pkgs.zsh;
+    uid = 501;
     # openssh.authorizedKeys.keys = let
     #   inherit (import ../../keys.nix) thegeneralist;
     # in [ thegeneralist ];
   };
 
-  # home-manager = {
-  #   extraSpecialArgs = { inherit inputs; };
-  #   users = {
-  #     thegeneralist = import (self + /modules/home);
-  #   };
-  # };
-
-  # home-manager.users.thegeneralist.home = {
-  #   stateVersion = "24.11";
-  #   homeDirectory = "/Users/thegeneralist";
-  # };
+  home-manager = {
+    backupFileExtension = "home.bak";
+    users.thegeneralist.home = {
+      stateVersion = "25.11";
+      homeDirectory = "/Users/thegeneralist";
+    };
+  };
 
   system.stateVersion = 6;
 }
-

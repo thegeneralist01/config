@@ -1,4 +1,6 @@
-{ pkgs, options, lib, ... }: {
+{ pkgs, config, lib, ... }: let
+  inherit (lib) optionals;
+in {
   environment.variables.EDITOR = "nvim";
 
   home-manager.sharedModules = [{
@@ -23,11 +25,13 @@
       nodejs
       nodePackages."sass"
 
-      gcc_multi
+
       #llvmPackages_20.clangWithLibcAndBasicRtAndLibcxx
+    ] ++ optionals config.onLinux [
+      gcc_multi
     ];
 
-    home.file = lib.mkIf options.onLinux {
+    home.file = lib.mkIf config.onLinux {
       ".config/i3status" = {
         source = ../home/dotfiles/i3status;
         force = true;

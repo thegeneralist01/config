@@ -1,27 +1,33 @@
-{
+{ lib, pkgs, config, ... }: let
+  inherit (lib) optionalAttrs getExe;
+in {
+  environment.systemPackages = with pkgs; [
+    gnupg
+  ];
+
   home-manager.sharedModules = [{
-    programs.git = {
-      enable = true;
-
-      userName = "TheGeneralist";
-      userEmail = "180094941+thegeneralist01@users.noreply.github.com";
-      lfs = {
+    programs = {
+      gpg.enable = true;
+      gh.enable = true;
+      gh-dash.enable = true;
+      git = {
         enable = true;
-      };
 
-      extraConfig = {
-        commit.gpgSign = true;
-        tag.gpgSign = true;
-        gpg.format = "ssh";
-        user.signingKey = "~/.ssh/id_ed25519";
+        userName = "TheGeneralist";
+        userEmail = "180094941+thegeneralist01@users.noreply.github.com";
+        lfs = {
+          enable = true;
+        };
+
+        extraConfig = {
+          commit.gpgSign = true;
+          tag.gpgSign = true;
+          gpg.format = "ssh";
+          gpg.program = getExe pkgs.gnupg;
+          user.signingKey = "~/.ssh/id_ed25519";
+        };
       };
     };
 
-    programs.gh = {
-      enable = true;
-    };
-    programs.gh-dash = {
-      enable = true;
-    };
   }];
 }

@@ -19,6 +19,7 @@
   };
 
   home-manager = {
+    backupFileExtension = "home.bak";
     extraSpecialArgs = { inherit inputs; };
     users = {
       thegeneralist = import (self + /modules/home);
