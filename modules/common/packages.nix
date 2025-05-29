@@ -3,14 +3,11 @@
 in {
   environment.systemPackages = attrValues {
     inherit (pkgs)
-      protonup-qt
-      pipewire
-      pwvucontrol
-      wireplumber
-      playerctl
-
-      xsane
-      simple-scan
+      wget
+      zsh
+      neovim
+      vim
+      home-manager
     ;
   };
 }

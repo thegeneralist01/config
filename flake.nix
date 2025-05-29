@@ -1,4 +1,4 @@
-{
+  {
   description = "thegeneralist's config flake";
 
   inputs = {
@@ -20,14 +20,22 @@
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
+    # wrapper-manager = {
+    #   url = "github:viperML/wrapper-manager";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    #nix.url = "github:DeterminateSystems/nix-src";
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }: let
+  outputs = inputs@{ self, nixpkgs, nix-darwin, nix, ... }: let
     inherit (builtins) readDir;
-    inherit (nixpkgs.lib) attrsToList const groupBy listToAttrs mapAttrs;
+    inherit (nixpkgs.lib) attrsToList const groupBy listToAttrs mapAttrs last mkOption splitString;
+    #nix.enable = false;
+
+    lib = nixpkgs.lib // nix-darwin.lib;
 
     targetHost = readDir ./hosts
-      |> mapAttrs (name: const <| import ./hosts/${name} nixpkgs.lib inputs self)
+      |> mapAttrs (name: const <| import ./hosts/${name} lib inputs self)
       |> attrsToList
       |> groupBy (host:
         if host.name == "thegeneralist" then

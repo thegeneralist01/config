@@ -1,11 +1,32 @@
-{ config, pkgs, lib, ... }: let
-  inherit (lib) readFile;
+{ config, pkgs, lib, wrapper-manager, ... }: let
+  inherit (lib) readFile getExe mkIf optionalAttrs;
 in {
   # TODO: starship + change the zoxide src
   # TODO: Rust tooling
-  environment = {
+  home-manager.sharedModules = [
+    (homeArgs: {
+      xdg = {
+        enable = true;
+        configHome = "~/.config";
+      };
+      programs.nushell = {
+        enable = true;
+        package = pkgs.nushell;
+        configFile.text = readFile ./config.nu;
+        envFile.text = readFile ./env.nu;
+        environmentVariables = config.environment.variables // homeArgs.config.home.sessionVariables;
+      };
+    })
+  ];
+
+  environment =  optionalAttrs config.onLinux {
+    sessionVariables.SHELLS = getExe pkgs.nushell;
+  } // {
+    shells = mkIf (!config.onLinux) [ pkgs.nushell pkgs.zsh ];
+
     systemPackages = with pkgs; [
       nushell
+      fish
       zoxide
       ripgrep
       jq
@@ -37,13 +58,4 @@ in {
       rb = "nh os switch . -v -- --show-trace --verbose";
     };
   };
-
-  home-manager.sharedModules = [{
-    programs.nushell = {
-      enable = true;
-      configFile.text = readFile ./config.nu;
-      envFile.text = readFile ./env.nu;
-      environmentVariables = config.environment.variables;
-    };
-  }];
 }

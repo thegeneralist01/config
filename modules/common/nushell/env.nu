@@ -1,6 +1,12 @@
-
+$env.ENV_CONVERSIONS.PATH = {
+  from_string: {|string|
+    $string | split row (char esep) | path expand --no-symlink
+  }
+  to_string: {|value|
+    $value | path expand --no-symlink | str join (char esep)
+  }
+}
 # NVM
-# TODO: this
 # source ("/Users/thegeneralist/.nvm/" | path join "nvm.sh")
 
 # GPG TTY

@@ -1,10 +1,8 @@
-{ config, pkgs, inputs, lib, ... }: {
+{ config, options, pkgs, inputs, lib, ... }: {
   home.username = "thegeneralist";
-  home.homeDirectory = "/home/thegeneralist";
+  home.homeDirectory = if options.onLinux then "/home/thegeneralist" else "/Users/thegeneralist";
 
   home.packages = with pkgs; [
-    android-tools
-
     zip
     xz
     unzip

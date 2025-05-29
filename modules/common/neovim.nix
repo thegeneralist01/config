@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, options, lib, ... }: {
   environment.variables.EDITOR = "nvim";
 
   home-manager.sharedModules = [{
@@ -27,15 +27,18 @@
       #llvmPackages_20.clangWithLibcAndBasicRtAndLibcxx
     ];
 
-    home.file.".config/i3status" = {
-      source = ../home/dotfiles/i3status;
-      force = true;
-      recursive = true;
+    home.file = lib.mkIf options.onLinux {
+      ".config/i3status" = {
+        source = ../home/dotfiles/i3status;
+        force = true;
+        recursive = true;
+      };
     };
-  }];
 
-  programs.npm.npmrc = ''
-    prefix=~/.npm-packages
-    color=true
-  '';
+    # TODO: this
+    # programs.npm.npmrc = ''
+    #   prefix=~/.npm-packages
+    #   color=true
+    # '';
+  }];
 }

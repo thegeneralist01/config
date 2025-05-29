@@ -1,6 +1,22 @@
-lib: inputs: self: lib.nixosSystem {
+lib: inputs: self: lib.darwinSystem {
   specialArgs = inputs // { inherit inputs; inherit self; };
   modules = [
+    # Extensions: nixosModules, darwinModules, overlays
+    ({ pkgs, lib, inputs, ... }: let
+      inherit (lib) attrValues hasAttrByPath getAttrFromPath filter;
+
+      collect = packagePath: (attrValues inputs)
+        |> filter (hasAttrByPath packagePath)
+        |> map (getAttrFromPath packagePath);
+
+      modules = collect [ "darwinModules" "default" ];
+      # todo
+      extensions = {
+        nixpkgs.overlays = collect [ "overlays" "default" ];
+        imports = modules;
+      };
+    in extensions)
+
     ./configuration.nix
 
     # Modules
@@ -10,17 +26,6 @@ lib: inputs: self: lib.nixosSystem {
       darwinModules = lib.filesystem.listFilesRecursive ../../modules/darwin |> filter (hasSuffix ".nix");
     in {
       imports = commonModules ++ darwinModules;
-    })
-
-    # Overlays
-    ({ pkgs, lib, ... }: let
-      inherit (lib) attrValues hasAttrByPath getAttrFromPath filter;
-      packagePath = [ "overlays" "default" ];
-      overlays = (attrValues inputs)
-        |> filter (hasAttrByPath packagePath)
-        |> map (getAttrFromPath packagePath);
-    in {
-      nixpkgs.overlays = overlays;
     })
   ];
 }

@@ -1,6 +1,18 @@
 $env.config.buffer_editor = "/home/thegeneralist/.nix-profile/bin/nvim"
 $env.config.show_banner = false
 
+$env.config = {
+  shell_integration: {
+    osc2:                   false
+    osc7:                   true
+    osc8:                   true
+    osc9_9:                 false
+    osc133:                 true
+    osc633:                 true
+    reset_application_mode: true
+  }
+}
+
 # Basic Aliases
 alias v = nvim .
 alias ff = fastfetch --load-config examples/10.jsonc

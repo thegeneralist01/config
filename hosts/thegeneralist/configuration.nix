@@ -5,18 +5,7 @@
 { self, config, pkgs, lib, inputs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      inputs.agenix.nixosModules.default
-      inputs.home-manager.nixosModules.default
-    ];
-
-  age.secrets.hostkey.file = ./hostkey.age;
-  services.openssh.hostKeys = [{
-    type = "ed25519";
-    path = config.age.secrets.hostkey.path;
-  }];
+  imports = [ ./hardware-configuration.nix ];
 
   users.users.thegeneralist = {
     isNormalUser = true;
@@ -35,6 +24,12 @@
       thegeneralist = import (self + /modules/home);
     };
   };
+
+  age.secrets.hostkey.file = ./hostkey.age;
+  services.openssh.hostKeys = [{
+    type = "ed25519";
+    path = config.age.secrets.hostkey.path;
+  }];
 
   # Some programs
   services.libinput.enable = true;
