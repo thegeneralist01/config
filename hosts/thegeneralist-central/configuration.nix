@@ -8,12 +8,12 @@
   imports = [ ./hardware-configuration.nix ];
 
   users.knownUsers = [
-    "thegeneralist"
+    "central"
   ];
 
-  users.users.thegeneralist = {
-    name = "thegeneralist";
-    home = "/Users/thegeneralist";
+  users.users.central = {
+    name = "central";
+    home = "/Users/central";
     shell = pkgs.zsh;
     uid = 501;
     # openssh.authorizedKeys.keys = let
@@ -25,7 +25,7 @@
     backupFileExtension = "home.bak";
     users.thegeneralist.home = {
       stateVersion = "25.11";
-      homeDirectory = "/Users/thegeneralist";
+      homeDirectory = "/Users/central";
     };
   };
 

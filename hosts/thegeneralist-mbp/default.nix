@@ -10,7 +10,6 @@ lib: inputs: self: lib.darwinSystem {
         |> map (getAttrFromPath packagePath);
 
       modules = collect [ "darwinModules" "default" ];
-      # todo
       extensions = {
         nixpkgs.overlays = collect [ "overlays" "default" ];
         imports = modules;
