@@ -15,7 +15,7 @@
     name = "central";
     home = "/Users/central";
     shell = pkgs.zsh;
-    uid = 501;
+    uid = 502;
     # openssh.authorizedKeys.keys = let
     #   inherit (import ../../keys.nix) thegeneralist;
     # in [ thegeneralist ];
