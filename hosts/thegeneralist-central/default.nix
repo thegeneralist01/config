@@ -1,4 +1,4 @@
-lib: inputs: self: lib.nixosSystem {
+lib: inputs: self: lib.darwinSystem {
   specialArgs = inputs // { inherit inputs; inherit self; };
   modules = [
     # Extensions: nixosModules, darwinModules, overlays
@@ -9,7 +9,8 @@ lib: inputs: self: lib.nixosSystem {
         |> filter (hasAttrByPath packagePath)
         |> map (getAttrFromPath packagePath);
 
-      modules = collect [ "nixosModules" "default" ];
+      modules = collect [ "darwinModules" "default" ];
+      # todo
       extensions = {
         nixpkgs.overlays = collect [ "overlays" "default" ];
         imports = modules;
@@ -22,9 +23,9 @@ lib: inputs: self: lib.nixosSystem {
     ({ pkgs, ... }: let
       inherit (lib) filter hasSuffix;
       commonModules = lib.filesystem.listFilesRecursive ../../modules/common |> filter (hasSuffix ".nix");
-      linuxModules = lib.filesystem.listFilesRecursive ../../modules/linux |> filter (hasSuffix ".nix");
+      darwinModules = lib.filesystem.listFilesRecursive ../../modules/darwin |> filter (hasSuffix ".nix");
     in {
-      imports = commonModules ++ linuxModules;
+      imports = commonModules ++ darwinModules;
     })
   ];
 }
