@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   services.jellyfin = {
     user = "central";
     group = "central";
