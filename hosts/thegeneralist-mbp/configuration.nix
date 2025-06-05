@@ -5,7 +5,7 @@
 { self, config, pkgs, lib, inputs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ ./hardware-configuration.nix ./aerospace.nix ];
 
   users.knownUsers = [
     "thegeneralist"
