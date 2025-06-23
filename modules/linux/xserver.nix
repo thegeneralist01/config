@@ -28,7 +28,7 @@ in {
     windowManager.i3 = optionalAttrs (!config.isServer) {
       enable = true;
       package = pkgs.i3;
-      configFile = ../home/dotfiles/i3/config;
+      configFile = ../dotfiles/i3/config;
 
       extraPackages = with pkgs; [
         i3

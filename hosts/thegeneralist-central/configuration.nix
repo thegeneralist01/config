@@ -18,11 +18,14 @@
     in [ thegeneralist ];
   };
 
+  programs.home-manager.enable = true;
   home-manager = {
     backupFileExtension = "home.bak";
     extraSpecialArgs = { inherit inputs; };
-    users = {
-      thegeneralist = import (self + /modules/home);
+    users.thegeneralist.home = {
+      username = "thegeneralist";
+      homeDirectory = "/home/thegeneralist";
+      stateVersion = "25.11";
     };
   };
 

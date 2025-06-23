@@ -12,6 +12,25 @@ in {
       gcc
       gnumake
       automake
+
+      zip
+      xz
+      unzip
+
+      mtr
+      iperf3
+      dnsutils
+      ldns
+      nmap
+
+      file
+      which
+      tree
+      gnupg
+      btop
+
+      pciutils
+      usbutils
     ;
   };
 }

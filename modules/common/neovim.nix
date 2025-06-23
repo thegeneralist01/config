@@ -27,13 +27,13 @@ in {
 
     home.file = {
       ".config/nvim" = {
-        source = ../home/dotfiles/nvim;
+        source = ../dotfiles/nvim;
         force = true;
         recursive = true;
       };
     } // optionalAttrs config.onLinux {
       ".config/i3status" = {
-        source = ../home/dotfiles/i3status;
+        source = ../dotfiles/i3status;
         force = true;
         recursive = true;
       };
