@@ -5,17 +5,14 @@
 { self, config, pkgs, lib, inputs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./jellyfin.nix ];
+  imports = [ ./hardware-configuration.nix ];
 
-  users.knownUsers = [
-    "central"
-  ];
-
-  users.users.central = {
-    name = "central";
-    home = "/Users/central";
+  users.users.thegeneralist = {
+    isNormalUser = true;
+    description = "thegeneralist";
+    extraGroups = [ "wheel" "audio" "video" "input" "scanner" ];
     shell = pkgs.zsh;
-    uid = 502;
+    home = "/home/thegeneralist";
     openssh.authorizedKeys.keys = let
       inherit (import ../../keys.nix) thegeneralist;
     in [ thegeneralist ];
@@ -23,11 +20,34 @@
 
   home-manager = {
     backupFileExtension = "home.bak";
-    users.central.home = {
-      stateVersion = "25.11";
-      homeDirectory = "/Users/central";
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      thegeneralist = import (self + /modules/home);
     };
   };
 
-  system.stateVersion = 6;
+  age.secrets.hostkey.file = ./hostkey.age;
+  services.openssh.hostKeys = [{
+    type = "ed25519";
+    path = config.age.secrets.hostkey.path;
+  }];
+
+  # Some programs
+  services.libinput.enable = true;
+  programs.firefox.enable = true;
+  programs.zsh.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+  # console = {
+  #   font = "Lat2-Terminus16";
+  #   keyMap = "us";
+  #   useXkbConfig = true; # use xkb.options in tty.
+  # };
+
+  system.stateVersion = "24.11";
 }
+

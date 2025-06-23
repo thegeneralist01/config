@@ -8,6 +8,10 @@ in {
       neovim
       vim
       home-manager
+
+      gcc
+      gnumake
+      automake
     ;
   };
 }

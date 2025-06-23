@@ -1,16 +1,15 @@
-{ pkgs, lib, ...}: let
+{ pkgs, lib, config,  ...}: let
   inherit (lib) attrValues;
 in {
   environment.systemPackages = attrValues {
     inherit (pkgs)
-      protonup-qt
       pipewire
       pwvucontrol
       wireplumber
-      playerctl
-
+      playerctl;
+  } ++ (if (!config.isServer) then (attrValues {
+      inherit (pkgs) protonup-qt
       xsane
-      simple-scan
-    ;
-  };
+      simple-scan;
+  }) else []);
 }

@@ -38,7 +38,7 @@
       |> mapAttrs (name: const <| import ./hosts/${name} lib inputs self)
       |> attrsToList
       |> groupBy (host:
-        if host.name == "thegeneralist" then
+        if host.name == "thegeneralist" || host.name == "thegeneralist-central" then
           "nixosConfigurations"
         else
           "darwinConfigurations")

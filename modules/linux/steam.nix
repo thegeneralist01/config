@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ lib, config, ... }: lib.mkIf (!config.isServer) {
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
