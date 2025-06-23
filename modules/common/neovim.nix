@@ -1,12 +1,11 @@
 { pkgs, config, lib, ... }: let
-  inherit (lib) optionals;
+  inherit (lib) optionals optionalAttrs;
 in {
   environment.variables.EDITOR = "nvim";
 
   home-manager.sharedModules = [{
     programs.neovim = {
       enable = true;
-      extraLuaConfig = lib.fileContents ../home/dotfiles/nvim/init.lua;
     };
 
     home.sessionVariables = {
@@ -14,8 +13,6 @@ in {
     };
 
     home.packages = with pkgs; [
-      vimPlugins.markdown-preview-nvim
-
       # Lua
       luajitPackages.luarocks_bootstrap
       lua-language-server
@@ -24,14 +21,17 @@ in {
 
       nodejs
       nodePackages."sass"
-
-
-      #llvmPackages_20.clangWithLibcAndBasicRtAndLibcxx
     ] ++ optionals config.onLinux [
-      gcc_multi
+      #gcc_multi
     ];
 
-    home.file = lib.mkIf config.onLinux {
+    home.file = {
+      ".config/nvim" = {
+        source = ../home/dotfiles/nvim;
+        force = true;
+        recursive = true;
+      };
+    } // optionalAttrs config.onLinux {
       ".config/i3status" = {
         source = ../home/dotfiles/i3status;
         force = true;
