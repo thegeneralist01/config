@@ -26,10 +26,29 @@ return {
     vim.keymap.set("n", "<C-k>", function() harpoon:list():select(3) end, { desc = '[Harpoon] Third file' })
     vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end, { desc = '[Harpoon] Fourth file' })
     vim.keymap.set("n", "<C-]>", function()
+      local dict = {
+        ["!"] = 1,
+        ["@"] = 2,
+        ["#"] = 3,
+        ["$"] = 4,
+        ["%"] = 5,
+        ["^"] = 6,
+        ["&"] = 7,
+        ["*"] = 8,
+        ["("] = 9,
+        [")"] = 10,
+      }
+
       local input = vim.fn.input("File number > ")
       local file_number = tonumber(input, 10)
-      if not file_number then return print(input .. " is not a valid number") end
-      harpoon:list():select(file_number)
+      if not file_number and dict[input] == nil then
+        return print(input .. " is not a valid number")
+      end
+      if file_number then
+        harpoon:list():select(file_number)
+      else
+        harpoon:list():select(dict[input])
+      end
     end, { desc = '[Harpoon] File by number' })
 
     -- Set
