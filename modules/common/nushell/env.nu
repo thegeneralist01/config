@@ -6,6 +6,10 @@ $env.ENV_CONVERSIONS.PATH = {
     $value | path expand --no-symlink | str join (char esep)
   }
 }
+
+$env.LS_COLORS = (open ~/.config/nushell/ls_colors.txt)
+
+source ~/.config/nushell/zoxide.nu
 # NVM
 # source ("/Users/thegeneralist/.nvm/" | path join "nvm.sh")
 

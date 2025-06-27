@@ -1,4 +1,4 @@
-$env.config.buffer_editor = "/home/thegeneralist/.nix-profile/bin/nvim"
+$env.config.buffer_editor = "/etc/profiles/per-user/thegeneralist/bin/nvim"
 $env.config.show_banner = false
 
 $env.config = {
@@ -10,6 +10,32 @@ $env.config = {
     osc133:                 true
     osc633:                 true
     reset_application_mode: true
+  }
+}
+
+$env.config.completions = {
+  algorithm:      prefix
+  case_sensitive: false
+  partial:        true
+  quick:          true
+  external: {
+    enable:      true
+    max_results: 100
+    completer:   {|tokens: list<string>|
+      let expanded = scope aliases | where name == $tokens.0 | get --ignore-errors expansion.0
+
+      mut expanded_tokens = if $expanded != null and $tokens.0 != "cd" {
+        $expanded | split row " " | append ($tokens | skip 1)
+      } else {
+        $tokens
+      }
+
+      $expanded_tokens.0 = ($expanded_tokens.0 | str trim --left --char "^")
+
+      fish --command $"complete '--do-complete=($expanded_tokens | str join ' ')'"
+      | $"value(char tab)description(char newline)" + $in
+      | from tsv --flexible --no-infer
+    }
   }
 }
 
@@ -41,5 +67,3 @@ alias ah = cd ~/dotfiles/hosts/thegeneralist
 alias ai3 = nvim /home/thegeneralist/dotfiles/hosts/thegeneralist/dotfiles/i3/config
 # alias rb = sudo nixos-rebuild switch --flake ~/dotfiles#thegeneralist
 alias rb = nh os switch . -v -- --show-trace --verbose
-
-source ~/.zoxide.nu

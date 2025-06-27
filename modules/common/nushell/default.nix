@@ -12,6 +12,7 @@ in {
       nushell
       fish
       zoxide
+      vivid
       ripgrep
       jq
       yq-go
@@ -45,12 +46,22 @@ in {
 
   home-manager.sharedModules = [
     ({
-      home.file.".zshrc" = let
-        configFile = ./config.nu;
-        envFile = ./env.nu;
-      in {
-        text = "exec nu --env-config ${envFile} --config ${configFile}";
-        force = true;
+      home.file = {
+        ".zshrc" = let
+          configFile = ./config.nu;
+          envFile = ./env.nu;
+        in {
+          text = "exec nu --env-config ${envFile} --config ${configFile}";
+          force = true;
+        };
+
+        ".config/nushell/zoxide.nu".source = pkgs.runCommand "zoxide.nu" {} ''
+          ${getExe pkgs.zoxide} init nushell --cmd cd > $out
+        '';
+
+        ".config/nushell/ls_colors.txt".source = pkgs.runCommand "ls_colors.txt" {} ''
+          ${getExe pkgs.vivid} generate gruvbox-dark-hard > $out
+        '';
       };
     })
     (homeArgs: {
