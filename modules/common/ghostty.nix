@@ -10,8 +10,9 @@
 
       clearDefaultKeybinds = false;
       settings = {
-        theme = "tokyonight";
-        font-family = "JetBrainsMono NL NFM Medium";
+        # theme = "tokyonight";
+        theme = "GruvboxDarkHard";
+        font-family = "Berkeley Mono";
         font-size = 16;
 
         shell-integration-features = "no-cursor";
