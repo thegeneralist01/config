@@ -5,7 +5,7 @@
 { self, config, pkgs, lib, inputs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ ./hardware-configuration.nix ./site.nix ];
 
   users.users.thegeneralist = {
     isNormalUser = true;
@@ -18,7 +18,6 @@
     in [ thegeneralist ];
   };
 
-  programs.home-manager.enable = true;
   home-manager = {
     backupFileExtension = "home.bak";
     extraSpecialArgs = { inherit inputs; };
