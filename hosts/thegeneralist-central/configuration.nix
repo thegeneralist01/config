@@ -5,7 +5,7 @@
 { self, config, pkgs, lib, inputs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./site.nix ];
+  imports = [ ./hardware-configuration.nix ./site.nix ./cache ];
 
   users.users.thegeneralist = {
     isNormalUser = true;

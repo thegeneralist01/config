@@ -1,17 +1,24 @@
 { pkgs, lib, ...}: {
   # todo: gc
-  # todo: cache
   environment.systemPackages = with pkgs; [
     nh
   ];
 
-  lib.debug.traceVal = pkgs.nh;
+  nix.settings = {
+    experimental-features = [
+      "flakes"
+      "nix-command"
+      "pipe-operators"
+    ];
 
-  nix.settings.experimental-features = [
-    "flakes"
-    "nix-command"
-    "pipe-operators"
-  ];
+    extra-substituters = [
+      "https://cache.thegeneralist01.com/"
+    ];
+
+    extra-trusted-public-keys = [
+      "etc.thegeneralist01.com:BIhIf7HJ5xjFX+2e0WrGDQ4LdHeEEyQrtWBB1li2Ve8="
+    ];
+  };
 
   home-manager.sharedModules  = [{
     programs.nh = {

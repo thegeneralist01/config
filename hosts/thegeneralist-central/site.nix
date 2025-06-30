@@ -66,6 +66,7 @@ in {
       ingress = {
         "thegeneralist01.com" = "http://localhost:80";
         "www.thegeneralist01.com" = "http://localhost:80";
+        "cache.thegeneralist01.com" = "http://localhost:80";
       };
       default = "http_status:404";
 
