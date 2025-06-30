@@ -30,8 +30,73 @@ return {
 			require("fidget").setup({})
 			require("mason").setup()
 
+			-- local vue_typescript_plugin = require("mason-registry")
+			-- 	.get_package("vue-language-server")
+			-- 	:get_install_path() .. "/node_modules/@vue/language-server" .. "/node_modules/@vue/typescript-plugin"
+
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			require("lspconfig").lua_ls.setup({ capabilites = capabilities })
+			require("mason-lspconfig").setup({
+				automatic_enable = true,
+				ensure_installed = {
+					"lua_ls",
+					"rust_analyzer",
+					"ts_ls",
+					"cssls",
+					"tailwindcss",
+					"pyright",
+				},
+				handlers = {
+					function(server_name) -- default handler (optional)
+						-- if server_name == "rust_analyzer" then
+						-- 	return
+						-- end
+						require("lspconfig")[server_name].setup({
+							capabilities = capabilities,
+						})
+					end,
+
+					["lua_ls"] = function()
+						local lspconfig = require("lspconfig")
+						lspconfig.lua_ls.setup({
+							capabilities = capabilities,
+							settings = {
+								Lua = {
+									diagnostics = {
+										globals = { "vim", "it", "describe", "before_each", "after_each" },
+									},
+								},
+							},
+						})
+					end,
+
+					["ts_ls"] = function()
+						local lspconfig = require("lspconfig")
+						lspconfig.ts_ls.setup({
+							capabilities = capabilities,
+							-- settings = {
+							-- },
+							-- init_options = {
+							-- 	plugins = {
+							-- 		{
+							-- 			name = "@vue/typescript-plugin",
+							-- 			location = vue_typescript_plugin,
+							-- 			languages = { "vue" },
+							-- 		},
+							-- 	},
+							-- },
+							filetypes = {
+								"javascript",
+								"javascriptreact",
+								"javascript.jsx",
+								"typescript",
+								"typescriptreact",
+								"typescript.tsx",
+								-- "vue",
+							},
+						})
+					end,
+				},
+			})
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
@@ -51,72 +116,6 @@ return {
 					end
 				end,
 			})
-
-			-- local vue_typescript_plugin = require("mason-registry")
-			-- 	.get_package("vue-language-server")
-			-- 	:get_install_path() .. "/node_modules/@vue/language-server" .. "/node_modules/@vue/typescript-plugin"
-
-			-- require("mason-lspconfig").setup({
-			-- 	ensure_installed = {
-			-- 		"lua_ls",
-			-- 		"rust_analyzer",
-			-- 		"ts_ls",
-			-- 		"cssls",
-			-- 		"tailwindcss",
-			-- 		"pyright",
-			-- 	},
-			-- 	handlers = {
-			-- 		function(server_name) -- default handler (optional)
-			--          if server_name == "rust_analyzer" then
-			--            return
-			--          end
-			-- 			require("lspconfig")[server_name].setup({
-			-- 				capabilities = capabilities,
-			-- 			})
-			-- 		end,
-			--
-			-- 		["lua_ls"] = function()
-			-- 			local lspconfig = require("lspconfig")
-			-- 			lspconfig.lua_ls.setup({
-			-- 				capabilities = capabilities,
-			-- 				settings = {
-			-- 					Lua = {
-			-- 						diagnostics = {
-			-- 							globals = { "vim", "it", "describe", "before_each", "after_each" },
-			-- 						},
-			-- 					},
-			-- 				},
-			-- 			})
-			-- 		end,
-			--
-			-- 		["ts_ls"] = function()
-			-- 			local lspconfig = require("lspconfig")
-			-- 			lspconfig.ts_ls.setup({
-			-- 				capabilities = capabilities,
-			-- 				-- settings = {
-			-- 				-- },
-			-- 				init_options = {
-			-- 					plugins = {
-			-- 						{
-			-- 							name = "@vue/typescript-plugin",
-			-- 							location = vue_typescript_plugin,
-			-- 							languages = { "vue" },
-			-- 						},
-			-- 					},
-			-- 				},
-			-- 				filetypes = {
-			-- 					"javascript",
-			-- 					"javascriptreact",
-			-- 					"javascript.jsx",
-			-- 					"typescript",
-			-- 					"typescriptreact",
-			-- 					"typescript.tsx",
-			-- 					"vue",
-			-- 				},
-			-- 			})
-			-- 		end,
-			-- 	},
-			-- })
 
 			-- local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
