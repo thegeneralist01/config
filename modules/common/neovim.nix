@@ -31,6 +31,13 @@ in {
         force = true;
         recursive = true;
       };
+      ".npmrc" = {
+        force = true;
+        text = ''
+          prefix=~/.npm-packages
+          color=true
+        '';
+      };
     } // optionalAttrs config.onLinux {
       ".config/i3status" = {
         source = ../dotfiles/i3status;
@@ -39,10 +46,12 @@ in {
       };
     };
 
-    # TODO: this
+    # TODO: make this normal
     # programs.npm.npmrc = ''
     #   prefix=~/.npm-packages
     #   color=true
     # '';
+
+    home.sessionPath = [ "node_modules/.bin" ];
   }];
 }
