@@ -17,11 +17,12 @@ in {
 
   services.nginx.virtualHosts.${domain} = ssl // {
     locations."/".proxyPass = "http://127.0.0.1:1337";
-    locations."= /".return = "301 https://thegeneralist01.com/404";
+    locations."= /".return = "301 @404";
+    locations."@404".return = "404 https://thegeneralist01.com/404";
 
     extraConfig = /* nginx */ ''
       proxy_intercept_errors on;
-      error_page 404 = thegeneralist01.com/404.html;
+      error_page 404 = @404;
     '';
   };
 }
