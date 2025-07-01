@@ -14,6 +14,7 @@ in {
       zoxide
       vivid
       ripgrep
+      yazi
       jq
       yq-go
       eza
