@@ -8,6 +8,7 @@ in {
   "hosts/thegeneralist-central/cert.pem.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/credentials.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/cache/key.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist-central/password.age".publicKeys = [ thegeneralist ];
 
   "modules/linux/tailscale-marshall.age".publicKeys = [ thegeneralist ];
 }

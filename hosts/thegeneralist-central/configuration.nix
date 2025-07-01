@@ -7,15 +7,30 @@
 {
   imports = [ ./hardware-configuration.nix ./site.nix ./cache ];
 
-  users.users.thegeneralist = {
-    isNormalUser = true;
-    description = "thegeneralist";
-    extraGroups = [ "wheel" "audio" "video" "input" "scanner" ];
-    shell = pkgs.zsh;
-    home = "/home/thegeneralist";
-    openssh.authorizedKeys.keys = let
-      inherit (import ../../keys.nix) thegeneralist;
-    in [ thegeneralist ];
+  age.secrets.password.file = ./password.age;
+  users.users = {
+    thegeneralist = {
+      isNormalUser = true;
+      description = "thegeneralist";
+      extraGroups = [ "wheel" "audio" "video" "input" "scanner" ];
+      shell = pkgs.zsh;
+      home = "/home/thegeneralist";
+      hashedPasswordFile = config.age.secrets.password.path;
+      openssh.authorizedKeys.keys = let
+        inherit (import ../../keys.nix) thegeneralist;
+      in [ thegeneralist ];
+    };
+
+    build = {
+      isNormalUser = true;
+      description = "for distributed builds";
+      extraGroups = [ "build" ];
+      shell = pkgs.zsh;
+      hashedPasswordFile = config.age.secrets.password.path;
+      openssh.authorizedKeys.keys = let
+        inherit (import ../../keys.nix) thegeneralist;
+      in [ thegeneralist ];
+    };
   };
 
   home-manager = {
