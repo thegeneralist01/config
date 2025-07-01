@@ -28,6 +28,7 @@ in {
       tree
       gnupg
       btop
+      ttfautohint
 
       pciutils
       usbutils

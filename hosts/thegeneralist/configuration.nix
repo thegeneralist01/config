@@ -18,7 +18,6 @@
     in [ thegeneralist ];
   };
 
-  programs.home-manager.enable = true;
   home-manager = {
     backupFileExtension = "home.bak";
     extraSpecialArgs = { inherit inputs; };
