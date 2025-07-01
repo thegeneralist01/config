@@ -1,6 +1,7 @@
 { config, pkgs, lib, ...}: let
   subs = [
     "https://cache.thegeneralist01.com/"
+    "https://cache.garnix.io/"
     "https://cache.nixos.org/"
   ];
 in {
@@ -21,6 +22,7 @@ in {
 
     extra-trusted-public-keys = [
       "cache.thegeneralist01.com:jkKcenR877r7fQuWq6cr0JKv2piqBWmYLAYsYsSJnT4="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
 
     trusted-users = [ "root" "@build" "@wheel" ];
