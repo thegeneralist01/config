@@ -5,7 +5,7 @@
 { self, config, pkgs, lib, inputs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./jellyfin.nix ];
+  imports = [ ./hardware-configuration.nix ];
 
   users.knownUsers = [
     "central"
