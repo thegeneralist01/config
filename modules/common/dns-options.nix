@@ -1,4 +1,4 @@
-{ lib, options, ... }: let
+{ lib, ... }: let
   inherit (lib) mkOption;
 in {
   options.dnsServers = mkOption {

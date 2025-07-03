@@ -1,5 +1,5 @@
-{ lib, pkgs, config, ... }: let
-  inherit (lib) optionalAttrs getExe;
+{ lib, pkgs, ... }: let
+  inherit (lib) getExe;
 in {
   environment.systemPackages = with pkgs; [
     gnupg

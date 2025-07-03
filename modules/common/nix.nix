@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ...}: let
+{ config, pkgs, ...}: let
   subs = [
     "https://cache.thegeneralist01.com/"
     "https://cache.garnix.io/"

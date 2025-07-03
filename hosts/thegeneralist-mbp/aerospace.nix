@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   system.primaryUser = "thegeneralist";
 
   # TODO: explore this.

@@ -20,6 +20,14 @@
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # wrapper-manager = {
     #   url = "github:viperML/wrapper-manager";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +37,7 @@
 
   outputs = inputs@{ self, nixpkgs, nix-darwin, nix, ... }: let
     inherit (builtins) readDir;
-    inherit (nixpkgs.lib) attrsToList const groupBy listToAttrs mapAttrs last mkOption splitString;
+    inherit (nixpkgs.lib) attrsToList const groupBy listToAttrs mapAttrs;
     #nix.enable = false;
 
     lib = nixpkgs.lib // nix-darwin.lib;

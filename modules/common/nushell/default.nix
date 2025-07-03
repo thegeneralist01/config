@@ -1,4 +1,4 @@
-{ config, pkgs, lib, wrapper-manager, ... }: let
+{ config, pkgs, lib, ... }: let
   inherit (lib) readFile getExe mkIf optionalAttrs;
 in {
   # TODO: starship + change the zoxide src
