@@ -25,7 +25,7 @@ in {
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
 
-    trusted-users = [ "root" "@build" "@wheel" ];
+    trusted-users = [ "thegeneralist" "central" "root" "@build" "@wheel" "@admin" ];
 
     builders-use-substitutes = true;
   };
