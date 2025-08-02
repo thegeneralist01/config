@@ -28,10 +28,6 @@
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # wrapper-manager = {
-    #   url = "github:viperML/wrapper-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     #nix.url = "github:DeterminateSystems/nix-src";
   };
 
@@ -40,7 +36,8 @@
     inherit (nixpkgs.lib) attrsToList const groupBy listToAttrs mapAttrs;
     #nix.enable = false;
 
-    lib = nixpkgs.lib // nix-darwin.lib;
+    lib' = nixpkgs.lib.extend (_: _: nix-darwin.lib);
+    lib = lib'.extend <| import ./lib inputs;
 
     targetHost = readDir ./hosts
       |> mapAttrs (name: const <| import ./hosts/${name} lib inputs self)
