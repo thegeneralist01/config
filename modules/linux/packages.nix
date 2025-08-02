@@ -6,7 +6,8 @@ in {
       pipewire
       pwvucontrol
       wireplumber
-      playerctl;
+      playerctl
+      ntfs3g;
   } ++ (if (!config.isServer) then (attrValues {
       inherit (pkgs) protonup-qt
       xsane
