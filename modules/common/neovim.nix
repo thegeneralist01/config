@@ -17,7 +17,9 @@ in {
       luajitPackages.luarocks_bootstrap
       lua-language-server
 
-      python311
+      python313
+      python313Packages.pip
+      python313Packages.virtualenv
 
       nodejs
       nodePackages."sass"
