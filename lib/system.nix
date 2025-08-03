@@ -47,10 +47,10 @@ in
 {
   system =
     os: configFile:
-    if os == "darwin" then
+    (if os == "darwin" then
       super.darwinSystem
     else
-      super.nixosSystem {
+      super.nixosSystem) {
         inherit specialArgs;
 
         modules =
