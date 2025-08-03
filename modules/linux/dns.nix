@@ -1,8 +1,7 @@
 { config, lib, ... }: let
-  inherit (lib) concatStringsSep;
+  inherit (lib) mkIf concatStringsSep;
 in {
-  # TODO: add fallback & check other options
-  services.resolved = {
+  services.resolved = mkIf (!config.isServer) {
     enable = true;
 
     extraConfig = config.dnsServers

@@ -46,7 +46,6 @@ autocmd('LspAttach', {
     vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts("View code actions"))
     vim.keymap.set("i", "<C-]>", function() vim.lsp.buf.code_action() end, opts("View code actions"))
     vim.keymap.set("n", "<leader>va", function()
-        -- TODO: this
         local params = vim.lsp.util.make_range_params()
         params.context = { diagnostics = vim.lsp.diagnostic.get_line_diagnostics() }
         local result, err = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 1000)

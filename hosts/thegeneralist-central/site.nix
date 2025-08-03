@@ -6,7 +6,7 @@
     useACMEHost = domain;
   };
 in {
-  imports = [ ./acme ];
+  imports = [ ./acme ./dns.nix ./jellyfin ];
 
   # Nginx
   services.nginx = {

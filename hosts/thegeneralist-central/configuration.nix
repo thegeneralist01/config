@@ -5,14 +5,14 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./site.nix ./cache ];
+  imports = [ ./hardware-configuration.nix ./site.nix ./cache ./garage.nix ./archive ];
 
   age.secrets.password.file = ./password.age;
   users.users = {
     thegeneralist = {
       isNormalUser = true;
       description = "thegeneralist";
-      extraGroups = [ "wheel" "audio" "video" "input" "scanner" ];
+      extraGroups = [ "wheel" "audio" "video" "input" "scanner" "docker" ];
       shell = pkgs.zsh;
       home = "/home/thegeneralist";
       hashedPasswordFile = config.age.secrets.password.path;
