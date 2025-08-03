@@ -1,7 +1,6 @@
 { pkgs, lib, config, ... }: let
   inherit (lib) optionalAttrs;
 in {
-  # TODO: write i3 and i3status here instead of stowing
   virtualisation.vmware.guest.enable = true;
 
   environment.systemPackages = [ pkgs.fuzzel ];
