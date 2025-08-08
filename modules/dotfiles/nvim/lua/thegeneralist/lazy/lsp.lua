@@ -43,7 +43,6 @@ return {
 					"ts_ls",
 					"cssls",
 					"tailwindcss",
-					"pyright",
 				},
 				handlers = {
 					function(server_name) -- default handler (optional)
