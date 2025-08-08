@@ -19,7 +19,10 @@ in {
 
       python313
       python313Packages.pip
+      uv
       python313Packages.virtualenv
+      basedpyright
+      black
 
       nodejs
       nodePackages."sass"
