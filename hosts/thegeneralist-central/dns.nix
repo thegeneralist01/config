@@ -27,6 +27,20 @@ let
     ns  IN A    100.86.129.23
     @   IN A    100.86.129.23
   '';
+
+  crawlerZoneFile = pkgs.writeText "crawler.zone" ''
+    $ORIGIN crawler.thegeneralist01.com.
+    @   IN SOA  ns.crawler.thegeneralist01.com. thegeneralist01.proton.me. (
+          2025080801 ; serial (yyyymmddXX)
+          3600       ; refresh
+          600        ; retry
+          86400      ; expire
+          3600       ; minimum
+    )
+        IN NS   ns.crawler.thegeneralist01.com.
+    ns  IN A    100.86.129.23
+    @   IN A    100.86.129.23
+  '';
 in
 {
   services.coredns = {
@@ -40,6 +54,12 @@ in
 
       archive.thegeneralist01.com:53 {
         file ${archiveZoneFile}
+        log
+        errors
+      }
+
+      crawler.thegeneralist01.com:53 {
+        file ${crawlerZoneFile}
         log
         errors
       }

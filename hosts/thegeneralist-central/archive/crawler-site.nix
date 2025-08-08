@@ -1,7 +1,6 @@
-{ pkgs, ... }:
 let
   acmeDomain = "thegeneralist01.com";
-  domain = "internal.${acmeDomain}";
+  domain = "crawler.${acmeDomain}";
 
   ssl = {
     forceSSL = true;
@@ -10,24 +9,6 @@ let
   };
 in
 {
-  environment.systemPackages = with pkgs; [
-    jellyfin
-    jellyfin-web
-    jellyfin-ffmpeg
-  ];
-
-  services.jellyfin = {
-    enable = true;
-    package = pkgs.jellyfin;
-    group = "jellyfin";
-    user = "jellyfin";
-
-    cacheDir  = "/mnt/usb/services/jellyfin/cache";
-    dataDir   = "/mnt/usb/services/jellyfin/data/data";
-    configDir = "/mnt/usb/services/jellyfin/data/config";
-    logDir    = "/mnt/usb/services/jellyfin/data/log";
-  };
-
   services.nginx.virtualHosts.${domain} = ssl // {
     listen = [
       {
@@ -42,7 +23,7 @@ in
     ];
 
     locations."/" = {
-      proxyPass = "http://127.0.0.1:8096";
+      proxyPass = "http://127.0.0.1:8001";
       recommendedProxySettings = true;
       extraConfig = ''
         proxy_set_header Upgrade $http_upgrade;

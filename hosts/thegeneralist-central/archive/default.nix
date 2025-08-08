@@ -9,6 +9,8 @@ let
   };
 in
 {
+  imports = [ ./archivebox.nix ./crawler-site.nix ];
+
   services.nginx.virtualHosts.${domain} = ssl // {
     listen = [
       {

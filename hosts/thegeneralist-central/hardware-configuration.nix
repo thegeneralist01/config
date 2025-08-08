@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   boot.initrd.availableKernelModules = [
@@ -35,17 +35,23 @@
     }
   ];
 
-  fileSystems."/mnt/usb" = {
-    device = "/dev/disk/by-uuid/AADEEA03DEE9C7A1";
-    fsType = "ntfs-3g";
-    options = [
-      "rw"
-      "noatime"
-    ];
-  };
-
+  # fileSystems."/mnt/usb" = {
+  #   device = "/dev/disk/by-uuid/AADEEA03DEE9C7A1";
+  #   fsType = "ntfs-3g";
+  #   options = [
+  #     "rw"
+  #     "noatime"
+  #   ];
+  # };
+  #
   boot.extraModprobeConfig = ''
     options usbcore autosuspend=-1
+  '';
+
+  environment.systemPackages = [ pkgs.hdparm ];
+
+  services.udev.extraRules = ''
+    ACTION=="add", KERNEL=="sda", RUN+="${pkgs.hdparm}/bin/hdparm -B 255 -S 0 /dev/sda"
   '';
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

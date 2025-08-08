@@ -23,6 +23,9 @@ in {
       "archive.${domain}" = {
         group = "acme";
       };
+      "crawler.${domain}" = {
+        group = "acme";
+      };
     };
 
     acceptTerms = true;

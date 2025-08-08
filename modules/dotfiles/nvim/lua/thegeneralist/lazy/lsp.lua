@@ -35,7 +35,7 @@ return {
 			-- 	:get_install_path() .. "/node_modules/@vue/language-server" .. "/node_modules/@vue/typescript-plugin"
 
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			vim.lsp.enable("nil_ls")
+			vim.lsp.enable("nixd")
 			require("mason-lspconfig").setup({
 				automatic_enable = true,
 				ensure_installed = {
