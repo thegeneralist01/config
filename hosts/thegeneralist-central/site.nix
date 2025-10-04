@@ -14,7 +14,7 @@ in {
     package                       = pkgs.nginxQuic;
     enableQuicBPF                 = true;
 
-    recommendedZstdSettings       = true;
+    experimentalZstdSettings      = true;
     recommendedUwsgiSettings      = true;
     recommendedTlsSettings        = true;
     recommendedProxySettings      = true;

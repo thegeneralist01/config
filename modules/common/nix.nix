@@ -25,7 +25,7 @@ in {
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
 
-    trusted-users = [ "thegeneralist" "central" "root" "@build" "@wheel" "@admin" ];
+    trusted-users = [ "thegeneralist" "central" "root" "@build" "@wheel" "@admin" "jellyfin" ];
 
     builders-use-substitutes = true;
   };

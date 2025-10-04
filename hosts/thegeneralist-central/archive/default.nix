@@ -5,7 +5,7 @@ let
   ssl = {
     forceSSL = true;
     quic = true;
-    useACMEHost = domain;
+    useACMEHost = acmeDomain;
   };
 in
 {
