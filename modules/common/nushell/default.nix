@@ -21,6 +21,7 @@ in {
       fzf
       gh
       fastfetch
+      carapace
     ];
 
     shellAliases = {
@@ -72,6 +73,11 @@ in {
         configFile.text = readFile ./config.nu;
         envFile.text = readFile ./env.nu;
         environmentVariables = config.environment.variables // homeArgs.config.home.sessionVariables;
+      };
+      programs.carapace = {
+        enable = true;
+        enableZshIntegration = true;
+        enableNushellIntegration = true;
       };
       programs.zsh = {
         enable = true;
