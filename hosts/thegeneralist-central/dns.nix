@@ -1,75 +1,42 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
-  internalZoneFile = pkgs.writeText "internal.zone" ''
-    $ORIGIN internal.thegeneralist01.com.
-    @   IN SOA  ns.internal.thegeneralist01.com. thegeneralist01.proton.me. (
-          2025071801 ; serial (yyyymmddXX)
+  subdomains = [ "internal" "archive" "crawler" "r" "b" "s" "p" "q" "cloud" ];
+
+  mainZoneFile = pkgs.writeText "thegeneralist01.zone" ''
+    $ORIGIN thegeneralist01.com.
+    @   IN SOA  ns.thegeneralist01.com. thegeneralist01.proton.me. (
+          2025081501 ; serial (yyyymmddXX)
           3600       ; refresh
           600        ; retry
           86400      ; expire
           3600       ; minimum
     )
-        IN NS   ns.internal.thegeneralist01.com.
+        IN NS   ns.thegeneralist01.com.
     ns  IN A    100.86.129.23
     @   IN A    100.86.129.23
+    ${lib.concatStringsSep "\n" (lib.map (sub: "${sub} IN A 100.86.129.23") subdomains)}
   '';
 
-  archiveZoneFile = pkgs.writeText "archive.zone" ''
-    $ORIGIN archive.thegeneralist01.com.
-    @   IN SOA  ns.archive.thegeneralist01.com. thegeneralist01.proton.me. (
-          2025073101 ; serial (yyyymmddXX)
-          3600       ; refresh
-          600        ; retry
-          86400      ; expire
-          3600       ; minimum
-    )
-        IN NS   ns.archive.thegeneralist01.com.
-    ns  IN A    100.86.129.23
-    @   IN A    100.86.129.23
-  '';
-
-  crawlerZoneFile = pkgs.writeText "crawler.zone" ''
-    $ORIGIN crawler.thegeneralist01.com.
-    @   IN SOA  ns.crawler.thegeneralist01.com. thegeneralist01.proton.me. (
-          2025080801 ; serial (yyyymmddXX)
-          3600       ; refresh
-          600        ; retry
-          86400      ; expire
-          3600       ; minimum
-    )
-        IN NS   ns.crawler.thegeneralist01.com.
-    ns  IN A    100.86.129.23
-    @   IN A    100.86.129.23
+  forwarderBlock = ''
+    .:53 {
+      forward . 100.100.100.100 45.90.28.181 45.90.30.181
+      cache
+      log
+      errors
+    }
   '';
 in
 {
   services.coredns = {
     enable = true;
     config = ''
-      internal.thegeneralist01.com:53 {
-        file ${internalZoneFile}
+      thegeneralist01.com:53 {
+        file ${mainZoneFile}
         log
         errors
       }
 
-      archive.thegeneralist01.com:53 {
-        file ${archiveZoneFile}
-        log
-        errors
-      }
-
-      crawler.thegeneralist01.com:53 {
-        file ${crawlerZoneFile}
-        log
-        errors
-      }
-
-      .:53 {
-        forward . 100.100.100.100 45.90.28.181 45.90.30.181
-        cache
-        log
-        errors
-      }
+      ${forwarderBlock}
     '';
   };
 
