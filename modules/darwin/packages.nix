@@ -1,5 +1,5 @@
 { pkgs, ... }: {
   homebrew.enable = true;
-  homebrew.casks = [ "ungoogled-chromium" ];
+  homebrew.casks = [ "google-chrome" ];
   environment.systemPackages = [ pkgs.iina ];
 }

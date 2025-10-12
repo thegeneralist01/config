@@ -26,6 +26,9 @@
       nixfmt-rfc-style
 
       libiconv
+
+      clang
+      clang-analyzer
     ];
   };
 }
