@@ -83,6 +83,7 @@ in {
         enable = true;
         sessionVariables = config.environment.variables // homeArgs.config.home.sessionVariables;
       };
+      home.sessionPath = [ "/Users/thegeneralist/.cargo/bin" ];
     })
   ];
 }
