@@ -17,6 +17,9 @@ in {
         extraDomainNames = [ "*.${domain}" ];
         group = "acme";
       };
+      "git.${domain}" = {
+        group = "acme";
+      };
       "internal.${domain}" = {
         group = "acme";
       };

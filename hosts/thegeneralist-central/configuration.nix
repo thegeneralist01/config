@@ -5,7 +5,7 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./site.nix ./cache ./archive ];
+  imports = [ ./hardware-configuration.nix ./site.nix ./cache ./archive ./forgejo ];
 
   age.secrets.password.file = ./password.age;
   users.users = {
