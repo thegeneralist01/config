@@ -20,14 +20,14 @@
       };
     };
 
-    pywb = {
-      image = "docker.io/webrecorder/pywb";
-      ports = [ "127.0.0.1:8001:8001" ];
-      volumes = [
-        "/mnt/usb/services/browsertrix/webrecorder/:/"
-        "/mnt/usb/services/browsertrix/webrecorder/webarchive:/webarchive"
-      ];
-    };
+    # pywb = {
+    #   image = "docker.io/webrecorder/pywb";
+    #   ports = [ "127.0.0.1:8001:8001" ];
+    #   volumes = [
+    #     "/mnt/usb/services/browsertrix/webrecorder/:/"
+    #     "/mnt/usb/services/browsertrix/webrecorder/webarchive:/webarchive"
+    #   ];
+    # };
   };
 
   environment.systemPackages = [ pkgs.docker ];
