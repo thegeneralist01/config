@@ -1,6 +1,21 @@
-inputs: self: super:
+inputs: 
 let
-  system = import ./system.nix inputs self super;
-  option = import ./option.nix inputs self super;
+  inherit (inputs.nixpkgs.lib) makeExtensible;
 in
-system // option
+makeExtensible (self: 
+  let
+    callLib = file: import file inputs self;
+    optionUtils = callLib ./option.nix;
+  in
+  {
+    # Core system building functions
+    mkSystem = (callLib ./system.nix).mkSystem;
+
+    # Custom option utilities
+    mkConst = optionUtils.mkConst;
+    mkValue = optionUtils.mkValue;
+
+    # Host detection and configuration
+    mkHosts = callLib ./hosts.nix;
+  }
+)

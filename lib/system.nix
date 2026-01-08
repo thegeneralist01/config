@@ -1,66 +1,64 @@
-inputs: self: super:
+inputs: self:
 let
-  inherit (self)
-    hasSuffix
-    filesystem
-    attrValues
-    filter
-    getAttrFromPath
-    hasAttrByPath
-    ;
+  inherit (inputs.nixpkgs.lib) 
+    hasSuffix filesystem attrValues filter getAttrFromPath 
+    hasAttrByPath mapAttrsToList concatMap;
+    
+  # Helper to collect all .nix files recursively in a directory
+  collectModules = path: 
+    if builtins.pathExists path
+    then filter (hasSuffix ".nix") (filesystem.listFilesRecursive path)
+    else [];
 
-  collectModules = path: filesystem.listFilesRecursive path |> filter (hasSuffix ".nix");
+  # Collect modules from flake inputs with fallback handling
+  collectInputModules = packagePath:
+    let
+      getModule = input:
+        if hasAttrByPath packagePath input
+        then [ (getAttrFromPath packagePath input) ]
+        else [];
+    in
+    concatMap getModule (attrValues inputs);
 
-  collectInputModules =
-    packagePath:
-    (attrValues inputs) |> filter (hasAttrByPath packagePath) |> map (getAttrFromPath packagePath);
-
+  # Shared arguments for all configurations  
   specialArgs = inputs // {
-    inherit inputs;
-    inherit self;
+    inherit inputs self;
   };
 
-  # All modules
+  # Collect platform-specific modules
   modulesCommon = collectModules ../modules/common;
-  modulesLinux = collectModules ../modules/linux;
+  modulesLinux = collectModules ../modules/linux; 
   modulesDarwin = collectModules ../modules/darwin;
 
-  inputModulesNixos = collectInputModules [
-    "nixosModules"
-    "default"
-  ];
-  inputModulesDarwin = collectInputModules [
-    "darwinModules"
-    "default"
-  ];
+  # Collect input modules by platform
+  inputModulesNixos = collectInputModules [ "nixosModules" "default" ];
+  inputModulesDarwin = collectInputModules [ "darwinModules" "default" ];
 
-  # Overlays
-  overlays = collectInputModules [
-    "overlays"
-    "default"
-  ];
-
-  overlayModules = {
+  # Collect overlays from inputs
+  overlays = collectInputModules [ "overlays" "default" ];
+  
+  overlayModule = {
     nixpkgs.overlays = overlays;
   };
 in
 {
-  system =
-    os: configFile:
-    (if os == "darwin" then
-      super.darwinSystem
-    else
-      super.nixosSystem) {
-        inherit specialArgs;
-
-        modules =
-          [
-            overlayModules
-            configFile
-          ]
-          ++ modulesCommon
-          ++ (
-            if os == "darwin" then modulesDarwin ++ inputModulesDarwin else modulesLinux ++ inputModulesNixos
-          );
-      };
+  # Main system builder function
+  mkSystem = os: configFile:
+    let
+      systemBuilder = if os == "darwin" 
+                     then inputs.nix-darwin.lib.darwinSystem
+                     else inputs.nixpkgs.lib.nixosSystem;
+                     
+      platformModules = if os == "darwin"
+                       then modulesDarwin ++ inputModulesDarwin
+                       else modulesLinux ++ inputModulesNixos;
+    in
+    systemBuilder {
+      inherit specialArgs;
+      
+      modules = [
+        overlayModule
+        configFile
+      ] ++ modulesCommon ++ platformModules;
+    };
 }

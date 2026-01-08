@@ -1,12 +1,14 @@
 # stolen from https://github.com/RGBCube/ncc/blob/94c349aa767f04f40ff4165c70c15ed3c3996f82/modules/postgresql.nix
 { config, lib, pkgs, ... }: let
-  inherit (lib) flip mkForce mkOverride mkValue;
+  inherit (lib) flip mkForce mkOverride mkOption;
 in {
   config.environment.systemPackages = [
     config.services.postgresql.package
   ];
 
-  options.services.postgresql.ensure = mkValue [];
+  options.services.postgresql.ensure = mkOption {
+    default = [];
+  };
 
   config.services.postgresql = {
     enable = true;
@@ -41,4 +43,3 @@ in {
     });
   };
 }
-

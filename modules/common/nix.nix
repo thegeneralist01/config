@@ -30,6 +30,8 @@ in {
     builders-use-substitutes = true;
   };
 
+  nix.package = pkgs.nixVersions.nix_2_30;
+
   nix.distributedBuilds = true;
   nix.buildMachines     = if (config.networking.hostName != "thegeneralist-central") then [{
     hostName            = "thegeneralist-central";

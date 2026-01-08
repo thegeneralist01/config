@@ -1,1 +1,1 @@
-lib: inputs: self: lib.system "linux" ./configuration.nix
+lib: inputs: self: lib.mkSystem "linux" ./configuration.nix

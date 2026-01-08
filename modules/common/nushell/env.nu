@@ -18,6 +18,7 @@ source ~/.config/nushell/zoxide.nu
 
 # Extra PATHs
 # $env.PATH = [
+#   # ($env.HOME | path join ".amp/bin")
 #   # "/home/thegeneralist/AppImages"
 #   # ($env.HOME | path join "personal/zen")
 #   # ($env.HOME | path join ".local/scripts")

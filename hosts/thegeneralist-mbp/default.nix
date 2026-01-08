@@ -1,1 +1,1 @@
-lib: inputs: self: lib.system "darwin" ./configuration.nix
+lib: inputs: self: lib.mkSystem "darwin" ./configuration.nix
