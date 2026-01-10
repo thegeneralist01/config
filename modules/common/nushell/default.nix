@@ -8,7 +8,6 @@ let
   inherit (lib)
     readFile
     getExe
-    mkAfter
     mkIf
     optionalAttrs
     ;

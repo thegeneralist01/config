@@ -46,36 +46,23 @@ alias g = glimpse --interactive -o both -f llm.md
 def gg [] {
   open llm.md | save -r /dev/stdout | ^xclip -sel c
 }
-alias rn = yazi
-
-# Zoxide init
-#^zoxide init nushell | save --force ~/.config/nushell/zoxide.nu
-#source ~/.config/nushell/zoxide.nu
 
 alias c = clear
 alias e = exa
-alias el = exa -la
-alias l = ls -a
-alias ll = ls -la
-alias cl = c; l
-
-alias ap = cd ~/personal
-alias ad = cd ~/Downloads
-alias ab = cd ~/books
-alias a = cd ~
-alias ah = cd ~/dotfiles/hosts/thegeneralist
-alias ai3 = nvim /home/thegeneralist/dotfiles/hosts/thegeneralist/dotfiles/i3/config
-# alias rb = sudo nixos-rebuild switch --flake ~/dotfiles#thegeneralist
-alias rb = nh os switch . -v -- --show-trace --verbose
+alias ea = exa -a
+alias ela = exa -la
+alias l = ls
+alias la = ls -a
+alias lal = ls -la
 
 def greeting [] {
   let quotes = [
     "What is impossible for you is not impossible for me."
     "Why do we fall, Master Wayne? So that we can learn to pick ourselves up. - Alfred Pennyworth"
     "Endure, Master Wayne. Take it. They’ll hate you for it, but that’s the point of Batman. He can be the outcast. He can make the choice… that no one else can make. The right choice. - Alfred Pennyworth"
-    "— I never said thank you. — And you will never have to."
+    "— I never said thank you.\n— And you will never have to."
     "A hero can be anyone, even a man doing something as simple and reassuring as putting a coat on a young boy's shoulders to let him know that the world hadn't ended. - Batman"
-    "— Come with me. Save yourself. You don't owe these ppl anymore, you've given them everything.\n —Not everything. Not yet."
+    "— Come with me. Save yourself. You don't owe these ppl anymore, you've given them everything.\n— Not everything. Not yet."
     "The night is always darkest before the dawn, but I promise you, the dawn is coming. - Harvey Dent"
     "It's not who you are underneath, but what you do that defines you. - Batman"
     "The idea was to be a symbol. Batman... could be anybody. That was the point. - Bruce Wayne"

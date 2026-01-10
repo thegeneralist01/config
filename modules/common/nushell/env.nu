@@ -10,11 +10,6 @@ $env.ENV_CONVERSIONS.PATH = {
 $env.LS_COLORS = (open ~/.config/nushell/ls_colors.txt)
 
 source ~/.config/nushell/zoxide.nu
-# NVM
-# source ("/Users/thegeneralist/.nvm/" | path join "nvm.sh")
-
-# GPG TTY
-# $env.GPG_TTY = (tty)
 
 # Extra PATHs
 # $env.PATH = [
@@ -37,6 +32,4 @@ source ~/.config/nushell/zoxide.nu
 #   # "/usr/local/go/bin"
 #   # ($env.HOME | path join "go/bin")
 #   # ($env.HOME | path join ".npm-packages/bin")
-#   # ($env.HOME | path join ".Android/Sdk/platform-tools")
-#   # ($env.HOME | path join ".Android/Sdk/emulator")
 # ] ++ $env.PATH
