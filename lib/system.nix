@@ -20,10 +20,6 @@ let
     in
     concatMap getModule (attrValues inputs);
 
-  # Shared arguments for all configurations  
-  specialArgs = inputs // {
-    inherit inputs self;
-  };
 
   # Collect platform-specific modules
   modulesCommon = collectModules ../modules/common;
@@ -54,7 +50,9 @@ in
                        else modulesLinux ++ inputModulesNixos;
     in
     systemBuilder {
-      inherit specialArgs;
+      specialArgs = inputs // {
+        inherit inputs self os;
+      };
       
       modules = [
         overlayModule

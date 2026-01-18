@@ -11,7 +11,7 @@
       clearDefaultKeybinds = false;
       settings = {
         # theme = "tokyonight";
-        theme = "Gruvbox Dark Hard";
+        theme = config.theme.ghosttyTheme;
         font-family = "Berkeley Mono";
         font-size = 16;
 

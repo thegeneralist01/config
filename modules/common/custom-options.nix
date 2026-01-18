@@ -8,10 +8,17 @@ in {
       description = "Whether the system is running on Linux";
     };
 
+    isDarwin = mkOption {
+      type = types.bool;
+      default = pkgs.stdenv.isDarwin;
+      description = "Whether the system is running on Darwin (macOS)";
+    };
+
     isServer = mkOption {
       type = types.bool;
       default = config.nixpkgs.hostPlatform.isAarch64;
       description = "Whether the system is a server. Determined by the processor architecture.";
     };
+
   };
 }

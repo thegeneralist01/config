@@ -96,6 +96,10 @@ lib: inputs: self: lib.mkSystem "<os>" ./configuration.nix
 1. Create `.nix` file in appropriate `modules/` subdirectory
 2. Module is auto-discovered and loaded
 
+### Theme Defaults
+- `modules/common/theme.nix` defines shared theme options used by multiple modules (e.g., `bat`, `ghostty`)
+- Adjust `config.theme.*` there or override per-host in `hosts/<hostname>/configuration.nix`
+
 ### Adding a New Host
 1. Create `hosts/<hostname>/` directory
 2. Add `default.nix` with system type
@@ -129,6 +133,10 @@ lib: inputs: self: lib.mkSystem "<os>" ./configuration.nix
 - Custom options available via `lib.mkOption`
 - Flake inputs follow nixpkgs for consistency
 
+### Rebuild Helper
+- `rebuild.nu` at repo root wraps `nh` for local/remote rebuilds
+- Shell alias `rebuild` points to the script (defined in `modules/common/shell/aliases.nix`)
+
 ## Debugging Tips
 
 ### Build Issues
@@ -146,6 +154,9 @@ lib: inputs: self: lib.mkSystem "<os>" ./configuration.nix
 1. Verify file is in correct `modules/` subdirectory
 2. Check file extension is `.nix`
 3. Ensure valid Nix syntax
+
+### Nushell Warnings
+1. Deprecated `get -i` warning from direnv integration is a short-term workaround in `modules/common/shell/direnv.nix` (custom Nushell hook with `get -o` and HM integration disabled) until upstream home-manager updates.
 
 ## Performance Optimizations
 

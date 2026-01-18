@@ -1,8 +1,8 @@
-{ pkgs, lib, ...}: let
-  inherit (lib) attrValues;
+{ pkgs, lib, ... }: let
+  inherit (lib) optionals;
 in {
-  environment.systemPackages = attrValues {
-    inherit (pkgs)
+  environment.systemPackages =
+    (with pkgs; [
       wget
       zsh
       neovim
@@ -32,6 +32,23 @@ in {
 
       pciutils
       usbutils
-    ;
-  };
+
+      nushell
+      fish
+      zoxide
+      vivid
+      ripgrep
+      yazi
+      jq
+      yq-go
+      eza
+      fzf
+      gh
+      fastfetch
+      carapace
+      bat
+    ])
+    ++ optionals (pkgs ? bat-extras && pkgs.bat-extras ? core) [
+      pkgs.bat-extras.core
+    ];
 }
