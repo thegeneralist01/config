@@ -16,7 +16,8 @@
     tree   = "eza --tree --git-ignore --group-directories-first";
 
     # Editor aliases
-    v   = "nvim .";
+    x   = "nvim .";
+    v   = "nvim";
     vi  = "vim";
     vim = "nvim";
 
