@@ -39,9 +39,11 @@
     gs  = "git status";
     ga  = "git add";
     gc  = "git commit";
+    gcm = "git commit -m";
     gp  = "git push";
     gl  = "git log";
     gd  = "git diff";
+    gdc  = "git diff --cached";
     gco = "git checkout";
     gb  = "git branch";
     gm  = "git merge";
