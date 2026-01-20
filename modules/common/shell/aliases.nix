@@ -52,6 +52,7 @@
 
     # Rebuild helper
     rb = "nh darwin switch . -- --extra-experimental-features \"nix-command pipe-operators\"";
+    rbc = "nh darwin switch . -- --extra-experimental-features \"nix-command pipe-operators\" --option extra-substituters \"\"";
     rebuild = "${../../../rebuild.nu}";
   };
 }

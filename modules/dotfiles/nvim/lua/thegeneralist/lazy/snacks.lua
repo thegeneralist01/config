@@ -80,6 +80,7 @@ return {
             section = "terminal",
             cmd = "greeting",
             hl = "header",
+            ttl = 60,
             height = 3,
             padding = 2,
             align = "center",
