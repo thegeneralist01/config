@@ -27,6 +27,10 @@ return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "nvim-mini/mini.icons",
+    },
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
@@ -70,6 +74,19 @@ return {
             },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
+        },
+        sections = {
+          {
+            section = "terminal",
+            cmd = "greeting",
+            hl = "header",
+            height = 3,
+            padding = 2,
+            align = "center",
+          },
+          { section = "keys", gap = 1, padding = 1 },
+          { icon = " ", title = "Recent Files", section = "recent_files", indent = 3, padding = 3 },
+          { section = "startup" },
         },
       },
       explorer = { enabled = false },

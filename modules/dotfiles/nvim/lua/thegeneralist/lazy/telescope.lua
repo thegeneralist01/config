@@ -21,7 +21,7 @@ return {
 		local builtin = require("telescope.builtin")
 		pcall(require("telescope").load_extension, "fzf")
 
-		vim.keymap.set("n", "<leader>ps", function()
+		vim.keymap.set("n", "<leader>fs", function()
 			local search_string = vim.fn.input("Grep > ")
 			if search_string == "" then
 				return
@@ -39,9 +39,9 @@ return {
 			builtin.grep_string({ search = word })
 		end)
 
-		vim.keymap.set("n", "<leader>pg", builtin.live_grep, {})
+		vim.keymap.set("n", "<leader>fw", builtin.live_grep, {})
 
-		vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
+
 
 		vim.keymap.set("n", "<C-p>", builtin.git_files, {})
 

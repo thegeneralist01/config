@@ -35,6 +35,7 @@
     ela = "eza -la";
 
     # Git aliases
+    lg = "lazygit";
     gs  = "git status";
     ga  = "git add";
     gc  = "git commit";
