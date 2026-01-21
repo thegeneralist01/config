@@ -21,6 +21,7 @@
     vi  = "vim";
     vim = "nvim";
 
+
     # Utilities
     ff  = "fastfetch --load-config examples/10.jsonc";
     g   = "glimpse --interactive -o both -f llm.md";
@@ -56,5 +57,8 @@
     rb = "nh darwin switch . -- --extra-experimental-features \"nix-command pipe-operators\"";
     rbc = "nh darwin switch . -- --extra-experimental-features \"nix-command pipe-operators\" --option extra-substituters \"\"";
     rebuild = "${../../../rebuild.nu}";
+
+    # LLM agent helper - run nushell with user config
+    nuc = "nu --config ${./0_nushell.nu} --execute";
   };
 }

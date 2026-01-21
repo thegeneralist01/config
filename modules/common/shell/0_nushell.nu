@@ -341,6 +341,16 @@ def --env mcg [path: path]: nothing -> nothing {
   jj git init --colocate
 }
 
+# Open a file in nvim using fzf.
+def vff []: nothing -> nothing {
+  nvim (fzf)
+}
+
+# Open a file in nvim using fd.
+def vfd [filename: string]: nothing -> nothing {
+  nvim (fd -t f $filename)
+}
+
 def --env "nu-complete jc" [commandline: string] {
   let stor = stor open
 
