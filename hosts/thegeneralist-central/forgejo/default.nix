@@ -26,6 +26,9 @@ in
         };
 
         attachment.ALLOWED_TYPES = "*/*";
+        actions = {
+          ENABLED = true;
+        };
         cache.ENABLED = true;
 
         "cron.archive_cleanup" =
