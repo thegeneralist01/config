@@ -130,7 +130,7 @@ in
 
   programs.ssh.knownHosts.central = {
     hostNames = [ "central" ];
-    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAMuvjhN26VXntKZdu7/rFc55EGK0B2wDXv6PIiMJSvD";
+    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOkFvw9+AispgqwaYg3ksAZTHJgkCDwFTbWzUh/pVcAS";
   };
 
   networking.firewall.allowedTCPPorts = [ 2222 ];
