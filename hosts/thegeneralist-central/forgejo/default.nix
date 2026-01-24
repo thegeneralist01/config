@@ -136,7 +136,7 @@ in
   # Avoid /var/lib/private so the runner can write its state.
   systemd.services.gitea-runner-central.serviceConfig = {
     DynamicUser = lib.mkForce false;
-    StateDirectory = lib.mkForce "gitea-runner/central";
+    StateDirectory = lib.mkForce "gitea-runner";
     StateDirectoryMode = "0755";
   };
 
@@ -147,6 +147,11 @@ in
     home = "/var/lib/gitea-runner/central";
     createHome = true;
   };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/gitea-runner 0755 gitea-runner gitea-runner -"
+    "d /var/lib/gitea-runner/central 0755 gitea-runner gitea-runner -"
+  ];
 
   networking.firewall.allowedTCPPorts = [ 2222 ];
 }
