@@ -7,6 +7,8 @@ in
 {
   imports = [ ../../../modules/postgresql.nix ];
 
+  age.secrets.forgejoRunnerToken.file = ./forgejo-runner-token.age;
+
   services.forgejo = {
     enable = true;
     stateDir = forgejo_folder "state";
@@ -91,6 +93,31 @@ in
           SAME_SITE = "strict";
         };
       };
+  };
+
+  services.gitea-actions-runner = {
+    package = pkgs.forgejo-runner;
+    instances.central = {
+      enable = true;
+      name = "thegeneralist-central";
+      url = "https://${domain}";
+      tokenFile = config.age.secrets.forgejoRunnerToken.path;
+      labels = [ "central:host" ];
+
+    # Host-executed jobs need nix + ssh in PATH.
+      hostPackages = with pkgs; [
+        bash
+        coreutils
+        curl
+        gawk
+        gitMinimal
+        gnused
+        nodejs
+        nix
+        openssh
+        wget
+      ];
+    };
   };
 
   networking.firewall.allowedTCPPorts = [ 2222 ];
