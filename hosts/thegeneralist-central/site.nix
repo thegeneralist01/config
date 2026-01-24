@@ -55,7 +55,7 @@ in
     };
 
     virtualHosts."${family_domain}" = {
-      root = "/var/www/${family_domain}";
+      root = "/var/www/${family_domain}/dist";
       locations."/".tryFiles = "$uri $uri.html $uri/ $uri/index.html =404";
 
       extraConfig = ''
