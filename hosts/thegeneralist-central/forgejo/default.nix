@@ -11,6 +11,9 @@ in
 
   age.secrets.forgejoRunnerToken.file = ./forgejo-runner-token.age;
   age.secrets.forgejoFamilySiteDeployToken.file = ./forgejo-family-site-deploy-token.age;
+  age.secrets.forgejoFamilySiteDeployToken.owner = "gitea-runner";
+  age.secrets.forgejoFamilySiteDeployToken.group = "gitea-runner";
+  age.secrets.forgejoFamilySiteDeployToken.mode = "0400";
 
   services.forgejo = {
     enable = true;
