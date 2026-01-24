@@ -135,7 +135,7 @@ in
 
   # Avoid /var/lib/private so the runner can write its state.
   systemd.services.gitea-runner-central.serviceConfig = {
-    DynamicUser = false;
+    DynamicUser = lib.mkForce false;
     StateDirectory = "gitea-runner/central";
     StateDirectoryMode = "0755";
   };
