@@ -1,3 +1,5 @@
+{ config, pkgs, ... }:
+
 let
   forgejo_root_dir = "/var/lib/forgejo";
   domain = "git.thegeneralist01.com";
@@ -102,9 +104,13 @@ in
       name = "thegeneralist-central";
       url = "https://${domain}";
       tokenFile = config.age.secrets.forgejoRunnerToken.path;
-      labels = [ "central:host" ];
+      labels = [
+        "native:host"
+        # "node-22:docker://node:22-bookworm"
+        # "nixos-latest:docker://nixos/nix"
+      ];
 
-    # Host-executed jobs need nix + ssh in PATH.
+      # Host-executed jobs need nix + ssh in PATH.
       hostPackages = with pkgs; [
         bash
         coreutils
@@ -119,6 +125,8 @@ in
       ];
     };
   };
+
+  networking.firewall.trustedInterfaces = [ "br-+" ];
 
   networking.firewall.allowedTCPPorts = [ 2222 ];
 }
