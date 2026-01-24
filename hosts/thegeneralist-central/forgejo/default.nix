@@ -133,5 +133,12 @@ in
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOkFvw9+AispgqwaYg3ksAZTHJgkCDwFTbWzUh/pVcAS";
   };
 
+  # Avoid /var/lib/private so the runner can write its state.
+  systemd.services.gitea-runner-central.serviceConfig = {
+    DynamicUser = false;
+    StateDirectory = "gitea-runner/central";
+    StateDirectoryMode = "0755";
+  };
+
   networking.firewall.allowedTCPPorts = [ 2222 ];
 }
