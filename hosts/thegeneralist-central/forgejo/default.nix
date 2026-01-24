@@ -10,6 +10,7 @@ in
   imports = [ ../../../modules/postgresql.nix ];
 
   age.secrets.forgejoRunnerToken.file = ./forgejo-runner-token.age;
+  age.secrets.forgejoFamilySiteDeployToken.file = ./forgejo-family-site-deploy-token.age;
 
   services.forgejo = {
     enable = true;

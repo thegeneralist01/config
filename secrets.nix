@@ -11,6 +11,7 @@ in {
   "hosts/thegeneralist-central/cache/key.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/password.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/forgejo/forgejo-runner-token.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist-central/forgejo/forgejo-family-site-deploy-token.age".publicKeys = [ thegeneralist ];
 
   "modules/linux/tailscale-marshall.age".publicKeys = [ thegeneralist ];
 }
