@@ -39,6 +39,12 @@ return {
         preset = {
           keys = {
             {
+              icon = " ",
+              key = "t",
+              desc = "TODOs",
+              action = ":lua Snacks.picker.todo_comments()",
+            },
+            {
               icon = " ",
               key = "f",
               desc = "Find File",
@@ -81,7 +87,7 @@ return {
             cmd = "greeting",
             hl = "header",
             ttl = 60,
-            height = 3,
+            height = 5,
             padding = 2,
             align = "center",
           },

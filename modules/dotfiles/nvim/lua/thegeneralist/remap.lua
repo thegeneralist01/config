@@ -16,10 +16,10 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 vim.keymap.set("n", "<leader>vwm", function()
-  require("vim-with-me").StartVimWithMe()
+	require("vim-with-me").StartVimWithMe()
 end)
 vim.keymap.set("n", "<leader>svwm", function()
-  require("vim-with-me").StopVimWithMe()
+	require("vim-with-me").StopVimWithMe()
 end)
 
 vim.keymap.set("n", "<leader>vs", "<C-w>v")
@@ -38,7 +38,6 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>fr", vim.lsp.buf.format)
 
 vim.keymap.set("n", "<leader>m<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<leader>m<C-j>", "<cmd>cprev<CR>zz")
@@ -54,19 +53,19 @@ vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/the
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
 
 vim.keymap.set("n", "<leader><leader>", function()
-  vim.cmd("so")
+	vim.cmd("so")
 end)
 
 vim.keymap.set("n", "zh", "$viBhzf", {
-  desc = "Fold { block",
+	desc = "Fold { block",
 })
 
 vim.keymap.set("n", "zj", "$vi[hzf", {
-  desc = "Fold [ block",
+	desc = "Fold [ block",
 })
 
 vim.keymap.set("n", "zk", "$vibhzf", {
-  desc = "Fold ( block",
+	desc = "Fold ( block",
 })
 
 vim.keymap.set("n", "ga", "<cmd>EasyAlign<CR>")
@@ -85,9 +84,9 @@ vim.keymap.set("v", "<S-Tab>", "<gv")
 vim.keymap.set("n", "<C-w>e", "<C-w>j<C-w>q")
 
 vim.keymap.set("n", "<leader>w", function()
-  vim.ui.input({ prompt = "Enter value for shiftwidth: " }, function(input)
-    vim.o.shiftwidth = tonumber(input)
-  end)
+	vim.ui.input({ prompt = "Enter value for shiftwidth: " }, function(input)
+		vim.o.shiftwidth = tonumber(input)
+	end)
 end)
 -- vim.keymap.set("n", "<leader>tc", function()
 -- 	-- local file_number = tonumber(vim.fn.input("File number > "), 10)

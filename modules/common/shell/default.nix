@@ -75,7 +75,7 @@ in
             export PATH="/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/$USER/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin''${PATH:+:}''${PATH}"
             source ${config'.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh
 
-            if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
+            if [ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ]; then
               SHELL='${lib.getExe <| lib.head config'.shellsByPriority}' exec "$SHELL"
             fi
           '';
