@@ -159,6 +159,8 @@ lib: inputs: self: lib.mkSystem "<os>" ./configuration.nix
 1. `DynamicUser` conflicts require `lib.mkForce` if overriding module defaults.
 2. Runner state dir should be `/var/lib/gitea-runner/<instance>`; set `StateDirectory = "gitea-runner"` and let the instance name append.
 3. If the register script fails with `permission denied`, ensure `/var/lib/gitea-runner` exists and is owned by `gitea-runner`.
+4. If workflows need to read a home symlink target, `/home/<user>` must be `0750` (group traverse) and the runner user must be in that group.
+5. A Forgejo deploy token for HTTPS pulls should be stored in agenix and owned by `gitea-runner`; use env-file format (`TOKEN=...`) and read it at runtime.
 
 ### Nushell Warnings
 1. Deprecated `get -i` warning from direnv integration is a short-term workaround in `modules/common/shell/direnv.nix` (custom Nushell hook with `get -o` and HM integration disabled) until upstream home-manager updates.
