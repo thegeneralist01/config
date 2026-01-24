@@ -140,5 +140,13 @@ in
     StateDirectoryMode = "0755";
   };
 
+  users.groups.gitea-runner = { };
+  users.users.gitea-runner = {
+    isSystemUser = true;
+    group = "gitea-runner";
+    home = "/var/lib/gitea-runner/central";
+    createHome = true;
+  };
+
   networking.firewall.allowedTCPPorts = [ 2222 ];
 }
