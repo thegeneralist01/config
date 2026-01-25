@@ -56,12 +56,10 @@ in
 
     virtualHosts."${family_domain}" = {
       root = "/var/www/${family_domain}/dist";
-      locations."/".tryFiles = "$uri $uri.html $uri/ $uri/index.html =404";
+      locations."/".tryFiles = "$uri $uri/index.html $uri.html =404";
 
       extraConfig = ''
-        if ($http_x_forwarded_proto = "http") {
-          return 301 https://${family_domain}$request_uri;
-        }
+        absolute_redirect off;
 
         location ~* \.(html|css|js|jpg|jpeg|png|gif|svg|ico|woff2?)$ {
           expires 1d;
