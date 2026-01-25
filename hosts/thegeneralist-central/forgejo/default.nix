@@ -148,6 +148,7 @@ in
   users.users.gitea-runner = {
     isSystemUser = true;
     group = "gitea-runner";
+    extraGroups = [ "users" ];
     home = "/var/lib/gitea-runner/central";
     createHome = true;
   };
