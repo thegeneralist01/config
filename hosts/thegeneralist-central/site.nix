@@ -61,9 +61,14 @@ in
       extraConfig = ''
         absolute_redirect off;
 
-        location ~* \.(html|css|js|jpg|jpeg|png|gif|svg|ico|woff2?)$ {
+        location ~* \.(html|css|js|jpg|jpeg|png|gif|svg|ico)$ {
           expires 1d;
           add_header Cache-Control "public";
+        }
+
+        location ~* \.(ttf|woff2?)$ {
+          expires 1y;
+          add_header Cache-Control "public, immutable";
         }
 
         error_page 404 /404.html;
