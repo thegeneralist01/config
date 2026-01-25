@@ -15,6 +15,7 @@
       extraGroups = [ "wheel" "audio" "video" "input" "scanner" "docker" ];
       shell = pkgs.zsh;
       home = "/home/thegeneralist";
+      homeMode = "0750";
       hashedPasswordFile = config.age.secrets.password.path;
       openssh.authorizedKeys.keys = let
         inherit (import ../../keys.nix) thegeneralist;
@@ -67,4 +68,3 @@
 
   system.stateVersion = "24.11";
 }
-
