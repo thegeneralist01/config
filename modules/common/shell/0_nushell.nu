@@ -219,6 +219,10 @@ do --env {
       if ($env.IN_NIX_SHELL? | is-not-empty) {
         $suffix ++= [ $"(ansi light_blue_bold)nix" ]
       }
+      # .VENV
+      if ($env.VIRTUAL_ENV? | is-not-empty) {
+        $suffix ++= [ $"(ansi light_green_bold)($env.VIRTUAL_ENV_PROMPT)" ]
+      }
 
       $suffix | each { $'(ansi light_yellow_bold)•(ansi reset) ($in)(ansi reset)' } | str join " "
     }
@@ -226,6 +230,7 @@ do --env {
     ([ $prefix, $body, $suffix ] | str join " ") + (char newline)
   }
 
+  $env.VIRTUAL_ENV_DISABLE_PROMPT = true
   $env.PROMPT_INDICATOR = $"(ansi light_yellow_bold)┃(ansi reset) "
   $env.PROMPT_INDICATOR_VI_NORMAL = $env.PROMPT_INDICATOR
   $env.PROMPT_INDICATOR_VI_INSERT = $env.PROMPT_INDICATOR
