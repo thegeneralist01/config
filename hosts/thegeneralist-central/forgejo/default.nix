@@ -156,6 +156,9 @@ in
   systemd.tmpfiles.rules = [
     "d /var/lib/gitea-runner 0755 gitea-runner gitea-runner -"
     "d /var/lib/gitea-runner/central 0755 gitea-runner gitea-runner -"
+    # Allow gitea-runner (in group users) to write to the blog repo's .git dir.
+    "d /home/thegeneralist/blog 2770 thegeneralist users -"
+    "Z /home/thegeneralist/blog/.git - thegeneralist users -"
   ];
 
   networking.firewall.allowedTCPPorts = [ 2222 ];
