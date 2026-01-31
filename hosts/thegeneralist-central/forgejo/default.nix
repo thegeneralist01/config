@@ -142,6 +142,8 @@ in
     DynamicUser = lib.mkForce false;
     StateDirectory = lib.mkForce "gitea-runner";
     StateDirectoryMode = "0755";
+    # Ensure newly created files are group-writable for the shared repo.
+    UMask = "0002";
   };
 
   users.groups.gitea-runner = { };
@@ -160,6 +162,11 @@ in
     "d /home/thegeneralist/blog 2770 thegeneralist users -"
     "Z /home/thegeneralist/blog/.git - thegeneralist users -"
   ];
+
+  system.activationScripts.blogGitPerms.text = ''
+    ${pkgs.coreutils}/bin/chmod -R g+rwX /home/thegeneralist/blog/.git/objects
+    ${pkgs.acl}/bin/setfacl -R -m g:users:rwx -m d:g:users:rwx /home/thegeneralist/blog/.git/objects
+  '';
 
   networking.firewall.allowedTCPPorts = [ 2222 ];
 }
