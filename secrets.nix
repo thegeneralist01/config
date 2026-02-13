@@ -1,6 +1,7 @@
 let
   inherit (import ./keys.nix) thegeneralist;
-in {
+in
+{
   "hosts/thegeneralist/hostkey.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/hostkey.age".publicKeys = [ thegeneralist ];
 
@@ -11,7 +12,12 @@ in {
   "hosts/thegeneralist-central/cache/key.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/password.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/forgejo/forgejo-runner-token.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/forgejo/forgejo-family-site-deploy-token.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist-central/forgejo/forgejo-family-site-deploy-token.age".publicKeys = [
+    thegeneralist
+  ];
+  "hosts/thegeneralist-central/readlater-bot-token.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist-central/readlater-bot-sync-token.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist-central/readlater-bot-user-id.age".publicKeys = [ thegeneralist ];
 
   "modules/linux/tailscale-marshall.age".publicKeys = [ thegeneralist ];
 }
