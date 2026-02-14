@@ -36,6 +36,7 @@ in
 
           nodejs
           nodePackages."sass"
+          pnpm_9
         ]
         ++ optionals config.onLinux [
           #gcc_multi
@@ -64,10 +65,13 @@ in
       };
 
       # TODO: the two from the last (below) should be somehow moved to their own files
+      home.sessionVariables.PNPM_HOME = "$HOME/Library/pnpm";
+
       home.sessionPath = [
         "node_modules/.bin"
         "/opt/homebrew/bin"
         "$HOME/.npm-packages/bin"
+        "$PNPM_HOME"
       ];
     }
   ];
