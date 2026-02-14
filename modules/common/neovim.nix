@@ -65,7 +65,8 @@ in
       };
 
       # TODO: the two from the last (below) should be somehow moved to their own files
-      home.sessionVariables.PNPM_HOME = "$HOME/Library/pnpm";
+      home.sessionVariables.PNPM_HOME =
+        if config.inDarwin then "$HOME/Library/pnpm" else "$HOME/.local/share/pnpm";
 
       home.sessionPath = [
         "node_modules/.bin"
