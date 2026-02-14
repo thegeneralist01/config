@@ -41,6 +41,10 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    readlater-bot = {
+      url = "path:/home/thegeneralist/infofeeder-bot";
+    };
   };
 
   outputs =
