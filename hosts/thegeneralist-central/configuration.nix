@@ -98,6 +98,7 @@
     group = "users";
     tokenFile = config.age.secrets.readlaterBotToken.path;
     settings = {
+      media_dir = "/home/thegeneralist/obsidian/09 Misc/Assets/images_misc";
       resources_path = "/home/thegeneralist/obsidian/02 Knowledge/03 Resources";
       read_later_path = "/home/thegeneralist/obsidian/10 Read Later.md";
       finished_path = "/home/thegeneralist/obsidian/20 Finished Reading.md";
