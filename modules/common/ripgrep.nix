@@ -2,8 +2,8 @@
   environment.shellAliases = {
     todo = /* sh */ ''rg "todo|fixme" --colors match:fg:yellow --colors match:style:bold'';
     todos = /* sh */ "nvim ~/todo.md";
-    bgr = "batgrep";
-    brg = "batgrep";
+    bgr = /* sh */ "batgrep";
+    brg = /* sh */ "batgrep";
   };
 
   home-manager.sharedModules = [{

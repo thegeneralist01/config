@@ -49,8 +49,12 @@ in {
       fastfetch
       carapace
       bat
+
+      mosh
     ])
     ++ optionals (pkgs ? bat-extras && pkgs.bat-extras ? core) [
       pkgs.bat-extras.core
     ];
+
+  environment.shellAliases.mosh = "mosh --no-init";
 }
