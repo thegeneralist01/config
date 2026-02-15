@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: let
-  inherit (lib) concatStringsSep const flatten getAttr mapAttrsToList mkForce unique;
+  inherit (lib) concatStringsSep const flatten getAttr mapAttrsToList unique;
 in {
   users.defaultUserShell = pkgs.zsh;
 
@@ -10,8 +10,8 @@ in {
   |> unique
   |> concatStringsSep ":";
 
-  environment.shellAliases = {
-    ls = mkForce null;
-    l  = mkForce null;
-  };
+  # environment.shellAliases = {
+  #   ls = mkForce null;
+  #   l  = mkForce null;
+  # };
 }

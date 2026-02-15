@@ -39,6 +39,8 @@ in {
       vivid
       ripgrep
       yazi
+      lazygit
+      yaziPlugins.lazygit
       jq
       yq-go
       eza

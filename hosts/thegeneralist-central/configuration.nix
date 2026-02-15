@@ -44,7 +44,7 @@
         "scanner"
         "docker"
       ];
-      shell = pkgs.zsh;
+      shell = pkgs.nushell;
       home = "/home/thegeneralist";
       homeMode = "0750";
       hashedPasswordFile = config.age.secrets.password.path;
