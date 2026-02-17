@@ -50,11 +50,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1771307893,
-        "narHash": "sha256-wHBIQSFjo/KWcY9Xvq30wsVAaNGEgirwebFQjqujPiU=",
+        "lastModified": 1771309191,
+        "narHash": "sha256-Y83E1JrimzUPQ1a7FpOd9dIQFJFucbV4lYPI7ik3Piw=",
         "ref": "refs/heads/master",
-        "rev": "977eeccd7f2702ae85ff562b4f8bd39c3cbb1898",
-        "revCount": 1,
+        "rev": "8cf458087edb5f2ff7e3563d4bb6e489c3264d1d",
+        "revCount": 2,
         "type": "git",
         "url": "file:///home/thegeneralist/calorie-tracker"
       },

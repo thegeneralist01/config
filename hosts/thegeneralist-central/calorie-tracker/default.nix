@@ -48,6 +48,7 @@ in
     preStart = ''
       mkdir -p ${appDir}
       rsync -a --delete --exclude ".git" --exclude "node_modules" --exclude "dist" --exclude ".astro" ${sourceDir}/ ${appDir}/
+      chmod -R u+rwX ${appDir}
 
       cd ${appDir}
 
@@ -57,16 +58,15 @@ in
 
       sed -i 's#^DATABASE_URL=.*#DATABASE_URL="file:${dataDir}/dev.db"#' .env
 
-      if [ ! -d node_modules ] || [ ! -d node_modules/@astrojs/node ] || [ ! -d node_modules/server-destroy ]; then
-        npm ci --no-fund --no-audit
+      if [ ! -d node_modules ] || [ ! -d node_modules/@astrojs/node ] || [ ! -d node_modules/server-destroy ] || [ ! -d node_modules/@vite-pwa/astro ] || [ ! -d node_modules/@astrojs/check ]; then
+        npm ci --include=dev --no-fund --no-audit
       fi
 
       sqlite3 "${dataDir}/dev.db" < ${./schema.sql}
 
       npm run prisma:generate
-      if [ ! -f dist/server/entry.mjs ]; then
-        npm run build
-      fi
+      rm -rf dist
+      npm run build
     '';
 
     serviceConfig = {
@@ -75,7 +75,9 @@ in
       Group = "users";
       StateDirectory = "calorie-tracker";
       StateDirectoryMode = "0750";
-      WorkingDirectory = appDir;
+      # Keep working dir on the guaranteed StateDirectory path so preStart can
+      # create ${appDir} on first boot/deploy before ExecStart runs.
+      WorkingDirectory = dataDir;
       ExecStart = "${pkgs.nodejs_22}/bin/node ${appDir}/dist/server/entry.mjs";
       KillMode = "mixed";
       Restart = "always";
