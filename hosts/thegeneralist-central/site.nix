@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   domain = "thegeneralist01.com";
-	family_domain = builtins.getEnv "FAMILY_DOMAIN";
+  family_domain = builtins.getEnv "FAMILY_DOMAIN";
 
   ssl = {
     quic = true;
@@ -101,6 +101,7 @@ in
           "thegeneralist01.com" = "http://localhost:80";
           "www.thegeneralist01.com" = "http://localhost:80";
           "cache.thegeneralist01.com" = "http://localhost:80";
+          "calorie.thegeneralist01.com" = "http://localhost:4322";
           "git.thegeneralist01.com" = "http://localhost:3000";
         };
         default = "http_status:404";
