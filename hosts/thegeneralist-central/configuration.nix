@@ -109,6 +109,11 @@
         repo_path = "/home/thegeneralist/obsidian";
         token_file = config.age.secrets.readlaterBotSyncToken.path;
       };
+      sync_x = {
+        source_project_path = "/home/thegeneralist/bookkeeper/vendor/extract-x-bookmarks";
+        python_bin = "/home/thegeneralist/bookkeeper/vendor/extract-x-bookmarks/.venv/bin/python3";
+        work_dir = "/home/thegeneralist/bookkeeper/.sync-x-work";
+      };
     };
   };
 
