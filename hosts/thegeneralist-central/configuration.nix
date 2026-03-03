@@ -17,6 +17,7 @@
     ./cache
     ./archive
     ./forgejo
+    ./calorie-tracker
   ];
 
   age.secrets.password.file = ./password.age;

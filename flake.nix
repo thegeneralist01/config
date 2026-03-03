@@ -43,7 +43,11 @@
     };
 
     readlater-bot = {
-      url = "path:/home/thegeneralist/infofeeder-bot";
+      url = "git+file:///home/thegeneralist/infofeeder-bot";
+    };
+
+    calorie-tracker = {
+      url = "git+file:///home/thegeneralist/calorie-tracker";
     };
   };
 
