@@ -13,6 +13,7 @@ in
     ./acme
     ./dns.nix
     ./jellyfin
+    ./plex
   ];
 
   # Nginx
