@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  subdomains = [ "internal" "archive" "crawler" "r" "b" "s" "p" "q" "cloud" ];
+  subdomains = [ "internal" "archive" "plex" ];
 
   mainZoneFile = pkgs.writeText "thegeneralist01.zone" ''
     $ORIGIN thegeneralist01.com.

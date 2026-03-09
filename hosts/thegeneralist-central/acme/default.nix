@@ -23,10 +23,10 @@ in {
       "internal.${domain}" = {
         group = "acme";
       };
-      "archive.${domain}" = {
+      "plex.${domain}" = {
         group = "acme";
       };
-      "crawler.${domain}" = {
+      "archive.${domain}" = {
         group = "acme";
       };
     };
