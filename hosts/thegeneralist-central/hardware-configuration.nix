@@ -35,15 +35,14 @@
     }
   ];
 
-  # fileSystems."/mnt/usb" = {
-  #   device = "/dev/disk/by-uuid/AADEEA03DEE9C7A1";
-  #   fsType = "ntfs-3g";
-  #   options = [
-  #     "rw"
-  #     "noatime"
-  #   ];
-  # };
-  #
+  fileSystems."/mnt/usb" = {
+    device = "/dev/disk/by-label/TURTLEBAT";
+    options = [
+      "rw"
+      "noatime"
+    ];
+  };
+
   boot.extraModprobeConfig = ''
     options usbcore autosuspend=-1
   '';
