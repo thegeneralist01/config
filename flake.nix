@@ -42,12 +42,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    helium = {
+      # url = "github:FKouhai/helium2nix/main";
+      url = "github:AlvaroParker/helium-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     readlater-bot = {
-      url = "git+file:///home/thegeneralist/infofeeder-bot";
+      url = "github:thegeneralist01/bookkeeper";
     };
 
     calorie-tracker = {
-      url = "git+file:///home/thegeneralist/calorie-tracker";
+      url = "github:thegeneralist01/calorie-tracker";
     };
   };
 

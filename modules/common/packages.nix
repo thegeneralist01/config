@@ -45,6 +45,7 @@ in {
       yq-go
       eza
       fzf
+      fd
       gh
       fastfetch
       carapace

@@ -12,6 +12,7 @@
       settings = {
         # theme = "tokyonight";
         theme = config.theme.ghosttyTheme;
+        # theme = if config.onLinux then "GruvboxDarkHard" else "Gruvbox Dark Hard";
         font-family = "Berkeley Mono";
         font-size = 16;
 

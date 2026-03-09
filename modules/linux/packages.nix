@@ -7,7 +7,10 @@ in {
       pwvucontrol
       wireplumber
       playerctl
-      ntfs3g;
+      ntfs3g
+
+      obsidian
+      tor-browser;
   } ++ (if (!config.isServer) then (attrValues {
       inherit (pkgs) protonup-qt
       xsane
