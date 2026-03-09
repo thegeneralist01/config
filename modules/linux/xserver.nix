@@ -1,10 +1,10 @@
-{ pkgs, lib, config, ... }: let
+{ pkgs, lib, ... }: let
   inherit (lib) optionalAttrs;
 in {
   virtualisation.vmware.guest.enable = true;
 
   environment.systemPackages = [ pkgs.fuzzel ];
-  programs.niri.enable = config.isServer;
+  programs.niri.enable = true;
 
   services.xserver = {
     enable = true;
@@ -24,7 +24,7 @@ in {
       };
     };
 
-    windowManager.i3 = optionalAttrs (!config.isServer) {
+    windowManager.i3 = optionalAttrs (false) {
       enable = true;
       package = pkgs.i3;
       configFile = ../dotfiles/i3/config;
