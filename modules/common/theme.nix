@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ lib, config, ... }: {
   options.theme = {
     batTheme = lib.mkOption {
       type = lib.types.str;
@@ -8,7 +8,7 @@
 
     ghosttyTheme = lib.mkOption {
       type = lib.types.str;
-      default = "Gruvbox Dark Hard";
+      default = if config.onLinux then "GruvboxDarkHard" else "Gruvbox Dark Hard";
       description = "Theme name for Ghostty.";
     };
   };
