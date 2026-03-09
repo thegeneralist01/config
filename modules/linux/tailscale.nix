@@ -6,7 +6,7 @@
     useRoutingFeatures = "both";
     openFirewall = true; # or false?
     extraUpFlags = [ "--ssh" ];
-    extraSetFlags = [ "--advertise-exit-node" ];
+    extraSetFlags = [ "--advertise-routes=172.16.223.0/24" "--advertise-exit-node" ];
     disableTaildrop = false;
     authKeyFile = config.age.secrets.tailscaleMarshall.path;
   };
