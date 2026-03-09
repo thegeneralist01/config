@@ -35,14 +35,14 @@
     }
   ];
 
-  fileSystems."/mnt/usb" = {
-    device = "/dev/disk/by-label/TURTLEBAT";
-    options = [
-      "rw"
-      "noatime"
-    ];
-  };
-
+  # fileSystems."/mnt/usb" = {
+  #   device = "/dev/disk/by-label/TURTLEBAT";
+  #   options = [
+  #     "rw"
+  #     "noatime"
+  #   ];
+  # };
+  #
   boot.extraModprobeConfig = ''
     options usbcore autosuspend=-1
   '';

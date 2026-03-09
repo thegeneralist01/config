@@ -1,4 +1,4 @@
-{ pkgs, lib, config,  ...}: let
+{ inputs, pkgs, lib, config,  ...}: let
   inherit (lib) attrValues;
 in {
   environment.systemPackages = attrValues {
@@ -7,13 +7,15 @@ in {
       pwvucontrol
       wireplumber
       playerctl
-      ntfs3g
-
-      obsidian
-      tor-browser;
+      ntfs3g;
   } ++ (if (!config.isServer) then (attrValues {
       inherit (pkgs) protonup-qt
       xsane
-      simple-scan;
-  }) else []);
+      simple-scan
+
+      obsidian
+      tor-browser;
+  }) else []) ++ (if (!config.isServer) then [
+      inputs.helium.packages.${pkgs.system}.default
+  ] else []);
 }

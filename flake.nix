@@ -51,10 +51,6 @@
     readlater-bot = {
       url = "github:thegeneralist01/bookkeeper";
     };
-
-    calorie-tracker = {
-      url = "github:thegeneralist01/calorie-tracker";
-    };
   };
 
   outputs =

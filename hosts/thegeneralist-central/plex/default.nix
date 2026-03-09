@@ -8,14 +8,38 @@ let
     quic = true;
     useACMEHost = domain;
   };
+
+  plexDebUrl = "http://thegeneralist01.com/plexmediaserver_1.43.0.10492-121068a07_arm64.deb";
+  plexDebSha256 = "1fkh09b46q70kicjprxf0v507idhg2jh3pk97nhbxj1jagkhgck2";
+  plex = pkgs.stdenv.mkDerivation {
+    pname = "plexmediaserver";
+    version = "1.43.0.10492-121068a07";
+
+    src = pkgs.fetchurl {
+      url = plexDebUrl;
+      sha256 = plexDebSha256;
+    };
+
+    nativeBuildInputs = [ pkgs.dpkg ];
+
+    unpackPhase = ''
+      runHook preUnpack
+      dpkg-deb -x $src .
+      runHook postUnpack
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out
+      cp -r usr/* $out/
+      runHook postInstall
+    '';
+  };
 in
 {
-  environment.systemPackages = with pkgs; [
-    plex
-  ];
-
   services.plex = {
     enable = true;
+    package = plex;
     # openFirewall = true;
   };
 
