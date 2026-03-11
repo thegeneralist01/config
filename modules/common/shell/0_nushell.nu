@@ -346,6 +346,29 @@ def --env mcg [path: path]: nothing -> nothing {
   jj git init --colocate
 }
 
+# ls files sorted by latest DESC
+def latest [
+  path: path = .
+  --all (-a)              # show all files
+  number: int = 0            # optional number for head
+]: nothing -> table {
+  let result = (
+    if $all {
+      ls --all $path
+    } else {
+      ls $path
+    }
+    | sort-by modified
+    | reverse
+  )
+
+  if ($number != 0) {
+    $result | first $number
+  } else {
+    $result
+  }
+}
+
 # Open a file in nvim using fzf.
 def vff []: nothing -> nothing {
   nvim (fzf)
