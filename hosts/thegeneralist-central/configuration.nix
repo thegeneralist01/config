@@ -83,7 +83,11 @@
     extraSpecialArgs = { inherit inputs; };
     sharedModules = [ inputs.nix-openclaw.homeManagerModules.openclaw ];
     users.thegeneralist =
-      { osConfig, ... }:
+      {
+        osConfig,
+        lib,
+        ...
+      }:
       {
         home = {
           username = "thegeneralist";
