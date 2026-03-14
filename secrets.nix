@@ -18,6 +18,8 @@ in
   "hosts/thegeneralist-central/readlater-bot-token.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/readlater-bot-sync-token.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/readlater-bot-user-id.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist-central/openclaw-telegram-token.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist-central/openclaw-gateway.env.age".publicKeys = [ thegeneralist ];
 
   "modules/linux/tailscale-marshall.age".publicKeys = [ thegeneralist ];
 }

@@ -33,6 +33,11 @@
       inputs.darwin.follows = "nix-darwin";
     };
 
+    nix-openclaw = {
+      url = "github:openclaw/nix-openclaw";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
