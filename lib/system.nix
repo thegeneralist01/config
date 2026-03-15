@@ -13,12 +13,18 @@ let
   # Collect modules from flake inputs with fallback handling
   collectInputModules = packagePath:
     let
-      getModule = input:
-        if hasAttrByPath packagePath input
+      getModule = name: input:
+        if name == "nix-openclaw" && packagePath == [ "overlays" "default" ] then
+          []
+        else if hasAttrByPath packagePath input
         then [ (getAttrFromPath packagePath input) ]
         else [];
     in
-    concatMap getModule (attrValues inputs);
+    concatMap (entry: getModule entry.name entry.value) (
+      mapAttrsToList (name: value: {
+        inherit name value;
+      }) inputs
+    );
 
 
   # Collect platform-specific modules
@@ -32,7 +38,7 @@ let
 
   # Collect overlays from inputs
   overlays = collectInputModules [ "overlays" "default" ];
-  
+
   overlayModule = {
     nixpkgs.overlays = overlays;
   };

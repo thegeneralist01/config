@@ -331,21 +331,20 @@
         "flake-utils": "flake-utils_3",
         "home-manager": "home-manager_2",
         "nix-steipete-tools": "nix-steipete-tools",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1773517170,
-        "narHash": "sha256-KkToSYtLmzarxUIRtMPkQbjyENFAT20LOxQB4q8pya4=",
+        "lastModified": 1773558880,
+        "narHash": "sha256-hBkRVF4qzFa8GPUXe6X1hH9TmpuQhrqZUeKJZWFQwu4=",
         "owner": "openclaw",
         "repo": "nix-openclaw",
-        "rev": "b16bde62d32b8a853ed865379fe567e087165808",
+        "rev": "3d784abe7f0305a4bd1b6f5c9a5a5de213637cf3",
         "type": "github"
       },
       "original": {
         "owner": "openclaw",
         "repo": "nix-openclaw",
+        "rev": "3d784abe7f0305a4bd1b6f5c9a5a5de213637cf3",
         "type": "github"
       }
     },
@@ -417,6 +416,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1767767207,
+        "narHash": "sha256-Mj3d3PfwltLmukFal5i3fFt27L6NiKXdBezC1EBuZs4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5912c1772a44e31bf1c63c0390b90501e5026886",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1755186698,
         "narHash": "sha256-wNO3+Ks2jZJ4nTHMuks+cxAiVBGNuEBXsT29Bz6HASo=",
         "owner": "NixOS",
@@ -431,7 +446,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1769789167,
         "narHash": "sha256-kKB3bqYJU5nzYeIROI82Ef9VtTbu4uA3YydSk/Bioa8=",
@@ -450,7 +465,7 @@
     "readlater-bot": {
       "inputs": {
         "flake-utils": "flake-utils_4",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1772524468,
@@ -478,7 +493,7 @@
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nix-openclaw": "nix-openclaw",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "readlater-bot": "readlater-bot"
       }
     },
