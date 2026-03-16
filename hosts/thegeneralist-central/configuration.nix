@@ -52,7 +52,7 @@
         "scanner"
         "docker"
       ];
-      shell = pkgs.nushell;
+      shell = pkgs.zsh;
       home = "/home/thegeneralist";
       homeMode = "0750";
       linger = true;

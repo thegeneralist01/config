@@ -11,7 +11,6 @@ let
     flatten
     getAttr
     mapAttrsToList
-    mkIf
     mkOption
     sortOn
     toInt
@@ -64,7 +63,7 @@ in
       }
     )
 
-    (mkIf config.isDarwin (
+    (
       homeArgs:
       let
         config' = homeArgs.config;
@@ -72,15 +71,15 @@ in
       {
         home.file.".zshrc".text = # zsh
           ''
-            export PATH="/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/$USER/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin''${PATH:+:}''${PATH}"
+            export PATH="$HOME/.local/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/$USER/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin''${PATH:+:}''${PATH}"
             source ${config'.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh
 
-            if [ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ]; then
+            if [ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ] && [ -n "$SSH_TTY" ]; then
               SHELL='${lib.getExe <| lib.head config'.shellsByPriority}' exec "$SHELL"
             fi
           '';
       }
-    ))
+    )
 
   ];
 }
