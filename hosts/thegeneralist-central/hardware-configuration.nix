@@ -10,6 +10,7 @@
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
+  boot.loader.systemd-boot.graceful = true;
 
   # Wi-Fi stuff
   nixpkgs.config.allowUnfree = true;
