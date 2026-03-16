@@ -25,6 +25,7 @@
 
         gtk-titlebar = false;
         mouse-hide-while-typing = true;
+        custom-shader = "~/.config/ghostty-shaders/shader.glsl";
       };
     };
   }];

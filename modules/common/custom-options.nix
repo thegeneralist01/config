@@ -16,7 +16,7 @@ in {
 
     isServer = mkOption {
       type = types.bool;
-      default = config.nixpkgs.hostPlatform.isAarch64;
+      default = config.nixpkgs.hostPlatform.isAarch64 && config.nixpkgs.hostPlatform.system == "aarch64-linux";
       description = "Whether the system is a server. Determined by the processor architecture.";
     };
 
