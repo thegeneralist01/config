@@ -40,6 +40,7 @@
   age.secrets.openclawGatewayEnv.owner = "thegeneralist";
   age.secrets.openclawGatewayEnv.group = "users";
   age.secrets.openclawGatewayEnv.mode = "0400";
+
   users.users = {
     thegeneralist = {
       isNormalUser = true;
@@ -91,25 +92,31 @@
         ...
       }:
       let
+        # openclaw's packages require fetchPnpmDeps and other tooling that is
+        # only present in its own pinned nixpkgs input, so we must build from
+        # there rather than from the host nixpkgs.
         openclawPkgs =
           let
             pkgsAarch64 = import inputs.nix-openclaw.inputs.nixpkgs { system = "aarch64-linux"; };
-            # steipetePkgs =
-            #   if inputs.nix-openclaw.inputs.nix-steipete-tools ? packages
-            #     && builtins.hasAttr
-            #       "aarch64-linux"
-            #       inputs.nix-openclaw.inputs.nix-steipete-tools.packages
-            #   then
-            #     inputs.nix-openclaw.inputs.nix-steipete-tools.packages.aarch64-linux
-            #   else
-            #     { };
           in
           import "${inputs.nix-openclaw}/nix/packages" {
             pkgs = pkgsAarch64;
             sourceInfo = import "${inputs.nix-openclaw}/nix/sources/openclaw-source.nix";
-            # inherit steipetePkgs;
           };
-        openclawPackage = openclawPkgs.openclaw;
+
+        # openclaw bundles common CLI tools (rg, goplaces, …) directly in its
+        # /bin, which causes pkgs.buildEnv to abort with a "conflicting
+        # subpath" error when those tools are also in home.packages.
+        #
+        # Setting meta.priority = 10 (higher number = lower priority) tells
+        # buildEnv to silently prefer any other package that provides the same
+        # binary, instead of erroring out.  Priority 5 is the nixpkgs default,
+        # so any explicitly installed package will win over openclaw's bundled
+        # copies while openclaw's own binaries (openclaw, openclaw-gateway, …)
+        # are still linked if nothing else claims them.
+        openclawPackage = openclawPkgs.openclaw.overrideAttrs (old: {
+          meta = (old.meta or { }) // { priority = 10; };
+        });
       in
       {
         home = {
@@ -119,34 +126,39 @@
         };
 
         programs.openclaw = {
-          documents = ./openclaw-documents;
-          package = openclawPackage;
-          config = {
-            gateway = {
-              mode = "local";
-              auth.mode = "token";
-            };
-
-            channels.telegram = {
-              tokenFile = osConfig.age.secrets.openclawTelegramToken.path;
-              # Replace with your Telegram user ID from @userinfobot.
-              allowFrom = [ 0 ];
-              groups."*" = {
-                requireMention = true;
-              };
-            };
-          };
-
           instances.default = {
             enable = true;
             package = openclawPackage;
+
+            systemd.enable = true;
+
+            config = {
+              gateway = {
+                mode = "local";
+                auth.mode = "token";
+              };
+
+              channels.telegram = {
+                tokenFile = osConfig.age.secrets.openclawTelegramToken.path;
+                # Placeholder overwritten at activation time by the script
+                # below, which reads the real ID from the age secret.
+                allowFrom = [ 0 ];
+                groups."*" = {
+                  requireMention = true;
+                };
+              };
+            };
           };
         };
 
+        # Inject gateway credentials (ANTHROPIC_API_KEY, gateway token, …)
+        # from the age-encrypted env file into the systemd unit at runtime.
         systemd.user.services.openclaw-gateway.Service.EnvironmentFile = [
           osConfig.age.secrets.openclawGatewayEnv.path
         ];
 
+        # Patch the generated openclaw.json to replace the placeholder 0 above
+        # with the real Telegram user ID stored in the age secret.
         home.activation.openclawTelegramAllowFrom =
           lib.hm.dag.entryAfter [ "openclawConfigFiles" ] ''
             set -euo pipefail
