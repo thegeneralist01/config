@@ -67,6 +67,11 @@ in
       homeArgs:
       let
         config' = homeArgs.config;
+        nuExecCondition =
+          if config.isDarwin then
+            ''[ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ]''
+          else
+            ''[ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ] && [ -n "$SSH_TTY" ]'';
       in
       {
         home.file.".zshrc".text = # zsh
@@ -74,7 +79,7 @@ in
             export PATH="$HOME/.local/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/$USER/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin''${PATH:+:}''${PATH}"
             source ${config'.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh
 
-            if [ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ] && [ -n "$SSH_TTY" ]; then
+            if ${nuExecCondition}; then
               SHELL='${lib.getExe <| lib.head config'.shellsByPriority}' exec "$SHELL"
             fi
           '';
