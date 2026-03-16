@@ -94,20 +94,20 @@
         openclawPkgs =
           let
             pkgsAarch64 = import inputs.nix-openclaw.inputs.nixpkgs { system = "aarch64-linux"; };
-            steipetePkgs =
-              if inputs.nix-openclaw.inputs.nix-steipete-tools ? packages
-                && builtins.hasAttr
-                  "aarch64-linux"
-                  inputs.nix-openclaw.inputs.nix-steipete-tools.packages
-              then
-                inputs.nix-openclaw.inputs.nix-steipete-tools.packages.aarch64-linux
-              else
-                { };
+            # steipetePkgs =
+            #   if inputs.nix-openclaw.inputs.nix-steipete-tools ? packages
+            #     && builtins.hasAttr
+            #       "aarch64-linux"
+            #       inputs.nix-openclaw.inputs.nix-steipete-tools.packages
+            #   then
+            #     inputs.nix-openclaw.inputs.nix-steipete-tools.packages.aarch64-linux
+            #   else
+            #     { };
           in
           import "${inputs.nix-openclaw}/nix/packages" {
             pkgs = pkgsAarch64;
             sourceInfo = import "${inputs.nix-openclaw}/nix/sources/openclaw-source.nix";
-            inherit steipetePkgs;
+            # inherit steipetePkgs;
           };
         openclawPackage = openclawPkgs.openclaw;
       in
