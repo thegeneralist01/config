@@ -70,8 +70,25 @@
         enable = true;
         package = pkgs.niri;
         settings = {
+          layout = {
+            focus-ring = {
+              enable = false;
+            };
+            tab-indicator = {
+              enable = false;
+            };
+            border = {
+              enable = false;
+            };
+            # border = "off";
+          };
+          spawn-at-startup = [
+            {
+              command = [ "noctalia-shell" ];
+            }
+          ];
           binds = {
-            # Shortcuts Panel
+            # Shortcuts Pane
             "Mod+Shift+Escape".action.show-hotkey-overlay = { };
 
             # Application Shortcuts
@@ -351,11 +368,6 @@
               "pgrep -x hyprpicker >/dev/null || hyprpicker"
             ];
           };
-          spawn-at-startup = [
-            {
-              command = [ "noctalia-shell" ];
-            }
-          ];
         };
       };
     }

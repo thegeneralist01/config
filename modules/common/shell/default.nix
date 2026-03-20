@@ -71,12 +71,12 @@ in
           if config.isDarwin then
             ''[ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ]''
           else
-            ''[ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ] && [ -n "$SSH_TTY" ]'';
+            ''[ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ] && [ -z "$SSH_TTY" ]'';
       in
       {
         home.file.".zshrc".text = # zsh
           ''
-            export PATH="$HOME/.local/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/$USER/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin''${PATH:+:}''${PATH}"
+            export PATH="$HOME/.local/bin:/run/wrappers/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/$USER/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin''${PATH:+:}''${PATH}"
             source ${config'.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh
 
             if ${nuExecCondition}; then

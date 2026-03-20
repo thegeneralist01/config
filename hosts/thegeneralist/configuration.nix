@@ -2,7 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -10,12 +15,20 @@
   users.users.thegeneralist = {
     isNormalUser = true;
     description = "thegeneralist";
-    extraGroups = [ "wheel" "audio" "video" "input" "scanner" ];
-    shell = pkgs.nushell;
+    extraGroups = [
+      "wheel"
+      "audio"
+      "video"
+      "input"
+      "scanner"
+    ];
+    shell = pkgs.zsh;
     home = "/home/thegeneralist";
-    openssh.authorizedKeys.keys = let
-      inherit (import ../../keys.nix) thegeneralist;
-    in [ thegeneralist ];
+    openssh.authorizedKeys.keys =
+      let
+        inherit (import ../../keys.nix) thegeneralist;
+      in
+      [ thegeneralist ];
   };
 
   home-manager = {
@@ -29,10 +42,12 @@
   };
 
   age.secrets.hostkey.file = ./hostkey.age;
-  services.openssh.hostKeys = [{
-    type = "ed25519";
-    path = config.age.secrets.hostkey.path;
-  }];
+  services.openssh.hostKeys = [
+    {
+      type = "ed25519";
+      path = config.age.secrets.hostkey.path;
+    }
+  ];
 
   # Some programs
   services.libinput.enable = true;
@@ -52,4 +67,3 @@
 
   system.stateVersion = "24.11";
 }
-
