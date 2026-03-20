@@ -17,12 +17,10 @@
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
-
       flake = false;
     };
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
-
       flake = false;
     };
 
@@ -46,6 +44,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     helium = {
       # url = "github:FKouhai/helium2nix/main";
       url = "github:AlvaroParker/helium-nix";
@@ -54,6 +57,17 @@
 
     readlater-bot = {
       url = "github:thegeneralist01/bookkeeper";
+    };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.noctalia-qs.follows = "noctalia-qs";
+    };
+
+    noctalia-qs = {
+      url = "github:noctalia-dev/noctalia-qs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

@@ -99,3 +99,6 @@ end)
 vim.keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>", { desc = "Restart LSP" })
 vim.keymap.set("n", "<leader>le", "<cmd>LspStart<CR>", { desc = "Start LSP" })
 vim.keymap.set("n", "<leader>ld", "<cmd>LspStop<CR>", { desc = "Stop LSP" })
+
+vim.keymap.set("n", "<leader>fr", "<cmd>:lua vim.lsp.buf.format()<CR>", { desc = "Fo[R]mat" })
+vim.keymap.set("n", "<leader>ft", "<cmd>:lua Snacks.picker.todo_comments()<CR>", { desc = "TODOs" })

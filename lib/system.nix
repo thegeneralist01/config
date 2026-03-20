@@ -1,11 +1,11 @@
 inputs: self:
 let
-  inherit (inputs.nixpkgs.lib) 
-    hasSuffix filesystem attrValues filter getAttrFromPath 
+  inherit (inputs.nixpkgs.lib)
+    hasSuffix filesystem attrValues filter getAttrFromPath
     hasAttrByPath mapAttrsToList concatMap;
-    
+
   # Helper to collect all .nix files recursively in a directory
-  collectModules = path: 
+  collectModules = path:
     if builtins.pathExists path
     then filter (hasSuffix ".nix") (filesystem.listFilesRecursive path)
     else [];
@@ -29,7 +29,7 @@ let
 
   # Collect platform-specific modules
   modulesCommon = collectModules ../modules/common;
-  modulesLinux = collectModules ../modules/linux; 
+  modulesLinux = collectModules ../modules/linux;
   modulesDarwin = collectModules ../modules/darwin;
 
   # Collect input modules by platform
@@ -47,10 +47,10 @@ in
   # Main system builder function
   mkSystem = os: configFile:
     let
-      systemBuilder = if os == "darwin" 
+      systemBuilder = if os == "darwin"
                      then inputs.nix-darwin.lib.darwinSystem
                      else inputs.nixpkgs.lib.nixosSystem;
-                     
+
       platformModules = if os == "darwin"
                        then modulesDarwin ++ inputModulesDarwin
                        else modulesLinux ++ inputModulesNixos;
@@ -59,7 +59,7 @@ in
       specialArgs = inputs // {
         inherit inputs self os;
       };
-      
+
       modules = [
         overlayModule
         configFile

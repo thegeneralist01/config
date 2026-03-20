@@ -70,6 +70,7 @@ return {
 			r = { "<cmd>:lua vim.lsp.buf.format()<cr>", "Fo[R]mat" },
 			t = { "<cmd>:lua Snacks.picker.todo_comments()<cr>", "TODOs" },
 		},
+    prefix = "<leader>",
 		--conf end
 	},
 }

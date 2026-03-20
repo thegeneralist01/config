@@ -3,6 +3,7 @@
     "https://cache.thegeneralist01.com/"
     "https://cache.garnix.io/"
     "https://cache.nixos.org/"
+    "https://niri.cachix.org"
   ];
 in {
   # todo: gc
@@ -23,6 +24,7 @@ in {
     extra-trusted-public-keys = [
       "cache.thegeneralist01.com:jkKcenR877r7fQuWq6cr0JKv2piqBWmYLAYsYsSJnT4="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
     ];
 
     trusted-users = [ "thegeneralist" "central" "root" "@build" "@wheel" "@admin" "jellyfin" "git" ];
