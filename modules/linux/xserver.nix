@@ -70,6 +70,10 @@
         enable = true;
         package = pkgs.niri;
         settings = {
+          input.keyboard.xkb = {
+            layout = "us,ru";
+            options = "grp:win_space_toggle";
+          };
           layout = {
             focus-ring = {
               enable = false;
@@ -104,7 +108,7 @@
 
             "Mod+Alt+B" = {
               hotkey-overlay.title = "Open Secondary Browser: firefox";
-              action.spawn = [ "firefox" ];
+              action.spawn = [ "sh" "-" "firefox" ];
             };
 
             "Mod+Shift+Q" = {
@@ -133,6 +137,11 @@
             "Mod+N" = {
               hotkey-overlay.title = "X Notifications";
               action.spawn = [ "helium" "https://x.com/i/notifications" ];
+            };
+
+            "Mod+T" = {
+              hotkey-overlay.title = "T3 Chat";
+              action.spawn = [ "helium" "https://t3.chat/" ];
             };
 
             "Mod+Alt+E" = {
@@ -347,7 +356,7 @@
             "Mod+Ctrl+WheelScrollUp".action.set-window-height = "+5%";
 
             # Window Modes
-            "Mod+T".action.toggle-window-floating = { };
+            "Mod+V".action.toggle-window-floating = { };
             "Mod+F".action.fullscreen-window = { };
             "Mod+M".action.maximize-column = { };
 
