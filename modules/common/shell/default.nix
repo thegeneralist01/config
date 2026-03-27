@@ -69,7 +69,9 @@ in
         config' = homeArgs.config;
         nuExecCondition =
           if config.isDarwin then
-            ''[ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ]''
+            ''
+              [[ $- == *i* ]] && [ -z "$skip" ] && [ -t 1 ]
+            ''
           else
             ''[ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ] && [ -z "$SSH_TTY" ]'';
       in
@@ -79,12 +81,15 @@ in
             export PATH="$HOME/.local/bin:/run/wrappers/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/$USER/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin''${PATH:+:}''${PATH}"
             source ${config'.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh
 
-            if ${nuExecCondition}; then
-              SHELL='${lib.getExe <| lib.head config'.shellsByPriority}' exec "$SHELL"
-            fi
-          '';
+          if ${nuExecCondition}; then
+            parent_cmd="$(ps -o command= -p "$PPID" 2>/dev/null || true)"
+            case "$parent_cmd" in
+              *"/Applications/Zed.app/Contents/MacOS/zed --printenv"*) return ;;
+            esac
+            SHELL='${lib.getExe <| lib.head config'.shellsByPriority}' exec "$SHELL"
+          fi
+        '';
       }
     )
-
   ];
 }

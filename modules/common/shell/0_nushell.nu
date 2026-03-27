@@ -461,4 +461,6 @@ def --wrapped jc [...arguments: string@"nu-complete jc"]: [any -> table, any -> 
   }
 }
 
-greeting
+if $nu.is-interactive {
+  greeting
+}
