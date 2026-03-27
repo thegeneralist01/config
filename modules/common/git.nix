@@ -15,9 +15,7 @@ in {
 
         userName = "TheGeneralist";
         userEmail = "180094941+thegeneralist01@users.noreply.github.com";
-        lfs = {
-          enable = true;
-        };
+        lfs.enable = true;
 
         extraConfig = {
           commit.gpgSign = true;

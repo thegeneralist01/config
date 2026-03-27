@@ -101,6 +101,11 @@
               action.spawn = [ "ghostty" ];
             };
 
+            "Mod+G" = {
+              hotkey-overlay.title = "Open Terminal: ghostty";
+              action.spawn = [ "ghostty" ];
+            };
+
             "Mod+B" = {
               hotkey-overlay.title = "Open Browser: helium";
               action.spawn = [ "helium" ];
@@ -111,10 +116,10 @@
               action.spawn = [ "sh" "-" "firefox" ];
             };
 
-            "Mod+Shift+Q" = {
-              hotkey-overlay.title = "Lock Screen: gtklock";
-              action.spawn = [ "gtklock" ];
-            };
+            # "Mod+Shift+Q" = {
+            #   hotkey-overlay.title = "Lock Screen: gtklock";
+            #   action.spawn = [ "gtklock" ];
+            # };
 
             "Mod+D" = {
               hotkey-overlay.title = "Open App Launcher: fuzzel";
@@ -391,11 +396,14 @@
     package = pkgs.niri;
   };
 
-  environment.systemPackages = [
-    pkgs.fuzzel
-    pkgs.xfce.thunar
-    pkgs.playerctl
-    pkgs.wireplumber
+  environment.systemPackages = with pkgs; [
+    fuzzel
+    xfce.thunar
+    playerctl
+    wireplumber
+    yaziPlugins.wl-clipboard
+    wl-clipboard-x11
+    wl-clipboard-rs
   ];
 
   services.xserver = {
