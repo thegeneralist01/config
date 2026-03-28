@@ -1,4 +1,15 @@
+{ ... }:
 let
+  hyperModifiers = [
+    "left_command"
+    "left_control"
+    "left_option"
+    "left_shift"
+  ];
+
+  openGhostty = "open -na Ghostty.app";
+  openHelium = "/Applications/Helium.app/Contents/MacOS/Helium &";
+
   numbers = [
     "1"
     "2"
@@ -69,6 +80,72 @@ let
       #   description = "Change numbers to symbols and vice versa";
       #   manipulators = manipulators;
       # }
+      {
+        description = "Hyperkey";
+        manipulators = [
+          {
+            from = {
+              key_code = "caps_lock";
+              modifiers = { optional = [ "any" ]; };
+            };
+            to = [
+              {
+                key_code = "left_shift";
+                modifiers = [
+                  "left_option"
+                  "left_command"
+                  "left_control"
+                ];
+              }
+            ];
+            to_if_alone = [
+              {
+                hold_down_milliseconds = 500;
+                key_code = "escape";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+Return opens Ghostty";
+        manipulators = [
+          {
+            from = {
+              key_code = "return_or_enter";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openGhostty;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+B opens Helium";
+        manipulators = [
+          {
+            from = {
+              key_code = "b";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openHelium;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
       {
         description = "Toggle Focus Mode with F6";
         manipulators = [
