@@ -8,7 +8,9 @@ let
   ];
 
   openGhostty = "open -na Ghostty.app";
-  openHelium = "/Applications/Helium.app/Contents/MacOS/Helium &";
+  openHelium = "open -na Helium.app";
+  openHeliumNotifications = "open -na Helium.app --args https://x.com/i/notifications";
+  openHeliumT3Chat = "open -na Helium.app --args https://t3.chat/";
 
   numbers = [
     "1"
@@ -140,6 +142,44 @@ let
             to = [
               {
                 shell_command = openHelium;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+N opens X Notifications";
+        manipulators = [
+          {
+            from = {
+              key_code = "n";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openHeliumNotifications;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+T opens T3 Chat";
+        manipulators = [
+          {
+            from = {
+              key_code = "t";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openHeliumT3Chat;
               }
             ];
             type = "basic";
