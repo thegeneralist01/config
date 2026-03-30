@@ -14,9 +14,7 @@ let
   collectInputModules = packagePath:
     let
       getModule = name: input:
-        if name == "nix-openclaw" && packagePath == [ "overlays" "default" ] then
-          []
-        else if hasAttrByPath packagePath input
+        if hasAttrByPath packagePath input
         then [ (getAttrFromPath packagePath input) ]
         else [];
     in

@@ -31,10 +31,6 @@
       inputs.darwin.follows = "nix-darwin";
     };
 
-    nix-openclaw = {
-      url = "github:openclaw/nix-openclaw/3d784abe7f0305a4bd1b6f5c9a5a5de213637cf3";
-    };
-
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };

@@ -23,8 +23,6 @@
   age.secrets.readlaterBotToken.file = ./readlater-bot-token.age;
   age.secrets.readlaterBotSyncToken.file = ./readlater-bot-sync-token.age;
   age.secrets.readlaterBotUserId.file = ./readlater-bot-user-id.age;
-  age.secrets.openclawTelegramToken.file = ./openclaw-telegram-token.age;
-  age.secrets.openclawGatewayEnv.file = ./openclaw-gateway.env.age;
   age.secrets.readlaterBotToken.owner = "thegeneralist";
   age.secrets.readlaterBotToken.group = "users";
   age.secrets.readlaterBotToken.mode = "0400";
@@ -34,12 +32,6 @@
   age.secrets.readlaterBotUserId.owner = "thegeneralist";
   age.secrets.readlaterBotUserId.group = "users";
   age.secrets.readlaterBotUserId.mode = "0400";
-  age.secrets.openclawTelegramToken.owner = "thegeneralist";
-  age.secrets.openclawTelegramToken.group = "users";
-  age.secrets.openclawTelegramToken.mode = "0400";
-  age.secrets.openclawGatewayEnv.owner = "thegeneralist";
-  age.secrets.openclawGatewayEnv.group = "users";
-  age.secrets.openclawGatewayEnv.mode = "0400";
 
   users.users = {
     thegeneralist = {
@@ -82,97 +74,16 @@
   home-manager = {
     backupFileExtension = "home.bak";
     extraSpecialArgs = { inherit inputs; };
-    sharedModules = [ inputs.nix-openclaw.homeManagerModules.openclaw ];
     users.thegeneralist =
       {
-        osConfig,
-        lib,
-        pkgs,
-        inputs,
         ...
       }:
-      let
-        # openclaw's packages require fetchPnpmDeps and other tooling that is
-        # only present in its own pinned nixpkgs input, so we must build from
-        # there rather than from the host nixpkgs.
-        openclawPkgs =
-          let
-            pkgsAarch64 = import inputs.nix-openclaw.inputs.nixpkgs { system = "aarch64-linux"; };
-          in
-          import "${inputs.nix-openclaw}/nix/packages" {
-            pkgs = pkgsAarch64;
-            sourceInfo = import "${inputs.nix-openclaw}/nix/sources/openclaw-source.nix";
-          };
-
-        # openclaw bundles common CLI tools (rg, goplaces, …) directly in its
-        # /bin, which causes pkgs.buildEnv to abort with a "conflicting
-        # subpath" error when those tools are also in home.packages.
-        #
-        # Setting meta.priority = 10 (higher number = lower priority) tells
-        # buildEnv to silently prefer any other package that provides the same
-        # binary, instead of erroring out.  Priority 5 is the nixpkgs default,
-        # so any explicitly installed package will win over openclaw's bundled
-        # copies while openclaw's own binaries (openclaw, openclaw-gateway, …)
-        # are still linked if nothing else claims them.
-        openclawPackage = openclawPkgs.openclaw.overrideAttrs (old: {
-          meta = (old.meta or { }) // { priority = 10; };
-        });
-      in
       {
         home = {
           username = "thegeneralist";
           homeDirectory = "/home/thegeneralist";
           stateVersion = "25.11";
         };
-
-        programs.openclaw = {
-          instances.default = {
-            enable = true;
-            package = openclawPackage;
-
-            systemd.enable = true;
-
-            config = {
-              gateway = {
-                mode = "local";
-                auth.mode = "token";
-              };
-
-              channels.telegram = {
-                tokenFile = osConfig.age.secrets.openclawTelegramToken.path;
-                # Placeholder overwritten at activation time by the script
-                # below, which reads the real ID from the age secret.
-                allowFrom = [ 0 ];
-                groups."*" = {
-                  requireMention = true;
-                };
-              };
-            };
-          };
-        };
-
-        # Inject gateway credentials (ANTHROPIC_API_KEY, gateway token, …)
-        # from the age-encrypted env file into the systemd unit at runtime.
-        systemd.user.services.openclaw-gateway.Service.EnvironmentFile = [
-          osConfig.age.secrets.openclawGatewayEnv.path
-        ];
-
-        # Patch the generated openclaw.json to replace the placeholder 0 above
-        # with the real Telegram user ID stored in the age secret.
-        home.activation.openclawTelegramAllowFrom =
-          lib.hm.dag.entryAfter [ "openclawConfigFiles" ] ''
-            set -euo pipefail
-
-            user_id="$(${lib.getExe' pkgs.coreutils "cat"} ${osConfig.age.secrets.readlaterBotUserId.path})"
-            tmp="$(${lib.getExe' pkgs.coreutils "mktemp"})"
-
-            ${lib.getExe pkgs.jq} --argjson user_id "$user_id" \
-              '.channels.telegram.allowFrom = [$user_id]' \
-              /home/thegeneralist/.openclaw/openclaw.json > "$tmp"
-
-            rm -f /home/thegeneralist/.openclaw/openclaw.json
-            mv "$tmp" /home/thegeneralist/.openclaw/openclaw.json
-          '';
       };
   };
 
