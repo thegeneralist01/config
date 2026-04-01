@@ -16,6 +16,6 @@ in {
       obsidian
       tor-browser;
   }) else []) ++ (if (!config.isServer) then [
-      inputs.helium.packages.${pkgs.system}.default
+      inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
   ] else []);
 }

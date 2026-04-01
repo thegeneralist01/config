@@ -37,7 +37,7 @@
     users.thegeneralist.home = {
       username = "thegeneralist";
       homeDirectory = "/home/thegeneralist";
-      stateVersion = "25.11";
+      stateVersion = "26.05";
     };
   };
 

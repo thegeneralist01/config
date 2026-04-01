@@ -24,7 +24,7 @@
   home-manager = {
     backupFileExtension = "home.bak";
     users.central.home = {
-      stateVersion = "25.11";
+      stateVersion = "26.05";
       homeDirectory = "/Users/central";
     };
   };
