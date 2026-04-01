@@ -24,6 +24,7 @@
   home-manager = {
     backupFileExtension = "home.bak";
     users.thegeneralist.home = {
+      # stateVersion = "25.11";
       stateVersion = "25.11";
       homeDirectory = "/Users/thegeneralist";
     };

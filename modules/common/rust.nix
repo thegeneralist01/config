@@ -23,7 +23,7 @@
 
       # for nil
       nixd
-      nixfmt-rfc-style
+      nixfmt
 
       libiconv
 

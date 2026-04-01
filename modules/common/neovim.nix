@@ -35,7 +35,7 @@ in
           black
 
           nodejs
-          nodePackages."sass"
+          dart-sass
           pnpm_9
         ]
         ++ optionals config.onLinux [
