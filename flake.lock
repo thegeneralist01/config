@@ -492,11 +492,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1772524468,
-        "narHash": "sha256-h/NmNoiBVPzxm/yDhl+Z8PaFJeDtPz8Ef7NQeZgn8TE=",
+        "lastModified": 1776031277,
+        "narHash": "sha256-8xwKjndQLYByugfF+Ln691lzpneYfG68akTNDZ3CiQw=",
         "owner": "thegeneralist01",
         "repo": "bookkeeper",
-        "rev": "e1afcc51485ed9b80211a2c48a3e93ef4d6b35f5",
+        "rev": "b30b3adf5ff8a2a80f0756bc5c8f621c2305a2af",
         "type": "github"
       },
       "original": {

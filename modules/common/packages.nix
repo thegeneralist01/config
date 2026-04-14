@@ -33,7 +33,7 @@ in {
       pciutils
       usbutils
 
-      nushell
+      # nushell
       fish
       zoxide
       vivid

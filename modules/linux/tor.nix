@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   services.tor = {
     enable = true;
     settings = {
@@ -16,6 +16,7 @@
   };
   services.transmission = {
     enable = true;
+    package = pkgs.transmission_4;
     settings = {
       proxy = "socks5://127.0.0.1:9050"; # assuming tor daemon
       proxy-auth-enabled = false;

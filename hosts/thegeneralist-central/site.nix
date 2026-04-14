@@ -19,7 +19,6 @@ in
   # Nginx
   services.nginx = {
     enable = true;
-    package = pkgs.nginxQuic;
     enableQuicBPF = true;
 
     experimentalZstdSettings = true;
