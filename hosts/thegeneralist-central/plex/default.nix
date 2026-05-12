@@ -9,7 +9,7 @@ let
     useACMEHost = domain;
   };
 
-  plexDebUrl = "http://thegeneralist01.com/plexmediaserver_1.43.0.10492-121068a07_arm64.deb";
+  plexDebUrl = "https://cdn.thegeneralist01.com/plexmediaserver_1.43.0.10492-121068a07_arm64.deb";
   plexDebSha256 = "1fkh09b46q70kicjprxf0v507idhg2jh3pk97nhbxj1jagkhgck2";
   plex = pkgs.stdenv.mkDerivation {
     pname = "plexmediaserver";
