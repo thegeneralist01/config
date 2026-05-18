@@ -71,6 +71,7 @@ in
       home.sessionPath = [
         "node_modules/.bin"
         "/opt/homebrew/bin"
+        "/opt/homebrew/opt"
         "$HOME/.npm-packages/bin"
         "$PNPM_HOME"
       ];

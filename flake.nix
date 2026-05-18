@@ -23,6 +23,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    steipete-tap = {
+      url = "github:steipete/homebrew-tap";
+      flake = false;
+    };
 
     agenix = {
       url = "github:ryantm/agenix";

@@ -1,6 +1,7 @@
 {
   homebrew-core,
   homebrew-cask,
+  steipete-tap,
   config,
   ...
 }:
@@ -16,7 +17,8 @@
 
     taps."homebrew/homebrew-core" = homebrew-core;
     taps."homebrew/homebrew-cask" = homebrew-cask;
+    taps."steipete/tap" = steipete-tap;
 
-    mutableTaps = false;
+    mutableTaps = true;
   };
 }

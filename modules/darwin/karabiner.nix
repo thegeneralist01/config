@@ -11,6 +11,7 @@ let
   openHelium = "open -na Helium.app";
   openHeliumNotifications = "open -na Helium.app --args https://x.com/i/notifications";
   openHeliumT3Chat = "open -na Helium.app --args https://t3.chat/";
+  openHeliumExaSearch = "open -na Helium.app --args https://exa.ai/search";
 
   numbers = [
     "1"
@@ -102,7 +103,6 @@ let
             ];
             to_if_alone = [
               {
-                hold_down_milliseconds = 500;
                 key_code = "escape";
               }
             ];
@@ -187,6 +187,25 @@ let
         ];
       }
       {
+        description = "Hyper+E opens Exa Search";
+        manipulators = [
+          {
+            from = {
+              key_code = "e";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openHeliumExaSearch;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
         description = "Toggle Focus Mode with F6";
         manipulators = [
           {
@@ -194,6 +213,44 @@ let
               "key_code" = "f6";
             };
             to = [ { "shell_command" = "shortcuts run 'Reduced Interruptions'"; } ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+Q runs Add Quote shortcut";
+        manipulators = [
+          {
+            from = {
+              key_code = "q";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = "shortcuts run 'Add Quote'";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+G runs Shades of Gray shortcut";
+        manipulators = [
+          {
+            from = {
+              key_code = "g";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = "shortcuts run 'Shades of Gray'";
+              }
+            ];
             type = "basic";
           }
         ];
