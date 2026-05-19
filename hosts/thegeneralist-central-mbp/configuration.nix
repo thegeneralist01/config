@@ -29,5 +29,6 @@
     };
   };
 
+  system.primaryUser = "central";
   system.stateVersion = 6;
 }
