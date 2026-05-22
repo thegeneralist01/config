@@ -12,6 +12,8 @@ let
   openHeliumNotifications = "open -na Helium.app --args https://x.com/i/notifications";
   openHeliumT3Chat = "open -na Helium.app --args https://t3.chat/";
   openHeliumExaSearch = "open -na Helium.app --args https://exa.ai/search";
+  openChatGPT = "open -na Helium.app --args https://chatgpt.com/";
+  openClaude = "open -na Helium.app --args https://claude.ai/new";
 
   numbers = [
     "1"
@@ -249,6 +251,44 @@ let
             to = [
               {
                 shell_command = "shortcuts run 'Shades of Gray'";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+C opens ChatGPT";
+        manipulators = [
+          {
+            from = {
+              key_code = "c";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openChatGPT;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+L opens Claude";
+        manipulators = [
+          {
+            from = {
+              key_code = "l";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openClaude;
               }
             ];
             type = "basic";
