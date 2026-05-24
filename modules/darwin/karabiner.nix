@@ -8,6 +8,7 @@ let
   ];
 
   openGhostty = "open -na Ghostty.app";
+  openCmux = "open -na cmux.app";
   openHelium = "open -na Helium.app";
   openHeliumNotifications = "open -na Helium.app --args https://x.com/i/notifications";
   openHeliumT3Chat = "open -na Helium.app --args https://t3.chat/";
@@ -113,7 +114,7 @@ let
         ];
       }
       {
-        description = "Hyper+Return opens Ghostty";
+        description = "Hyper+Return opens cmux";
         manipulators = [
           {
             from = {
@@ -124,7 +125,7 @@ let
             };
             to = [
               {
-                shell_command = openGhostty;
+                shell_command = openCmux;
               }
             ];
             type = "basic";
