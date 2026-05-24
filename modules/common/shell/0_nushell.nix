@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  nixpkgs,
   pkgs,
   ...
 }:
@@ -18,10 +19,9 @@ let
     replaceStrings
     ;
 
-  unstable = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-    sha256 = if (config.isServer) then "sha256:18ggs7jwmpi58k7xza4axy3cjs17c596ihq5y70h6sryz2hypgba" else (if (config.onLinux) then "sha256:03plivnr4cg0h8v7djf9g2jra09r45pmdiirmy4lvl2n1d4yb7ac" else "sha256:1485vqhb8cwym1m75v61i10j427vazszaklkwj2wmm80k8sijjyz");
-  }) { system = pkgs.stdenv.hostPlatform.system; };
+  # Use the repo's locked nixos-unstable flake input instead of following the
+  # moving nixos-unstable tarball, which causes frequent refetches.
+  unstable = import nixpkgs { system = pkgs.stdenv.hostPlatform.system; };
   package = unstable.nushell;
 in
 {
