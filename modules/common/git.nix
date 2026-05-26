@@ -55,6 +55,8 @@ in
 
             # https://bernsteinbear.com/git
             alias.recent = "! git branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\" | head -10";
+
+            safe.directory = "*";
           };
         };
       };

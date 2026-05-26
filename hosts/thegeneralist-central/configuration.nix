@@ -44,6 +44,7 @@
         "input"
         "scanner"
         "docker"
+        "nginx"
       ];
       shell = pkgs.zsh;
       home = "/home/thegeneralist";
