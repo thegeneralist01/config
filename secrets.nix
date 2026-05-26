@@ -8,13 +8,9 @@ in
   "hosts/thegeneralist-central/acme/acmeEnvironment.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/cert.pem.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/credentials.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/credentials_personal.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/cache/key.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/password.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/forgejo/forgejo-runner-token.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/forgejo/forgejo-family-site-deploy-token.age".publicKeys = [
-    thegeneralist
-  ];
   "hosts/thegeneralist-central/readlater-bot-token.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/readlater-bot-sync-token.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist-central/readlater-bot-user-id.age".publicKeys = [ thegeneralist ];

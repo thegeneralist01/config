@@ -13,7 +13,6 @@ let
     )
         IN NS   ns.thegeneralist01.com.
     ns  IN A    100.86.129.23
-    @   IN A    100.86.129.23
     ${lib.concatStringsSep "\n" (lib.map (sub: "${sub} IN A 100.86.129.23") subdomains)}
   '';
 

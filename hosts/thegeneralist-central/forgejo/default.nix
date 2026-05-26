@@ -10,10 +10,6 @@ in
   imports = [ ../../../modules/postgresql.nix ];
 
   age.secrets.forgejoRunnerToken.file = ./forgejo-runner-token.age;
-  age.secrets.forgejoFamilySiteDeployToken.file = ./forgejo-family-site-deploy-token.age;
-  age.secrets.forgejoFamilySiteDeployToken.owner = "gitea-runner";
-  age.secrets.forgejoFamilySiteDeployToken.group = "gitea-runner";
-  age.secrets.forgejoFamilySiteDeployToken.mode = "0400";
 
   services.forgejo = {
     enable = true;
@@ -158,15 +154,7 @@ in
   systemd.tmpfiles.rules = [
     "d /var/lib/gitea-runner 0755 gitea-runner gitea-runner -"
     "d /var/lib/gitea-runner/central 0755 gitea-runner gitea-runner -"
-    # Allow gitea-runner (in group users) to write to the blog repo's .git dir.
-    "d /home/thegeneralist/blog 2770 thegeneralist users -"
-    "Z /home/thegeneralist/blog/.git - thegeneralist users -"
   ];
-
-  system.activationScripts.blogGitPerms.text = ''
-    ${pkgs.coreutils}/bin/chmod -R g+rwX /home/thegeneralist/blog/.git/objects
-    ${pkgs.acl}/bin/setfacl -R -m g:users:rwx -m d:g:users:rwx /home/thegeneralist/blog/.git/objects
-  '';
 
   networking.firewall.allowedTCPPorts = [ 2222 ];
 }

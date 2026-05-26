@@ -179,10 +179,12 @@ in
         nuExecCondition =
           if config.isDarwin then
             ''
-              [[ $- == *i* ]] && [ -z "$skip" ] && [ -t 1 ]
+              [[ $- == *i* ]] && [ -z "$skip" ] && [ -t 0 ] && [ -t 1 ]
             ''
           else
-            ''[ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ] && [ -z "$SSH_TTY" ]'';
+            ''
+              [[ $- == *i* ]] && [ -z "$INTELLIJ_ENVIRONMENT_READER" ] && [ -z "$skip" ] && [ -z "$SSH_TTY" ] && [ -t 0 ] && [ -t 1 ]
+            '';
       in
       {
         programs.fish = {
