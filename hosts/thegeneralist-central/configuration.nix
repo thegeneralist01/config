@@ -102,7 +102,7 @@
   programs.zsh.enable = true;
 
   services.readlater-bot = {
-    enable = true;
+    enable = false;
     user = "thegeneralist";
     group = "users";
     tokenFile = config.age.secrets.readlaterBotToken.path;
