@@ -87,11 +87,28 @@ let
       #   manipulators = manipulators;
       # }
       {
-        description = "Hyperkey";
+        description = "Caps Lock to Escape";
         manipulators = [
           {
             from = {
               key_code = "caps_lock";
+              modifiers = { optional = [ "any" ]; };
+            };
+            to = [
+              {
+                key_code = "escape";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Escape to Hyperkey";
+        manipulators = [
+          {
+            from = {
+              key_code = "escape";
               modifiers = { optional = [ "any" ]; };
             };
             to = [
@@ -102,11 +119,6 @@ let
                   "left_command"
                   "left_control"
                 ];
-              }
-            ];
-            to_if_alone = [
-              {
-                key_code = "escape";
               }
             ];
             type = "basic";
