@@ -79,6 +79,23 @@ let
     }
   ];
 
+  logitechG213Identifiers = {
+    vendor_id = 1133;
+    product_id = 49974;
+    is_keyboard = true;
+  };
+
+  logitechG213SimpleModifications = [
+    {
+      from.key_code = "left_command";
+      to = [ { key_code = "left_option"; } ];
+    }
+    {
+      from.key_code = "left_option";
+      to = [ { key_code = "left_command"; } ];
+    }
+  ];
+
   complex_modifications = {
     name = "Complex Modifications";
     rules = [
@@ -87,28 +104,11 @@ let
       #   manipulators = manipulators;
       # }
       {
-        description = "Caps Lock to Escape";
+        description = "Caps Lock to Hyperkey";
         manipulators = [
           {
             from = {
               key_code = "caps_lock";
-              modifiers = { optional = [ "any" ]; };
-            };
-            to = [
-              {
-                key_code = "escape";
-              }
-            ];
-            type = "basic";
-          }
-        ];
-      }
-      {
-        description = "Escape to Hyperkey";
-        manipulators = [
-          {
-            from = {
-              key_code = "escape";
               modifiers = { optional = [ "any" ]; };
             };
             to = [
@@ -323,6 +323,10 @@ let
         inherit complex_modifications;
 
         devices = [
+          {
+            identifiers = logitechG213Identifiers;
+            simple_modifications = logitechG213SimpleModifications;
+          }
           {
             identifiers.is_keyboard = true;
           }
