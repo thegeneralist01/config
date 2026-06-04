@@ -36,6 +36,15 @@
     }
   ];
 
+  fileSystems."/mnt/usb" = {
+    device = "/dev/disk/by-uuid/3c832d43-e9f4-424d-9185-0ff6a275a180";
+    fsType = "ext4";
+    options = [
+      "nofail"
+      "x-systemd.automount"
+    ];
+  };
+
   # fileSystems."/mnt/usb" = {
   #   device = "/dev/disk/by-label/TURTLEBAT";
   #   options = [
