@@ -86,12 +86,8 @@ let
     is_keyboard = true;
   };
 
-  # Keep the G213's left Control as Fn and swap its Windows/Alt modifiers.
+  # Swap the G213's Windows/Alt modifiers.
   logitechG213SimpleModifications = [
-    {
-      from.key_code = "left_control";
-      to = [ { apple_vendor_top_case_key_code = "keyboard_fn"; } ];
-    }
     {
       from.key_code = "left_command";
       to = [ { key_code = "left_option"; } ];
@@ -99,6 +95,37 @@ let
     {
       from.key_code = "left_option";
       to = [ { key_code = "left_command"; } ];
+    }
+  ];
+
+  logitechMouseIdentifiers = {
+    vendor_id = 1133;
+    product_id = 50503;
+    is_pointing_device = true;
+  };
+
+  logitechMouseSimpleModifications = [
+    {
+      from.pointing_button = "button3";
+      to = [ { apple_vendor_top_case_key_code = "keyboard_fn"; } ];
+    }
+    {
+      from.pointing_button = "button4";
+      to = [
+        {
+          key_code = "open_bracket";
+          modifiers = [ "left_command" ];
+        }
+      ];
+    }
+    {
+      from.pointing_button = "button5";
+      to = [
+        {
+          key_code = "close_bracket";
+          modifiers = [ "left_command" ];
+        }
+      ];
     }
   ];
 
@@ -338,6 +365,11 @@ let
           {
             identifiers = logitechG213Identifiers;
             simple_modifications = logitechG213SimpleModifications;
+          }
+          {
+            identifiers = logitechMouseIdentifiers;
+            ignore = false;
+            simple_modifications = logitechMouseSimpleModifications;
           }
         ];
       }
