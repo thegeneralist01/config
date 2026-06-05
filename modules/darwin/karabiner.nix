@@ -104,6 +104,7 @@ let
     is_pointing_device = true;
   };
 
+  # Middle click sends Fn; side buttons navigate back and forward.
   logitechMouseSimpleModifications = [
     {
       from.pointing_button = "button3";
