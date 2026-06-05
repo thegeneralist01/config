@@ -68,7 +68,8 @@ let
     ]) numbers
   );
 
-  simple_modifications = [
+  # Swap Fn/Globe and left Control only on the built-in keyboard.
+  builtinKeyboardSimpleModifications = [
     {
       from.apple_vendor_top_case_key_code = "keyboard_fn";
       to = [ { key_code = "left_control"; } ];
@@ -85,7 +86,12 @@ let
     is_keyboard = true;
   };
 
+  # Keep the G213's left Control as Fn and swap its Windows/Alt modifiers.
   logitechG213SimpleModifications = [
+    {
+      from.key_code = "left_control";
+      to = [ { apple_vendor_top_case_key_code = "keyboard_fn"; } ];
+    }
     {
       from.key_code = "left_command";
       to = [ { key_code = "left_option"; } ];
@@ -319,16 +325,19 @@ let
         name = "default";
         selected = true;
         virtual_hid_keyboard.keyboard_type_v2 = "ansi";
-        inherit simple_modifications;
         inherit complex_modifications;
 
         devices = [
           {
-            identifiers = logitechG213Identifiers;
-            simple_modifications = logitechG213SimpleModifications;
+            identifiers = {
+              is_keyboard = true;
+              is_built_in_keyboard = true;
+            };
+            simple_modifications = builtinKeyboardSimpleModifications;
           }
           {
-            identifiers.is_keyboard = true;
+            identifiers = logitechG213Identifiers;
+            simple_modifications = logitechG213SimpleModifications;
           }
         ];
       }
