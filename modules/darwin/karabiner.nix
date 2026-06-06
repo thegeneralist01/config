@@ -104,12 +104,8 @@ let
     is_pointing_device = true;
   };
 
-  # Middle click sends Fn; side buttons navigate back and forward.
+  # Side buttons navigate back and forward.
   logitechMouseSimpleModifications = [
-    {
-      from.pointing_button = "button3";
-      to = [ { apple_vendor_top_case_key_code = "keyboard_fn"; } ];
-    }
     {
       from.pointing_button = "button4";
       to = [
@@ -133,6 +129,39 @@ let
   complex_modifications = {
     name = "Complex Modifications";
     rules = [
+      {
+        description = "Logitech mouse Button3 sends Fn, or middle click with Hyper";
+        manipulators = [
+          {
+            from = {
+              pointing_button = "button3";
+              modifiers.mandatory = hyperModifiers;
+            };
+            to = [ { pointing_button = "button3"; } ];
+            conditions = [
+              {
+                type = "device_if";
+                identifiers = [ logitechMouseIdentifiers ];
+              }
+            ];
+            type = "basic";
+          }
+          {
+            from = {
+              pointing_button = "button3";
+              modifiers.optional = [ "any" ];
+            };
+            to = [ { apple_vendor_top_case_key_code = "keyboard_fn"; } ];
+            conditions = [
+              {
+                type = "device_if";
+                identifiers = [ logitechMouseIdentifiers ];
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
       # {
       #   description = "Change numbers to symbols and vice versa";
       #   manipulators = manipulators;
@@ -143,7 +172,9 @@ let
           {
             from = {
               key_code = "caps_lock";
-              modifiers = { optional = [ "any" ]; };
+              modifiers = {
+                optional = [ "any" ];
+              };
             };
             to = [
               {
