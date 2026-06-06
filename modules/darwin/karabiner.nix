@@ -86,7 +86,7 @@ let
     is_keyboard = true;
   };
 
-  # Swap the G213's Windows/Alt modifiers.
+  # Swap the G213's Windows/Alt modifiers and map Application to Fn.
   logitechG213SimpleModifications = [
     {
       from.key_code = "left_command";
@@ -95,6 +95,10 @@ let
     {
       from.key_code = "left_option";
       to = [ { key_code = "left_command"; } ];
+    }
+    {
+      from.key_code = "application";
+      to = [ { apple_vendor_top_case_key_code = "keyboard_fn"; } ];
     }
   ];
 
@@ -130,8 +134,35 @@ let
     name = "Complex Modifications";
     rules = [
       {
-        description = "Logitech mouse Button3 sends Fn, or middle click with Hyper";
+        description = "Logitech mouse Button3 sends Fn, or middle click with Hyper or Button2";
         manipulators = [
+          {
+            from.pointing_button = "button2";
+            to = [
+              { pointing_button = "button2"; }
+              {
+                set_variable = {
+                  name = "logitech_mouse_button2_held";
+                  value = 1;
+                };
+              }
+            ];
+            to_after_key_up = [
+              {
+                set_variable = {
+                  name = "logitech_mouse_button2_held";
+                  value = 0;
+                };
+              }
+            ];
+            conditions = [
+              {
+                type = "device_if";
+                identifiers = [ logitechMouseIdentifiers ];
+              }
+            ];
+            type = "basic";
+          }
           {
             from = {
               pointing_button = "button3";
@@ -142,6 +173,25 @@ let
               {
                 type = "device_if";
                 identifiers = [ logitechMouseIdentifiers ];
+              }
+            ];
+            type = "basic";
+          }
+          {
+            from = {
+              pointing_button = "button3";
+              modifiers.optional = [ "any" ];
+            };
+            to = [ { pointing_button = "button3"; } ];
+            conditions = [
+              {
+                type = "device_if";
+                identifiers = [ logitechMouseIdentifiers ];
+              }
+              {
+                type = "variable_if";
+                name = "logitech_mouse_button2_held";
+                value = 1;
               }
             ];
             type = "basic";
