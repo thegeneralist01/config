@@ -136,15 +136,29 @@ let
       {
         description = "Logitech mouse Button3 sends Fn, or middle click with Hyper, Shift, Button1, or Button2";
         manipulators = [
+          # Keep the forwarded button as the only `to` event so Karabiner
+          # preserves its down state. A variable in the same `to` sequence
+          # either releases the button immediately or resets too early, so
+          # detect Button3 through `to_if_other_key_pressed` instead.
           {
             from.pointing_button = "button1";
-            to = [
-              { pointing_button = "button1"; }
+            to = [ { from_event = true; } ];
+            to_if_other_key_pressed = [
               {
-                set_variable = {
-                  name = "logitech_mouse_button1_held";
-                  value = 1;
-                };
+                other_keys = [
+                  {
+                    pointing_button = "button3";
+                    modifiers.optional = [ "any" ];
+                  }
+                ];
+                to = [
+                  {
+                    set_variable = {
+                      name = "logitech_mouse_button1_held";
+                      value = 1;
+                    };
+                  }
+                ];
               }
             ];
             to_after_key_up = [
@@ -165,13 +179,23 @@ let
           }
           {
             from.pointing_button = "button2";
-            to = [
-              { pointing_button = "button2"; }
+            to = [ { from_event = true; } ];
+            to_if_other_key_pressed = [
               {
-                set_variable = {
-                  name = "logitech_mouse_button2_held";
-                  value = 1;
-                };
+                other_keys = [
+                  {
+                    pointing_button = "button3";
+                    modifiers.optional = [ "any" ];
+                  }
+                ];
+                to = [
+                  {
+                    set_variable = {
+                      name = "logitech_mouse_button2_held";
+                      value = 1;
+                    };
+                  }
+                ];
               }
             ];
             to_after_key_up = [
