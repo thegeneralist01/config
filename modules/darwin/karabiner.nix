@@ -134,8 +134,35 @@ let
     name = "Complex Modifications";
     rules = [
       {
-        description = "Logitech mouse Button3 sends Fn, or middle click with Hyper or Button2";
+        description = "Logitech mouse Button3 sends Fn, or middle click with Hyper, Shift, Button1, or Button2";
         manipulators = [
+          {
+            from.pointing_button = "button1";
+            to = [
+              { pointing_button = "button1"; }
+              {
+                set_variable = {
+                  name = "logitech_mouse_button1_held";
+                  value = 1;
+                };
+              }
+            ];
+            to_after_key_up = [
+              {
+                set_variable = {
+                  name = "logitech_mouse_button1_held";
+                  value = 0;
+                };
+              }
+            ];
+            conditions = [
+              {
+                type = "device_if";
+                identifiers = [ logitechMouseIdentifiers ];
+              }
+            ];
+            type = "basic";
+          }
           {
             from.pointing_button = "button2";
             to = [
@@ -166,7 +193,43 @@ let
           {
             from = {
               pointing_button = "button3";
+              modifiers.optional = [ "any" ];
+            };
+            to = [ { pointing_button = "button3"; } ];
+            conditions = [
+              {
+                type = "device_if";
+                identifiers = [ logitechMouseIdentifiers ];
+              }
+              {
+                type = "variable_if";
+                name = "logitech_mouse_button1_held";
+                value = 1;
+              }
+            ];
+            type = "basic";
+          }
+          {
+            from = {
+              pointing_button = "button3";
               modifiers.mandatory = hyperModifiers;
+            };
+            to = [ { pointing_button = "button3"; } ];
+            conditions = [
+              {
+                type = "device_if";
+                identifiers = [ logitechMouseIdentifiers ];
+              }
+            ];
+            type = "basic";
+          }
+          {
+            from = {
+              pointing_button = "button3";
+              modifiers = {
+                mandatory = [ "shift" ];
+                optional = [ "any" ];
+              };
             };
             to = [ { pointing_button = "button3"; } ];
             conditions = [
