@@ -97,6 +97,14 @@ let
       to = [ { key_code = "left_command"; } ];
     }
     {
+      from.key_code = "right_command";
+      to = [ { key_code = "right_option"; } ];
+    }
+    {
+      from.key_code = "right_option";
+      to = [ { key_code = "right_command"; } ];
+    }
+    {
       from.key_code = "application";
       to = [ { apple_vendor_top_case_key_code = "keyboard_fn"; } ];
     }
