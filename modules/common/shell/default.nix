@@ -204,6 +204,9 @@ in
             if set -q GHOSTTY_RESOURCES_DIR
               source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish" 2>/dev/null
             end
+            if command -sq omp
+              omp completions fish | source
+            end
           '';
 
           functions = {
@@ -225,7 +228,17 @@ in
               export SHELL='${nuExe}'
               exec "$SHELL"
             fi
+
+            if command -v omp &>/dev/null; then
+              eval "$(omp completions zsh)"
+            fi
           '';
+
+        programs.bash.initExtra = ''
+          if command -v omp &>/dev/null; then
+            eval "$(omp completions bash)"
+          fi
+        '';
       }
     )
   ];

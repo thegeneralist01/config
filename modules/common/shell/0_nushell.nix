@@ -67,6 +67,10 @@ in
             config.environment.shellAliases // { ls = "ls"; };
 
           configFile.text = readFile ./0_nushell.nu;
+
+          extraConfig = /* nu */ ''
+            use ${pkgs.writeTextDir "omp-completions.nu" (readFile ./omp-completions.nu)}/omp-completions.nu *
+          '';
         };
       }
     )
