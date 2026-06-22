@@ -518,6 +518,25 @@ let
           }
         ];
       }
+      {
+        description = "Hyper+0 copies a rephrase prompt into the clipboard";
+        manipulators = [
+          {
+            from = {
+              key_code = "0";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = "printf '%s' 'rephrase the tweet on the screen in a more humanly-understandable way' | pbcopy";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
     ];
   };
 
