@@ -68,12 +68,15 @@ in
       home.sessionVariables.PNPM_HOME =
         if config.isDarwin then "$HOME/Library/pnpm" else "$HOME/.local/share/pnpm";
 
+      home.sessionVariables.BUN_INSTALL = "$HOME/.bun";
+
       home.sessionPath = [
         "node_modules/.bin"
         "/opt/homebrew/bin"
         "/opt/homebrew/opt"
         "$HOME/.npm-packages/bin"
         "$PNPM_HOME"
+        "$BUN_INSTALL/bin"
       ];
     }
   ];
