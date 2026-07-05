@@ -14,7 +14,9 @@ let
   openHeliumT3Chat = "open -na Helium.app --args https://t3.chat/";
   openHeliumExaSearch = "open -na Helium.app --args https://exa.ai/search";
   openChatGPT = "open -na Helium.app --args https://chatgpt.com/";
+  openChatGPTIncognito = "open -na Helium.app --args https://chatgpt.com/?temporary-chat=true";
   openClaude = "open -na Helium.app --args https://claude.ai/new";
+  openClaudeIncognito = "open -na Helium.app --args https://claude.ai/new?incognito=";
 
   numbers = [
     "1"
@@ -393,25 +395,6 @@ let
         ];
       }
       {
-        description = "Hyper+T opens T3 Chat";
-        manipulators = [
-          {
-            from = {
-              key_code = "t";
-              modifiers = {
-                mandatory = hyperModifiers;
-              };
-            };
-            to = [
-              {
-                shell_command = openHeliumT3Chat;
-              }
-            ];
-            type = "basic";
-          }
-        ];
-      }
-      {
         description = "Hyper+E opens Exa Search";
         manipulators = [
           {
@@ -481,6 +464,25 @@ let
         ];
       }
       {
+        description = "Hyper+V opens ChatGPT (incognito)";
+        manipulators = [
+          {
+            from = {
+              key_code = "v";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openChatGPTIncognito;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
         description = "Hyper+C opens ChatGPT";
         manipulators = [
           {
@@ -512,6 +514,25 @@ let
             to = [
               {
                 shell_command = openClaude;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+; opens Claude (incognito)";
+        manipulators = [
+          {
+            from = {
+              key_code = "semicolon";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openClaudeIncognito;
               }
             ];
             type = "basic";
