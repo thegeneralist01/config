@@ -415,11 +415,11 @@ let
         ];
       }
       {
-        description = "Hyper+T opens Telegram";
+        description = "Hyper+W opens Telegram";
         manipulators = [
           {
             from = {
-              key_code = "t";
+              key_code = "w";
               modifiers = {
                 mandatory = hyperModifiers;
               };
