@@ -17,6 +17,7 @@ let
   openChatGPTIncognito = "open -na Helium.app --args https://chatgpt.com/?temporary-chat=true";
   openClaude = "open -na Helium.app --args https://claude.ai/new";
   openClaudeIncognito = "open -na Helium.app --args https://claude.ai/new?incognito=";
+  openHeliumTelegram = "open -na Helium.app --args https://web.telegram.org/k/";
 
   numbers = [
     "1"
@@ -407,6 +408,25 @@ let
             to = [
               {
                 shell_command = openHeliumExaSearch;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+T opens Telegram";
+        manipulators = [
+          {
+            from = {
+              key_code = "t";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openHeliumTelegram;
               }
             ];
             type = "basic";
