@@ -578,6 +578,25 @@ let
           }
         ];
       }
+      {
+        description = "Hyper+9 copies an orchestrate prompt into the clipboard";
+        manipulators = [
+          {
+            from = {
+              key_code = "9";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = "printf '%s' $'/goal set\\n\\nI had this on my today\\'s agenda regarding archivr feat impl\\'s or bug fixes:\\n...\\n\\nThis is going to be a PR. I like atomic commits. (I reckon you won\\'t be needing many commits for this, since it\\'s a small task, I assume.)\\n\\nIf you have any questions before you start (i.e. to decide on something), then shoot!\\n\\nOtherwise, you\\'re allowed to Orchestrate and delegate if/when necessary.\\nUse agents and/or skills for suited tasks (design/planning/tests/etc.), if needed.' | pbcopy";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
     ];
   };
 

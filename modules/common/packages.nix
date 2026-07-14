@@ -51,6 +51,23 @@ in {
       carapace
       bat
 
+      sd
+      glow
+      dust
+      hyperfine
+      tokei
+      procs
+      bandwhich
+
+      watchexec
+      git-absorb
+      ouch
+      xh
+      duf
+      grex
+
+      mise
+
       mosh
     ])
     ++ optionals (pkgs ? bat-extras && pkgs.bat-extras ? core) [

@@ -34,7 +34,6 @@ in
           basedpyright
           black
 
-          nodejs
           dart-sass
           pnpm_9
         ]
@@ -75,6 +74,7 @@ in
         "/opt/homebrew/bin"
         "/opt/homebrew/opt"
         "$HOME/.npm-packages/bin"
+        "$HOME/.opencode/bin"
         "$PNPM_HOME"
         "$BUN_INSTALL/bin"
       ];

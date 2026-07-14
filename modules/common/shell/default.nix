@@ -207,6 +207,9 @@ in
             if command -sq omp
               omp completions fish | source
             end
+            if command -sq mise
+              mise activate fish | source
+            end
           '';
 
           functions = {

@@ -70,6 +70,10 @@ in
 
           extraConfig = /* nu */ ''
             use ${pkgs.writeTextDir "omp-completions.nu" (readFile ./omp-completions.nu)}/omp-completions.nu *
+
+            if (which mise | is-not-empty) {
+              $env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/share/mise/shims")
+            }
           '';
         };
       }
