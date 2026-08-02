@@ -210,6 +210,7 @@ in
             if command -sq mise
               mise activate fish | source
             end
+            fish_add_path $HOME/go/bin
           '';
 
           functions = {

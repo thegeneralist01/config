@@ -210,6 +210,22 @@
         up = "volume up";
         shift-down = [ "volume set 0" "mode main" ];
       };
+
+      on-window-detected = [
+        { "if".app-id = "net.imput.helium"; run = "move-node-to-workspace W"; }
+        { "if".app-id = "com.stablyai.orca"; run = "move-node-to-workspace S"; }
+        { "if".app-id = "md.obsidian"; run = "move-node-to-workspace Q"; }
+        { "if".app-id = "com.openai.codex"; run = "move-node-to-workspace D"; }
+        { "if".app-id = "com.anthropic.claudefordesktop"; run = "move-node-to-workspace C"; }
+        { "if".app-id = "com.apple.mail"; run = "move-node-to-workspace M"; }
+        { "if".app-id = "io.tailscale.ipn.macsys"; run = "move-node-to-workspace 9"; }
+        { "if".app-id = "com.softissimo.ReversoContext.macosapp"; run = "move-node-to-workspace 9"; }
+        { "if".app-id = "com.pais.handy"; run = "move-node-to-workspace 9"; }
+        { "if".app-id = "com.superduper.superwhisper"; run = "move-node-to-workspace 9"; }
+        { "if".app-id = "com.todoist.mac.Todoist"; run = "move-node-to-workspace T"; }
+        { "if".app-id = "com.apple.finder"; run = "move-node-to-workspace A"; }
+        { "if".app-id = "com.apple.iBooksX"; run = "move-node-to-workspace B"; }
+      ];
     };
   };
 }

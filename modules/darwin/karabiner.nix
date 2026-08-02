@@ -18,6 +18,8 @@ let
   openClaude = "open -na Helium.app --args https://claude.ai/new";
   openClaudeIncognito = "open -na Helium.app --args https://claude.ai/new?incognito=";
   openHeliumTelegram = "open -na Helium.app --args https://web.telegram.org/k/";
+  openHeliumTodoist = "open -na Helium.app --args https://app.todoist.com/app/today";
+  openHeliumDiscord = "open -na Helium.app --args https://discord.com/channels/@me";
 
   numbers = [
     "1"
@@ -350,7 +352,7 @@ let
             };
             to = [
               {
-                shell_command = openCmux;
+                shell_command = openGhostty;
               }
             ];
             type = "basic";
@@ -427,6 +429,44 @@ let
             to = [
               {
                 shell_command = openHeliumTelegram;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+D opens Discord";
+        manipulators = [
+          {
+            from = {
+              key_code = "d";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openHeliumDiscord;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+T opens Todoist's Today";
+        manipulators = [
+          {
+            from = {
+              key_code = "t";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openHeliumTodoist;
               }
             ];
             type = "basic";
@@ -591,6 +631,44 @@ let
             to = [
               {
                 shell_command = "printf '%s' $'/goal set\\n\\nI had this on my today\\'s agenda regarding archivr feat impl\\'s or bug fixes:\\n...\\n\\nThis is going to be a PR. I like atomic commits. (I reckon you won\\'t be needing many commits for this, since it\\'s a small task, I assume.)\\n\\nIf you have any questions before you start (i.e. to decide on something), then shoot!\\n\\nOtherwise, you\\'re allowed to Orchestrate and delegate if/when necessary.\\nUse agents and/or skills for suited tasks (design/planning/tests/etc.), if needed.' | pbcopy";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+8 types a schwa (ə)";
+        manipulators = [
+          {
+            from = {
+              key_code = "8";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = "osascript -e 'set savedClip to the clipboard' -e 'set the clipboard to \"ə\"' -e 'tell application \"System Events\" to keystroke \"v\" using command down' -e 'delay 0.1' -e 'set the clipboard to savedClip'";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Shift+Hyper+8 types a capital schwa (Ə)";
+        manipulators = [
+          {
+            from = {
+              key_code = "8";
+              modifiers = {
+                mandatory = hyperModifiers ++ [ "right_shift" ];
+              };
+            };
+            to = [
+              {
+                shell_command = "osascript -e 'set savedClip to the clipboard' -e 'set the clipboard to \"Ə\"' -e 'tell application \"System Events\" to keystroke \"v\" using command down' -e 'delay 0.1' -e 'set the clipboard to savedClip'";
               }
             ];
             type = "basic";

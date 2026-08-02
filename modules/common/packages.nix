@@ -1,6 +1,9 @@
 { pkgs, lib, ... }: let
   inherit (lib) optionals;
 in {
+  environment.variables = {
+    GOPATH = "$HOME/go";
+  };
   environment.systemPackages =
     (with pkgs; [
       wget
@@ -67,6 +70,11 @@ in {
       grex
 
       mise
+
+      go
+      gopls
+      gofumpt
+      delve
 
       mosh
     ])
