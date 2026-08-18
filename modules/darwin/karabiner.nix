@@ -361,6 +361,25 @@ let
         ];
       }
       {
+        description = "Hyper+A opens Telegram";
+        manipulators = [
+          {
+            from = {
+              key_code = "a";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = openHeliumTelegram;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
         description = "Hyper+B opens Helium";
         manipulators = [
           {
@@ -418,7 +437,7 @@ let
         ];
       }
       {
-        description = "Hyper+W opens Telegram";
+        description = "Hyper+W opens or focuses Helium";
         manipulators = [
           {
             from = {
@@ -429,7 +448,7 @@ let
             };
             to = [
               {
-                shell_command = openHeliumTelegram;
+                shell_command = "open -a Helium.app";
               }
             ];
             type = "basic";
