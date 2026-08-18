@@ -4,7 +4,7 @@ let
     "left_command"
     "left_control"
     "left_option"
-    "left_shift"
+    "right_shift"
   ];
 
   openGhostty = "open -na Ghostty.app";
@@ -20,6 +20,7 @@ let
   openHeliumTelegram = "open -na Helium.app --args https://web.telegram.org/k/";
   openHeliumTodoist = "open -na Helium.app --args https://app.todoist.com/app/today";
   openHeliumDiscord = "open -na Helium.app --args https://discord.com/channels/@me";
+  openHeliumGmail = "open -na Helium.app --args https://gmail.com/";
 
   numbers = [
     "1"
@@ -328,7 +329,7 @@ let
             };
             to = [
               {
-                key_code = "left_shift";
+                key_code = "right_shift";
                 modifiers = [
                   "left_option"
                   "left_command"
@@ -455,13 +456,32 @@ let
         ];
       }
       {
-        description = "Hyper+T opens Todoist's Today";
+        description = "Hyper+T opens or focuses native Todoist app";
         manipulators = [
           {
             from = {
               key_code = "t";
               modifiers = {
                 mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = "open -a Todoist.app";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Shift+Hyper+T opens Todoist's Today in Helium";
+        manipulators = [
+          {
+            from = {
+              key_code = "t";
+              modifiers = {
+                mandatory = hyperModifiers ++ [ "left_shift" ];
               };
             };
             to = [
@@ -663,12 +683,50 @@ let
             from = {
               key_code = "8";
               modifiers = {
-                mandatory = hyperModifiers ++ [ "right_shift" ];
+                mandatory = hyperModifiers ++ [ "left_shift" ];
               };
             };
             to = [
               {
                 shell_command = "osascript -e 'set savedClip to the clipboard' -e 'set the clipboard to \"Ə\"' -e 'tell application \"System Events\" to keystroke \"v\" using command down' -e 'delay 0.1' -e 'set the clipboard to savedClip'";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+M opens or focuses native Mail app";
+        manipulators = [
+          {
+            from = {
+              key_code = "m";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = "open -a Mail.app";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Shift+Hyper+M opens Gmail in Helium";
+        manipulators = [
+          {
+            from = {
+              key_code = "m";
+              modifiers = {
+                mandatory = hyperModifiers ++ [ "left_shift" ];
+              };
+            };
+            to = [
+              {
+                shell_command = openHeliumGmail;
               }
             ];
             type = "basic";
