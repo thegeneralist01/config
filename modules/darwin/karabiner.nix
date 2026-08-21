@@ -563,11 +563,87 @@ let
         ];
       }
       {
-        description = "Hyper+V opens ChatGPT (incognito)";
+        description = "Hyper+C opens or focuses ChatGPT app";
+        manipulators = [
+          {
+            from = {
+              key_code = "c";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = "open -a ChatGPT.app";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Shift+Hyper+C opens ChatGPT web";
+        manipulators = [
+          {
+            from = {
+              key_code = "c";
+              modifiers = {
+                mandatory = hyperModifiers ++ [ "left_shift" ];
+              };
+            };
+            to = [
+              {
+                shell_command = openChatGPT;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+V opens or focuses Claude app";
         manipulators = [
           {
             from = {
               key_code = "v";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = "open -a Claude.app";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Shift+Hyper+V opens Claude web";
+        manipulators = [
+          {
+            from = {
+              key_code = "v";
+              modifiers = {
+                mandatory = hyperModifiers ++ [ "left_shift" ];
+              };
+            };
+            to = [
+              {
+                shell_command = openClaude;
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+L opens ChatGPT web (incognito)";
+        manipulators = [
+          {
+            from = {
+              key_code = "l";
               modifiers = {
                 mandatory = hyperModifiers;
               };
@@ -582,51 +658,13 @@ let
         ];
       }
       {
-        description = "Hyper+C opens ChatGPT";
-        manipulators = [
-          {
-            from = {
-              key_code = "c";
-              modifiers = {
-                mandatory = hyperModifiers;
-              };
-            };
-            to = [
-              {
-                shell_command = openChatGPT;
-              }
-            ];
-            type = "basic";
-          }
-        ];
-      }
-      {
-        description = "Hyper+L opens Claude";
+        description = "Shift+Hyper+L opens Claude web (incognito)";
         manipulators = [
           {
             from = {
               key_code = "l";
               modifiers = {
-                mandatory = hyperModifiers;
-              };
-            };
-            to = [
-              {
-                shell_command = openClaude;
-              }
-            ];
-            type = "basic";
-          }
-        ];
-      }
-      {
-        description = "Hyper+; opens Claude (incognito)";
-        manipulators = [
-          {
-            from = {
-              key_code = "semicolon";
-              modifiers = {
-                mandatory = hyperModifiers;
+                mandatory = hyperModifiers ++ [ "left_shift" ];
               };
             };
             to = [
