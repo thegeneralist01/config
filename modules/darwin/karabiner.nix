@@ -118,7 +118,7 @@ let
 
   logitechMouseIdentifiers = {
     vendor_id = 1133;
-    product_id = 50503;
+    product_id = 50504;
     is_pointing_device = true;
   };
 
@@ -335,6 +335,59 @@ let
                   "left_command"
                   "left_control"
                 ];
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+1/2/3/4 select English, Russian, German, or Azerbaijani input";
+        manipulators = [
+          {
+            from = {
+              key_code = "1";
+              modifiers.mandatory = hyperModifiers;
+            };
+            to = [
+              {
+                select_input_source.input_source_id = "com.apple.keylayout.US";
+              }
+            ];
+            type = "basic";
+          }
+          {
+            from = {
+              key_code = "2";
+              modifiers.mandatory = hyperModifiers;
+            };
+            to = [
+              {
+                select_input_source.input_source_id = "com.apple.keylayout.RussianWin";
+              }
+            ];
+            type = "basic";
+          }
+          {
+            from = {
+              key_code = "3";
+              modifiers.mandatory = hyperModifiers;
+            };
+            to = [
+              {
+                select_input_source.input_source_id = "com.apple.keylayout.German-DIN-2137";
+              }
+            ];
+            type = "basic";
+          }
+          {
+            from = {
+              key_code = "4";
+              modifiers.mandatory = hyperModifiers;
+            };
+            to = [
+              {
+                select_input_source.input_source_id = "com.apple.keylayout.Azeri";
               }
             ];
             type = "basic";
@@ -601,11 +654,11 @@ let
         ];
       }
       {
-        description = "Hyper+V opens or focuses Claude app";
+        description = "Hyper+F opens or focuses Claude app";
         manipulators = [
           {
             from = {
-              key_code = "v";
+              key_code = "f";
               modifiers = {
                 mandatory = hyperModifiers;
               };
@@ -620,11 +673,11 @@ let
         ];
       }
       {
-        description = "Shift+Hyper+V opens Claude web";
+        description = "Shift+Hyper+F opens Claude web";
         manipulators = [
           {
             from = {
-              key_code = "v";
+              key_code = "f";
               modifiers = {
                 mandatory = hyperModifiers ++ [ "left_shift" ];
               };
