@@ -215,9 +215,11 @@
         { "if".app-id = "net.imput.helium"; run = "move-node-to-workspace W"; }
         { "if".app-id = "com.stablyai.orca"; run = "move-node-to-workspace S"; }
         { "if".app-id = "md.obsidian"; run = "move-node-to-workspace Q"; }
-        { "if".app-id = "com.openai.codex"; run = "move-node-to-workspace D"; }
-        { "if".app-id = "com.anthropic.claudefordesktop"; run = "move-node-to-workspace C"; }
+        { "if".app-id = "com.openai.codex"; run = "move-node-to-workspace C"; }
+        { "if".app-id = "com.anthropic.claudefordesktop"; run = "move-node-to-workspace F"; }
         { "if".app-id = "com.apple.mail"; run = "move-node-to-workspace M"; }
+        { "if".app-id = "net.whatsapp.WhatsApp"; run = "move-node-to-workspace E"; }
+        { "if".app-id = "com.apple.reminders"; run = "move-node-to-workspace E"; }
         { "if".app-id = "io.tailscale.ipn.macsys"; run = "move-node-to-workspace 9"; }
         { "if".app-id = "com.softissimo.ReversoContext.macosapp"; run = "move-node-to-workspace 9"; }
         { "if".app-id = "com.pais.handy"; run = "move-node-to-workspace 9"; }
