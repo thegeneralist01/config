@@ -29,6 +29,12 @@ in
           };
 
           remotes.origin.auto-track-bookmarks = "glob:*";
+
+          signing = {
+            sign-all = true;
+            backend = "ssh";
+            key = "~/.ssh/id_ed25519";
+          };
         };
       };
     }
