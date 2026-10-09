@@ -6,8 +6,8 @@ in {
 
     settings.Resolve = {
       DNS = config.dnsServers;
-      DNSSEC = true;
-      DNSOverTLS = true;
+      DNSSEC = "allow-downgrade";
+      DNSOverTLS = "opportunistic";
     };
   };
 }

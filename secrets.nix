@@ -3,17 +3,14 @@ let
 in
 {
   "hosts/thegeneralist/hostkey.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/hostkey.age".publicKeys = [ thegeneralist ];
-
-  "hosts/thegeneralist-central/acme/acmeEnvironment.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/cert.pem.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/credentials.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/cache/key.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/password.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/forgejo/forgejo-runner-token.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/readlater-bot-token.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/readlater-bot-sync-token.age".publicKeys = [ thegeneralist ];
-  "hosts/thegeneralist-central/readlater-bot-user-id.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist/acme/acmeEnvironment.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist/cert.pem.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist/credentials.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist/cache/key.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist/forgejo/forgejo-runner-token.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist/readlater-bot-token.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist/readlater-bot-sync-token.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist/readlater-bot-user-id.age".publicKeys = [ thegeneralist ];
 
   "modules/linux/tailscale-marshall.age".publicKeys = [ thegeneralist ];
 }

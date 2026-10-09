@@ -60,12 +60,14 @@ in
         # Same pattern as Volta activation: Nix declares intent, tool manager installs.
         home.activation.uvToolLlm = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
           export PATH="${pkgs.uv}/bin:$HOME/.local/bin:$PATH"
+          export UV_PYTHON_DOWNLOADS=never
 
           if [ -n "''${DRY_RUN:-}" ]; then
-            echo "${uvBin} tool install llm"
+            echo "${uvBin} tool install --python ${pkgs.python3}/bin/python3 llm"
           else
-            # Idempotent: installs or refreshes the uv-managed tool env + ~/.local/bin/llm
-            ${uvBin} tool install llm
+            # Pin the tool environment to Nix's Python; generic uv-managed
+            # Python binaries do not run on NixOS without an FHS loader.
+            ${uvBin} tool install --python ${pkgs.python3}/bin/python3 llm
           fi
         '';
       }

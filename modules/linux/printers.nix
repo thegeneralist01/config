@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -10,9 +10,5 @@
     pulse.enable = true;
   };
 
-  # Epson proprietary backend
   hardware.sane.enable = true;
-  hardware.sane.extraBackends = [
-    pkgs.epkowa
-  ];
 }

@@ -16,7 +16,7 @@
         ALLOWLIST_HOSTS = "localhost";
         CSRF_TRUSTED_ORIGINS = "https://archive.thegeneralist01.com,127.0.0.1:8000";
         REVERSE_PROXY_USER_HEADER = "X-Remote-User";
-        REVERSE_PROXY_WHITELIST = "127.0.0.1/32,100.86.129.23/32";
+        REVERSE_PROXY_WHITELIST = "127.0.0.1/32,100.108.125.63/32";
       };
     };
 

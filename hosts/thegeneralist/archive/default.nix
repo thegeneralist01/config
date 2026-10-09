@@ -1,48 +1,31 @@
-{ pkgs, ... }:
 let
   acmeDomain = "thegeneralist01.com";
-  domain = "internal.${acmeDomain}";
+  domain = "archive.${acmeDomain}";
 
   ssl = {
     forceSSL = true;
     quic = true;
-    useACMEHost = domain;
+    useACMEHost = acmeDomain;
   };
 in
 {
-  environment.systemPackages = with pkgs; [
-    jellyfin
-    jellyfin-web
-    jellyfin-ffmpeg
-  ];
-
-  services.jellyfin = {
-    enable = true;
-    package = pkgs.jellyfin;
-    group = "jellyfin";
-    user = "jellyfin";
-
-    cacheDir  = "/mnt/usb/services/jellyfin/cache";
-    dataDir   = "/mnt/usb/services/jellyfin/data/data";
-    configDir = "/mnt/usb/services/jellyfin/data/config";
-    logDir    = "/mnt/usb/services/jellyfin/data/log";
-  };
+  imports = [ ./archivebox.nix ];
 
   services.nginx.virtualHosts.${domain} = ssl // {
     listen = [
       {
-        addr = "100.86.129.23";
+        addr = "100.108.125.63";
         port = 443;
         ssl = true;
       }
       {
-        addr = "100.86.129.23";
+        addr = "100.108.125.63";
         port = 80;
       }
     ];
 
     locations."/" = {
-      proxyPass = "http://127.0.0.1:8096";
+      proxyPass = "http://127.0.0.1:8000";
       recommendedProxySettings = true;
       extraConfig = ''
         proxy_set_header Upgrade $http_upgrade;

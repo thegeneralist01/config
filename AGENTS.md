@@ -21,6 +21,4 @@ This file provides minimal context for assistants working with this Nix config r
 - All others -> NixOS
 - Current hosts:
   - `thegeneralist` (NixOS)
-  - `thegeneralist-central` (NixOS)
   - `thegeneralist-mbp` (Darwin)
-  - `thegeneralist-central-mbp` (Darwin)

@@ -5,8 +5,8 @@ A comprehensive Nix flake configuration supporting both NixOS (Linux) and nix-da
 ## Overview
 
 This configuration provides a unified way to manage multiple machines across different platforms:
-- **NixOS hosts**: `thegeneralist`, `thegeneralist-central` 
-- **Darwin hosts**: `thegeneralist-mbp`, `thegeneralist-central-mbp`
+- **NixOS hosts**: `thegeneralist`
+- **Darwin hosts**: `thegeneralist-mbp`
 
 ## Quick Start
 
@@ -121,7 +121,7 @@ Hosts are automatically categorized based on naming conventions:
 
 ### Common Modules
 Located in `modules/common/`, these are loaded on all systems:
-- `nix.nix` - Nix configuration, caches, and distributed builds
+- `nix.nix` - Nix configuration and binary caches
 - `home-manager.nix` - User environment management
 - `packages.nix` - Common packages
 - `git.nix`, `neovim.nix`, `zsh.nix` - Development tools
@@ -152,12 +152,9 @@ Uses `agenix` for encrypted secrets management:
 3. Edit secrets: `agenix -e secret-name.age`
 4. Reference in configuration: `config.age.secrets.secret-name.path`
 
-## Distributed Builds
+## Builds and Binary Cache
 
-The configuration includes distributed build support:
-- `thegeneralist-central` serves as the build machine
-- Other hosts can offload builds via SSH
-- Shared binary caches for faster builds
+`thegeneralist` performs its own x86_64 builds and serves the personal binary cache.
 
 ## Binary Caches
 
@@ -226,10 +223,9 @@ darwin-rebuild switch --rollback
 2. Re-encrypt secrets: `agenix -r`
 3. Check file permissions on age keys
 
-### Performance Issues  
-1. Enable distributed builds to `thegeneralist-central`
-2. Verify binary cache access
-3. Use `nh` for optimized rebuilds
+### Performance Issues
+1. Verify binary cache access
+2. Use `nh` for optimized rebuilds
 
 ## Contributing
 

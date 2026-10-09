@@ -13,6 +13,16 @@
   hardware.enableAllFirmware = true;
   boot.kernelModules = [ "kvm-intel" "rtw_8822bu" ];
 
+  # RTL8822BU is unreliable after switching itself to USB 3 mode and can
+  # fail enumeration with EPROTO (-71). Keep it in USB 2 mode and disable
+  # the power-saving states that can wedge rtw88 USB adapters.
+  boot.extraModprobeConfig = ''
+    options rtw88_usb switch_usb_mode=N
+    options rtw88_core disable_lps_deep=1
+  '';
+  boot.kernelParams = [ "usbcore.autosuspend=-1" ];
+  networking.networkmanager.wifi.powersave = false;
+
   fileSystems."/" =
     {
       device = "/dev/disk/by-label/NIXROOT";
@@ -25,6 +35,15 @@
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
+
+  fileSystems."/mnt/usb" = {
+    device = "/dev/disk/by-uuid/3c832d43-e9f4-424d-9185-0ff6a275a180";
+    fsType = "ext4";
+    options = [
+      "nofail"
+      "x-systemd.automount"
+    ];
+  };
 
   swapDevices = [{
     device = "/dev/disk/by-label/swap";

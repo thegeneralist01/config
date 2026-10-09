@@ -1,10 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
-  forgejo_root_dir = "/var/lib/forgejo";
+  forgejoStateDir = "/mnt/usb/services/forgejo/stateDir";
   domain = "git.thegeneralist01.com";
-
-  forgejo_folder = folder_name: "${forgejo_root_dir}/${folder_name}";
 in
 {
   imports = [ ../../../modules/postgresql.nix ];
@@ -13,7 +11,7 @@ in
 
   services.forgejo = {
     enable = true;
-    stateDir = forgejo_folder "state";
+    stateDir = forgejoStateDir;
 
     lfs.enable = true;
 
@@ -97,11 +95,31 @@ in
       };
   };
 
+  systemd.services.forgejo = {
+    requires = [ "forgejo-data-ownership.service" ];
+    after = [ "forgejo-data-ownership.service" ];
+  };
+
+  systemd.services.forgejo-data-ownership = {
+    description = "Prepare persisted Forgejo state";
+    unitConfig.RequiresMountsFor = [ forgejoStateDir ];
+    before = [ "forgejo.service" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      marker=${forgejoStateDir}/.nixos-ownership-v1
+      if [ ! -e "$marker" ]; then
+        ${pkgs.coreutils}/bin/chown -R forgejo:forgejo ${forgejoStateDir}
+        ${pkgs.coreutils}/bin/touch "$marker"
+        ${pkgs.coreutils}/bin/chown forgejo:forgejo "$marker"
+      fi
+    '';
+  };
+
   services.gitea-actions-runner = {
     package = pkgs.forgejo-runner;
-    instances.central = {
+    instances.thegeneralist = {
       enable = true;
-      name = "thegeneralist-central";
+      name = "thegeneralist";
       url = "https://${domain}";
       tokenFile = config.age.secrets.forgejoRunnerToken.path;
       labels = [
@@ -128,13 +146,9 @@ in
 
   networking.firewall.trustedInterfaces = [ "br-+" ];
 
-  programs.ssh.knownHosts.central = {
-    hostNames = [ "central" ];
-    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOkFvw9+AispgqwaYg3ksAZTHJgkCDwFTbWzUh/pVcAS";
-  };
 
   # Avoid /var/lib/private so the runner can write its state.
-  systemd.services.gitea-runner-central.serviceConfig = {
+  systemd.services.gitea-runner-thegeneralist.serviceConfig = {
     DynamicUser = lib.mkForce false;
     StateDirectory = lib.mkForce "gitea-runner";
     StateDirectoryMode = "0755";
@@ -147,13 +161,13 @@ in
     isSystemUser = true;
     group = "gitea-runner";
     extraGroups = [ "users" ];
-    home = "/var/lib/gitea-runner/central";
+    home = "/var/lib/gitea-runner/thegeneralist";
     createHome = true;
   };
 
   systemd.tmpfiles.rules = [
     "d /var/lib/gitea-runner 0755 gitea-runner gitea-runner -"
-    "d /var/lib/gitea-runner/central 0755 gitea-runner gitea-runner -"
+    "d /var/lib/gitea-runner/thegeneralist 0755 gitea-runner gitea-runner -"
   ];
 
   networking.firewall.allowedTCPPorts = [ 2222 ];

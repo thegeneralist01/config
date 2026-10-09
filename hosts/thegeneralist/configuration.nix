@@ -6,11 +6,37 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./site.nix
+    ./cache
+    ./archive
+    ./forgejo
+  ];
+
+  age.secrets.readlaterBotToken = {
+    file = ./readlater-bot-token.age;
+    owner = "thegeneralist";
+    group = "users";
+    mode = "0400";
+  };
+  age.secrets.readlaterBotSyncToken = {
+    file = ./readlater-bot-sync-token.age;
+    owner = "thegeneralist";
+    group = "users";
+    mode = "0400";
+  };
+  age.secrets.readlaterBotUserId = {
+    file = ./readlater-bot-user-id.age;
+    owner = "thegeneralist";
+    group = "users";
+    mode = "0400";
+  };
 
   users.users.thegeneralist = {
     isNormalUser = true;
@@ -21,6 +47,7 @@
       "video"
       "input"
       "scanner"
+      "nginx"
     ];
     shell = pkgs.zsh;
     home = "/home/thegeneralist";
@@ -48,6 +75,43 @@
       path = config.age.secrets.hostkey.path;
     }
   ];
+
+  services.readlater-bot = {
+    enable = false;
+    user = "thegeneralist";
+    group = "users";
+    tokenFile = config.age.secrets.readlaterBotToken.path;
+    settings = {
+      media_dir = "/home/thegeneralist/obsidian/09 Misc/Assets/images_misc";
+      resources_path = "/home/thegeneralist/obsidian/02 Knowledge/03 Resources";
+      read_later_path = "/home/thegeneralist/obsidian/10 Read Later.md";
+      finished_path = "/home/thegeneralist/obsidian/20 Finished Reading.md";
+      data_dir = "/var/lib/readlater-bot";
+      retry_interval_seconds = 30;
+      sync = {
+        repo_path = "/home/thegeneralist/obsidian";
+        token_file = config.age.secrets.readlaterBotSyncToken.path;
+      };
+      sync_x = {
+        source_project_path = "/home/thegeneralist/bookkeeper/vendor/extract-x-bookmarks";
+        python_bin = "/home/thegeneralist/bookkeeper/vendor/extract-x-bookmarks/.venv/bin/python3";
+        work_dir = "/home/thegeneralist/bookkeeper/.sync-x-work";
+      };
+    };
+  };
+
+  systemd.services.readlater-bot.preStart = lib.mkAfter ''
+    if [ -f /run/readlater-bot/config.toml ]; then
+      tmp="/run/readlater-bot/config.toml.tmp"
+      {
+        IFS= read -r first_line || true
+        printf '%s\n' "$first_line"
+        printf 'user_id = %s\n' "$(cat ${config.age.secrets.readlaterBotUserId.path})"
+        cat
+      } < /run/readlater-bot/config.toml > "$tmp"
+      mv "$tmp" /run/readlater-bot/config.toml
+    fi
+  '';
 
   # Some programs
   services.libinput.enable = true;

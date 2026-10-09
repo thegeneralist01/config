@@ -9,51 +9,16 @@ let
     useACMEHost = domain;
   };
 
-  plexDebUrl = "https://cdn.thegeneralist01.com/plexmediaserver_1.43.0.10492-121068a07_arm64.deb";
-  plexDebSha256 = "1fkh09b46q70kicjprxf0v507idhg2jh3pk97nhbxj1jagkhgck2";
-  plex = pkgs.stdenv.mkDerivation {
-    pname = "plexmediaserver";
-    version = "1.43.0.10492-121068a07";
-
-    src = pkgs.fetchurl {
-      url = plexDebUrl;
-      sha256 = plexDebSha256;
-    };
-
-    nativeBuildInputs = [ pkgs.dpkg ];
-
-    unpackPhase = ''
-      dpkg-deb -x $src .
-    '';
-
-    installPhase = ''
-  mkdir -p $out
-  cp -r usr/* $out/
-
-  mkdir -p $out/bin
-  cat > $out/bin/plexmediaserver <<EOF
-#!${pkgs.runtimeShell}
-
-export PLEX_MEDIA_SERVER_HOME=$out/lib/plexmediaserver
-export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="\$PLEX_DATADIR/Library/Application Support/Plex Media Server"
-export LD_LIBRARY_PATH=$out/lib/plexmediaserver
-
-exec "$out/lib/plexmediaserver/Plex Media Server" "\$@"
-EOF
-
-  chmod +x $out/bin/plexmediaserver
-'';
-  };
 
   config = ssl // {
     listen = [
       {
-        addr = "100.86.129.23";
+        addr = "100.108.125.63";
         port = 443;
         ssl = true;
       }
       {
-        addr = "100.86.129.23";
+        addr = "100.108.125.63";
         port = 80;
       }
     ];
@@ -93,7 +58,7 @@ in
 {
   services.plex = {
     enable = true;
-    package = plex;
+    package = pkgs.plex;
     dataDir = "/var/lib/plex";
     # openFirewall = true;
   };
@@ -123,11 +88,11 @@ in
 
   services.nginx.virtualHosts = {
     ${domain} = config;
-    "100.86.129.23" = config;
+    "100.108.125.63" = config;
   };
 
-  systemd.services."plex".serviceConfig = {
-    Wants = [ "tailscaled.service" ];
-    After = [ "network-online.target" "tailscaled.service" ];
+  systemd.services.plex = {
+    wants = [ "network-online.target" "tailscaled.service" ];
+    after = [ "network-online.target" "tailscaled.service" ];
   };
 }

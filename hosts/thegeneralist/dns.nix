@@ -12,12 +12,13 @@ let
           3600       ; minimum
     )
         IN NS   ns.thegeneralist01.com.
-    ns  IN A    100.86.129.23
-    ${lib.concatStringsSep "\n" (lib.map (sub: "${sub} IN A 100.86.129.23") subdomains)}
+    ns  IN A    100.108.125.63
+    ${lib.concatStringsSep "\n" (lib.map (sub: "${sub} IN A 100.108.125.63") subdomains)}
   '';
 
   forwarderBlock = ''
     .:53 {
+      bind 100.108.125.63
       forward . 100.100.100.100 45.90.28.181 45.90.30.181
       cache
       log
@@ -30,6 +31,7 @@ in
     enable = true;
     config = ''
       thegeneralist01.com:53 {
+        bind 100.108.125.63
         file ${mainZoneFile}
         log
         errors
@@ -39,6 +41,13 @@ in
     '';
   };
 
-  networking.firewall.allowedUDPPorts = [ 53 ];
-  networking.firewall.allowedTCPPorts = [ 53 ];
+  systemd.services.coredns = {
+    wants = [ "network-online.target" "tailscaled.service" ];
+    after = [ "network-online.target" "tailscaled.service" ];
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "2s";
+    };
+  };
+
 }
