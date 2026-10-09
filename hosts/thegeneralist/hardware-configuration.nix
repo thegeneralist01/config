@@ -19,9 +19,16 @@
   boot.extraModprobeConfig = ''
     options rtw88_usb switch_usb_mode=N
     options rtw88_core disable_lps_deep=1
+    options nvidia NVreg_DynamicPowerManagement=0x02
   '';
   boot.kernelParams = [ "usbcore.autosuspend=-1" ];
   networking.networkmanager.wifi.powersave = false;
+
+  # Allow this headless Turing GPU to enter runtime D3 while unused.
+  services.udev.extraRules = ''
+    ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
+    ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
+  '';
 
   # Favor efficient idle and light-load operation without suspending this
   # always-on host. The EPP setting retains short performance bursts.
