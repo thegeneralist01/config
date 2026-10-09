@@ -730,11 +730,11 @@ let
         ];
       }
       {
-        description = "Hyper+0 copies a rephrase prompt into the clipboard";
+        description = "Hyper+9 copies a rephrase prompt into the clipboard";
         manipulators = [
           {
             from = {
-              key_code = "0";
+              key_code = "9";
               modifiers = {
                 mandatory = hyperModifiers;
               };
@@ -749,11 +749,30 @@ let
         ];
       }
       {
-        description = "Hyper+9 copies an orchestrate prompt into the clipboard";
+        description = "Hyper+0 copies a concise high-entropy reply prompt into the clipboard";
         manipulators = [
           {
             from = {
-              key_code = "9";
+              key_code = "0";
+              modifiers = {
+                mandatory = hyperModifiers;
+              };
+            };
+            to = [
+              {
+                shell_command = "printf '%s' 'Reply concisely, pay attention to word economy, make it high-entropy.' | pbcopy";
+              }
+            ];
+            type = "basic";
+          }
+        ];
+      }
+      {
+        description = "Hyper+8 copies an orchestrate prompt into the clipboard";
+        manipulators = [
+          {
+            from = {
+              key_code = "8";
               modifiers = {
                 mandatory = hyperModifiers;
               };
@@ -768,11 +787,11 @@ let
         ];
       }
       {
-        description = "Hyper+8 types a schwa (ə)";
+        description = "Hyper+6 types a schwa (ə)";
         manipulators = [
           {
             from = {
-              key_code = "8";
+              key_code = "6";
               modifiers = {
                 mandatory = hyperModifiers;
               };
@@ -787,11 +806,11 @@ let
         ];
       }
       {
-        description = "Shift+Hyper+8 types a capital schwa (Ə)";
+        description = "Shift+Hyper+6 types a capital schwa (Ə)";
         manipulators = [
           {
             from = {
-              key_code = "8";
+              key_code = "6";
               modifiers = {
                 mandatory = hyperModifiers ++ [ "left_shift" ];
               };
