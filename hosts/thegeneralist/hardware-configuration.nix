@@ -41,6 +41,12 @@
         fi
       done
 
+      for host in /sys/class/scsi_host/host*; do
+        if [ -w "$host/link_power_management_policy" ]; then
+          echo med_power_with_dipm > "$host/link_power_management_policy"
+        fi
+      done
+
       # This unmounted archival HDD wakes transparently when accessed.
       disk=/dev/disk/by-id/ata-ST1000DM010-2EP102_ZN1043CH
       if [ -b "$disk" ]; then
