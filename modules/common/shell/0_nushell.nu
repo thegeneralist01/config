@@ -344,6 +344,17 @@ def --env mcg [path: path]: nothing -> nothing {
   jj git init --colocate
 }
 
+# Forward a local port to a port on an SSH host.
+def ssh-tunnel [
+  local_port: int
+  remote_port: int
+  user: string
+  remote_host: string
+  --server_alive_interval: int = 60
+]: nothing -> nothing {
+  ^ssh -N -o ExitOnForwardFailure=yes -o $"ServerAliveInterval=($server_alive_interval)" -L $"127.0.0.1:($local_port):127.0.0.1:($remote_port)" $"($user)@($remote_host)"
+}
+
 # ls files sorted by latest DESC
 def latest [
   path: path = .
