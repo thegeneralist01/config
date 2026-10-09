@@ -1,4 +1,4 @@
-{ config, lib, modulesPath, ... }:
+{ config, lib, modulesPath, pkgs, ... }:
 
 {
   imports =
@@ -23,6 +23,33 @@
   boot.kernelParams = [ "usbcore.autosuspend=-1" ];
   networking.networkmanager.wifi.powersave = false;
 
+  # Favor efficient idle and light-load operation without suspending this
+  # always-on host. The EPP setting retains short performance bursts.
+  powerManagement = {
+    cpuFreqGovernor = "powersave";
+    scsiLinkPolicy = "med_power_with_dipm";
+  };
+  systemd.services.energy-policy = {
+    description = "Apply host energy policy";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-modules-load.service" "local-fs.target" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      for policy in /sys/devices/system/cpu/cpufreq/policy*; do
+        if [ -w "$policy/energy_performance_preference" ]; then
+          echo balance_power > "$policy/energy_performance_preference"
+        fi
+      done
+
+      # This unmounted archival HDD wakes transparently when accessed.
+      disk=/dev/disk/by-id/ata-ST1000DM010-2EP102_ZN1043CH
+      if [ -b "$disk" ]; then
+        ${pkgs.hdparm}/bin/hdparm -S 120 "$disk"
+      fi
+    '';
+  };
+  boot.kernel.sysctl."kernel.nmi_watchdog" = 0;
+
   fileSystems."/" =
     {
       device = "/dev/disk/by-label/NIXROOT";
@@ -42,6 +69,7 @@
     options = [
       "nofail"
       "x-systemd.automount"
+      "noatime"
     ];
   };
 

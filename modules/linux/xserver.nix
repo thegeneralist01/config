@@ -66,6 +66,18 @@
         };
       };
 
+      # Blank displays without suspending the machine or its services.
+      services.swayidle = {
+        enable = true;
+        timeouts = [{
+          timeout = 600;
+          command = "${pkgs.niri}/bin/niri msg action power-off-monitors";
+          resumeCommand = "${pkgs.niri}/bin/niri msg action power-on-monitors";
+        }];
+        events.before-sleep =
+          "${pkgs.niri}/bin/niri msg action power-off-monitors";
+      };
+
       programs.niri = {
         enable = true;
         package = pkgs.niri;
