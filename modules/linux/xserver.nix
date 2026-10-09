@@ -398,7 +398,7 @@
 
   environment.systemPackages = with pkgs; [
     fuzzel
-    xfce.thunar
+    thunar
     playerctl
     wireplumber
     yaziPlugins.wl-clipboard
@@ -437,7 +437,7 @@
     #     feh
     #     picom # transparency effects compositor
     #     dunst # notification daemon
-    #     xfce.thunar
+    #     thunar
     #     nemo
     #     arandr # screen conf
     #     lxappearance

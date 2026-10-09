@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ghostty, ... }: {
   environment.variables = {
     TERMINAL = "ghostty";
   };
@@ -6,7 +6,7 @@
   home-manager.sharedModules = [{
     programs.ghostty = {
       enable = true;
-      package = if config.onLinux then pkgs.ghostty else null;
+      package = if config.onLinux then ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default else null;
 
       clearDefaultKeybinds = false;
       settings = {
