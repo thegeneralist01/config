@@ -388,6 +388,67 @@ def vfd [filename: string]: nothing -> nothing {
   nvim (fd -t f $filename)
 }
 
+# Run `nix build` in a detached process. The returned PID can be passed to
+# `wait-for-build` from another Nushell session.
+def --wrapped "nix build" [...arguments] {
+  let state_home = $env.XDG_STATE_HOME? | default ($env.HOME | path join ".local" "state")
+  let state_dir = $state_home | path join "nix-builds"
+  ^mkdir -p -m 700 $state_dir
+
+  let worker = '
+    run_dir=$1; shift
+    umask 077
+    "$@" > "$run_dir/build.log" 2>&1
+    code=$?
+    printf "%s\n" "$code" > "$run_dir/status.tmp"
+    mv "$run_dir/status.tmp" "$run_dir/status"
+  '
+  let launcher = '
+    root=$1; worker=$2; shift 2
+    run_dir=$(mktemp -d "$root/run.XXXXXXXX") || exit 1
+    sh -c "$worker" sh "$run_dir" nix build "$@" </dev/null >/dev/null 2>&1 &
+    pid=$!
+    printf "%s\n" "$run_dir" > "$root/$pid"
+    printf "%s\n" "$pid"
+  '
+
+  let result = ^sh -c $launcher sh $state_dir $worker ...$arguments | complete
+  if $result.exit_code != 0 {
+    error make $"Could not start nix build: ($result.stderr | str trim)"
+  }
+
+  $result.stdout | str trim | into int
+}
+
+# Run a Nushell closure after a background `nix build` succeeds.
+# Example: wait-for-build { npm run start } 12345
+def wait-for-build [action: closure, pid: int] {
+  let state_home = $env.XDG_STATE_HOME? | default ($env.HOME | path join ".local" "state")
+  let state_dir = $state_home | path join "nix-builds"
+  let run_file = $state_dir | path join ($pid | into string)
+
+  if not ($run_file | path exists) {
+    error make $"Unknown nix build PID ($pid)"
+  }
+
+  let run_dir = open $run_file | str trim
+  let status_file = $run_dir | path join "status"
+
+  while not ($status_file | path exists) {
+    if (^kill -0 $pid | complete).exit_code != 0 {
+      error make $"Nix build ($pid) ended without a status file; check ($run_dir | path join 'build.log')"
+    }
+    sleep 200ms
+  }
+
+  let status = open $status_file | str trim | into int
+  if $status != 0 {
+    error make $"Nix build ($pid) failed with exit code ($status); log: ($run_dir | path join 'build.log')"
+  }
+
+  do --capture-errors $action
+}
+
 def --env "nu-complete jc" [commandline: string] {
   let stor = stor open
 
