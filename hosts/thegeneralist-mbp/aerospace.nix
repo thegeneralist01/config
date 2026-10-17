@@ -1,11 +1,21 @@
+{ inputs, pkgs, ... }:
+
 {
   system.primaryUser = "thegeneralist";
 
-  # TODO: explore this.
-  # Stuff below is temporary because MacOS' default window management is terrible.
+  # Left Option drives AeroSpace; right Option remains available for typing.
   services.aerospace = {
     enable = true;
+    package = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.aerospace;
     settings = {
+      config-version = 2;
+      # Keep the workspaces that version 1 inferred from the bindings.
+      persistent-workspaces = [
+        "1" "2" "3" "4" "5" "6" "7" "8" "9" "10"
+        "A" "B" "C" "D" "E" "F" "G" "I" "M" "N" "O"
+        "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z"
+      ];
+
       # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
       enable-normalization-flatten-containers = true;
       enable-normalization-opposite-orientation-for-nested-containers = true;
@@ -80,14 +90,14 @@
         #                   keypadMinus, keypadMultiply, keypadPlus
         # - Arrows.         left, down, up, right
 
-        # All possible modifiers: cmd, alt, ctrl, shift
+        # Modifiers: cmd, alt, ctrl, shift; prefix l/r to restrict a side.
 
         # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-        # You can uncomment the following lines to open up terminal with alt + enter shortcut
+        # You can uncomment the following lines to open a terminal with left Option + Enter
         # (like in i3)
-        # alt-enter = '''exec-and-forget osascript -e '
+        # lalt-enter = '''exec-and-forget osascript -e '
         # tell application "Terminal"
         #     do script
         #     activate
@@ -95,99 +105,99 @@
         # '''
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-        alt-slash = "layout tiles horizontal vertical";
-        alt-comma = "layout accordion horizontal vertical";
+        lalt-slash = "layout tiles horizontal vertical";
+        lalt-comma = "layout accordion horizontal vertical";
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-        alt-h = "focus left";
-        alt-j = "focus down";
-        alt-k = "focus up";
-        alt-l = "focus right";
+        lalt-h = "focus left";
+        lalt-j = "focus down";
+        lalt-k = "focus up";
+        lalt-l = "focus right";
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#move
-        alt-shift-h = "move left";
-        alt-shift-j = "move down";
-        alt-shift-k = "move up";
-        alt-shift-l = "move right";
+        lalt-shift-h = "move left";
+        lalt-shift-j = "move down";
+        lalt-shift-k = "move up";
+        lalt-shift-l = "move right";
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-        alt-minus = "resize smart -50";
-        alt-equal = "resize smart +50";
+        lalt-minus = "resize smart -50";
+        lalt-equal = "resize smart +50";
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-        alt-0 = "workspace 10";
-        alt-1 = "workspace 1";
-        alt-2 = "workspace 2";
-        alt-3 = "workspace 3";
-        alt-4 = "workspace 4";
-        alt-5 = "workspace 5";
-        alt-6 = "workspace 6";
-        alt-7 = "workspace 7";
-        alt-8 = "workspace 8";
-        alt-9 = "workspace 9";
-        alt-a = "workspace A"; # In your config, you can drop workspace bindings that you don't need
-        alt-b = "workspace B";
-        alt-c = "workspace C";
-        alt-d = "workspace D";
-        alt-e = "workspace E";
-        alt-f = "workspace F";
-        alt-g = "workspace G";
-        alt-i = "workspace I";
-        alt-m = "workspace M";
-        alt-n = "workspace N";
-        alt-o = "workspace O";
-        alt-p = "workspace P";
-        alt-q = "workspace Q";
-        alt-r = "workspace R";
-        alt-s = "workspace S";
-        alt-t = "workspace T";
-        alt-u = "workspace U";
-        alt-v = "workspace V";
-        alt-w = "workspace W";
-        alt-x = "workspace X";
-        alt-y = "workspace Y";
-        alt-z = "workspace Z";
+        lalt-0 = "workspace 10";
+        lalt-1 = "workspace 1";
+        lalt-2 = "workspace 2";
+        lalt-3 = "workspace 3";
+        lalt-4 = "workspace 4";
+        lalt-5 = "workspace 5";
+        lalt-6 = "workspace 6";
+        lalt-7 = "workspace 7";
+        lalt-8 = "workspace 8";
+        lalt-9 = "workspace 9";
+        lalt-a = "workspace A"; # In your config, you can drop workspace bindings that you don't need
+        lalt-b = "workspace B";
+        lalt-c = "workspace C";
+        lalt-d = "workspace D";
+        lalt-e = "workspace E";
+        lalt-f = "workspace F";
+        lalt-g = "workspace G";
+        lalt-i = "workspace I";
+        lalt-m = "workspace M";
+        lalt-n = "workspace N";
+        lalt-o = "workspace O";
+        lalt-p = "workspace P";
+        lalt-q = "workspace Q";
+        lalt-r = "workspace R";
+        lalt-s = "workspace S";
+        lalt-t = "workspace T";
+        lalt-u = "workspace U";
+        lalt-v = "workspace V";
+        lalt-w = "workspace W";
+        lalt-x = "workspace X";
+        lalt-y = "workspace Y";
+        lalt-z = "workspace Z";
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-        alt-shift-1 = "move-node-to-workspace 1";
-        alt-shift-2 = "move-node-to-workspace 2";
-        alt-shift-3 = "move-node-to-workspace 3";
-        alt-shift-4 = "move-node-to-workspace 4";
-        alt-shift-5 = "move-node-to-workspace 5";
-        alt-shift-6 = "move-node-to-workspace 6";
-        alt-shift-7 = "move-node-to-workspace 7";
-        alt-shift-8 = "move-node-to-workspace 8";
-        alt-shift-9 = "move-node-to-workspace 9";
-        alt-shift-a = "move-node-to-workspace A";
-        alt-shift-b = "move-node-to-workspace B";
-        alt-shift-c = "move-node-to-workspace C";
-        alt-shift-d = "move-node-to-workspace D";
-        alt-shift-e = "move-node-to-workspace E";
-        alt-shift-f = "move-node-to-workspace F";
-        alt-shift-g = "move-node-to-workspace G";
-        alt-shift-i = "move-node-to-workspace I";
-        alt-shift-m = "move-node-to-workspace M";
-        alt-shift-n = "move-node-to-workspace N";
-        alt-shift-o = "move-node-to-workspace O";
-        alt-shift-p = "move-node-to-workspace P";
-        alt-shift-q = "move-node-to-workspace Q";
-        alt-shift-r = "move-node-to-workspace R";
-        alt-shift-s = "move-node-to-workspace S";
-        alt-shift-t = "move-node-to-workspace T";
-        alt-shift-u = "move-node-to-workspace U";
-        alt-shift-v = "move-node-to-workspace V";
-        alt-shift-w = "move-node-to-workspace W";
-        alt-shift-x = "move-node-to-workspace X";
-        alt-shift-y = "move-node-to-workspace Y";
-        alt-shift-z = "move-node-to-workspace Z";
+        lalt-shift-1 = "move-node-to-workspace 1";
+        lalt-shift-2 = "move-node-to-workspace 2";
+        lalt-shift-3 = "move-node-to-workspace 3";
+        lalt-shift-4 = "move-node-to-workspace 4";
+        lalt-shift-5 = "move-node-to-workspace 5";
+        lalt-shift-6 = "move-node-to-workspace 6";
+        lalt-shift-7 = "move-node-to-workspace 7";
+        lalt-shift-8 = "move-node-to-workspace 8";
+        lalt-shift-9 = "move-node-to-workspace 9";
+        lalt-shift-a = "move-node-to-workspace A";
+        lalt-shift-b = "move-node-to-workspace B";
+        lalt-shift-c = "move-node-to-workspace C";
+        lalt-shift-d = "move-node-to-workspace D";
+        lalt-shift-e = "move-node-to-workspace E";
+        lalt-shift-f = "move-node-to-workspace F";
+        lalt-shift-g = "move-node-to-workspace G";
+        lalt-shift-i = "move-node-to-workspace I";
+        lalt-shift-m = "move-node-to-workspace M";
+        lalt-shift-n = "move-node-to-workspace N";
+        lalt-shift-o = "move-node-to-workspace O";
+        lalt-shift-p = "move-node-to-workspace P";
+        lalt-shift-q = "move-node-to-workspace Q";
+        lalt-shift-r = "move-node-to-workspace R";
+        lalt-shift-s = "move-node-to-workspace S";
+        lalt-shift-t = "move-node-to-workspace T";
+        lalt-shift-u = "move-node-to-workspace U";
+        lalt-shift-v = "move-node-to-workspace V";
+        lalt-shift-w = "move-node-to-workspace W";
+        lalt-shift-x = "move-node-to-workspace X";
+        lalt-shift-y = "move-node-to-workspace Y";
+        lalt-shift-z = "move-node-to-workspace Z";
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-        alt-tab = "workspace-back-and-forth";
+        lalt-tab = "workspace-back-and-forth";
         # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-        alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
+        lalt-shift-tab = "move-workspace-to-monitor --wrap-around next";
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-        alt-shift-semicolon = "mode service";
+        lalt-shift-semicolon = "mode service";
       };
 
       # 'service' binding mode declaration.
@@ -201,10 +211,10 @@
         # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
         #s = ['layout sticky tiling', 'mode main']
 
-        alt-shift-h = [ "join-with left" "mode main" ];
-        alt-shift-j = [ "join-with down" "mode main" ];
-        alt-shift-k = [ "join-with up" "mode main" ];
-        alt-shift-l = [ "join-with right" "mode main" ];
+        lalt-shift-h = [ "join-with left" "mode main" ];
+        lalt-shift-j = [ "join-with down" "mode main" ];
+        lalt-shift-k = [ "join-with up" "mode main" ];
+        lalt-shift-l = [ "join-with right" "mode main" ];
 
         down = "volume down";
         up = "volume up";

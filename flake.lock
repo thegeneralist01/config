@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "aerospace-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791045489,
+        "narHash": "sha256-y7k81pR6/zsF32tHnhftAeALRHrOkfycB9U8vRO00wM=",
+        "owner": "N1ark",
+        "repo": "AeroSpace",
+        "rev": "d720311090f5922c10c5d9bfb62cbc7d8120e9fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "N1ark",
+        "repo": "AeroSpace",
+        "rev": "d720311090f5922c10c5d9bfb62cbc7d8120e9fc",
+        "type": "github"
+      }
+    },
     "agenix": {
       "inputs": {
         "darwin": [
@@ -507,6 +524,7 @@
     },
     "root": {
       "inputs": {
+        "aerospace-src": "aerospace-src",
         "agenix": "agenix",
         "fenix": "fenix",
         "ghostty": "ghostty",

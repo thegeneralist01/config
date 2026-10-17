@@ -117,6 +117,47 @@ Hosts are automatically categorized based on naming conventions:
 - Names ending with `mbp` or containing `central-mbp` → Darwin
 - All others → NixOS
 
+### Pinned AeroSpace fork
+
+`thegeneralist-mbp` builds [N1ark/AeroSpace at `d720311`](https://github.com/N1ark/AeroSpace/commit/d720311090f5922c10c5d9bfb62cbc7d8120e9fc)
+from source for left/right modifier support. All Option-based bindings use `lalt`,
+leaving right Option available for typing. Other modifiers and commands are unchanged.
+Config version 2 explicitly lists persistent workspaces, preserving the workspace
+set that version 1 inferred from the bindings.
+
+The build is defined in `nixpkgs-overlay/aerospace/`:
+
+- `aerospace-src` in `flake.nix` and `flake.lock` pins the complete source revision, including its prerequisite commits.
+- `swift-toolchain.nix` pins the official Swift **6.4.0** installer and its hash, matching the source's `.swift-version`.
+- The source's `Package.resolved` supplies Swift dependency versions/revisions; `dependency-hashes.nix` fixes their archive hashes.
+- The existing nixpkgs lock pins Apple SDK **26.0**, the linker, native libraries, documentation/completion tools, and signer.
+- Both executables are release builds from the fork. Only compiled icon assets are reused from nixpkgs' pinned official AeroSpace release.
+- The app bundle is ad-hoc signed without a developer certificate or host keychain. No manually built artifact or installed Xcode is needed.
+
+Build the package without activating it:
+
+```bash
+nix --extra-experimental-features pipe-operators build .#aerospace --no-link
+```
+
+Apply it through the existing Darwin service:
+
+```bash
+sudo darwin-rebuild switch --flake .#thegeneralist-mbp \
+  --option extra-experimental-features pipe-operators
+```
+
+Restart AeroSpace after updating if the CLI reports a client/server protocol mismatch:
+the fork's CLI must be used with its matching app. macOS Accessibility approval
+remains an OS-level action; a changed ad-hoc signature may require re-granting it.
+Sided shortcuts do not work while Secure Input is enabled, including in password fields.
+`lalt` matches left Option alone, not both Option keys held together.
+
+To update the fork, change the full commit in `inputs.aerospace-src.url`, then run
+`nix flake update aerospace-src`. Review `Package.resolved` and `.swift-version` at
+the new revision and update the dependency/toolchain hashes when they change.
+The source stays pinned during ordinary `nix flake update` operations.
+
 ## Module System
 
 ### Common Modules

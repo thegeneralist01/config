@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    aerospace-src = {
+      url = "github:N1ark/AeroSpace/d720311090f5922c10c5d9bfb62cbc7d8120e9fc";
+      flake = false;
+    };
+
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -91,6 +96,11 @@
 
       # Darwin configurations for macOS hosts
       darwinConfigurations = hostConfigs.darwin or { };
+
+      packages.aarch64-darwin.aerospace =
+        nixpkgs.legacyPackages.aarch64-darwin.callPackage ./nixpkgs-overlay/aerospace {
+          src = inputs.aerospace-src;
+        };
 
       # Development shells
       devShells = lib.genAttrs [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ] (
