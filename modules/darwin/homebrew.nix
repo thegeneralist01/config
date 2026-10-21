@@ -3,6 +3,7 @@
   homebrew-cask,
   steipete-tap,
   config,
+  lib,
   ...
 }:
 {
@@ -21,4 +22,13 @@
 
     mutableTaps = true;
   };
+
+  system.activationScripts.preActivation.text = lib.mkAfter ''
+    if [[ -L /opt/homebrew/Library/Taps ]]; then
+      rm -f /opt/homebrew/Library/Taps
+    fi
+    mkdir -p /opt/homebrew/Library/Taps
+    chown ${config.system.primaryUser}:admin /opt/homebrew/Library/Taps
+    chmod ug=rwx /opt/homebrew/Library/Taps
+  '';
 }
