@@ -168,6 +168,24 @@ Located in `modules/common/`, these are loaded on all systems:
 - `git.nix`, `neovim.nix`, `zsh.nix` - Development tools
 - `agenix.nix` - Secret management
 
+### OMP model routing
+
+`modules/dotfiles/omp/models.nix` declares OMP's model roles, per-agent model
+overrides, and saved presets. `modules/common/omp.nix` applies them during Home
+Manager activation, alongside the custom agent definitions and prompts.
+
+The activation replaces `modelRoles`, `task.agentModelOverrides`, and
+`modelPresets` in `~/.omp/agent/config.yml`. Other settings, including other
+`task` options, are preserved. The file remains writable: changes saved through
+OMP work immediately, but the next rebuild restores these three repo-owned
+sections. Edit `models.nix` to make routing changes permanent across rebuilds.
+
+The `gemmysolopus`, `haikugemmyopus`, and `aura` presets retain their different
+default/small models, while sharing Gemini Flash Medium for tasks and Opus 5.5
+High for planning. Per-agent overrides keep both reviewers on Sol High and
+`l-worker` on Sol independently of the selected preset. Selecting a preset or
+changing the active session model remains an OMP action, not a rebuild action.
+
 ### Platform-Specific Modules
 - `modules/darwin/` - macOS-specific (SSH, Karabiner, packages)  
 - `modules/linux/` - Linux-specific (boot, networking, X11, NVIDIA)

@@ -1,13 +1,13 @@
 ---
 name: l-planner
-description: "creates implementation plans from context; no edits."
+description: "creates implementation plans using @plan at high effort; no edits."
 tools:
   - read
   - grep
   - glob
 model:
-  - "@default"
-thinkingLevel: medium
+  - "@plan"
+thinkingLevel: high
 ---
 
 You are a planning specialist. You receive context (from a scout) and requirements, then produce a clear implementation plan.
