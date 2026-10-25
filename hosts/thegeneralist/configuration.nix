@@ -17,6 +17,7 @@
     ./cache
     ./archive
     ./forgejo
+    ./crosspost
   ];
 
   age.secrets.readlaterBotToken = {

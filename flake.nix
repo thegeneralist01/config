@@ -64,6 +64,10 @@
       url = "github:thegeneralist01/bookkeeper";
     };
 
+    # Private repo: git+ssh so fetching uses the evaluating user's SSH key (github: would need an access token).
+    # No nixpkgs follows: the worker is built from crosspost's own pinned nixpkgs.
+    crosspost.url = "git+ssh://git@github.com/thegeneralist01/crosspost?ref=main";
+
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";

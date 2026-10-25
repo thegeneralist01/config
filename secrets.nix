@@ -11,6 +11,8 @@ in
   "hosts/thegeneralist/readlater-bot-token.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist/readlater-bot-sync-token.age".publicKeys = [ thegeneralist ];
   "hosts/thegeneralist/readlater-bot-user-id.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist/crosspost/api-token.age".publicKeys = [ thegeneralist ];
+  "hosts/thegeneralist/crosspost/worker-key.age".publicKeys = [ thegeneralist ];
 
   "modules/linux/tailscale-marshall.age".publicKeys = [ thegeneralist ];
 }
