@@ -66,11 +66,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1792952443,
-        "narHash": "sha256-wWHr0kjMkz5/Op2AZKrgtB6eBgBnTr3IlRS2vvoGhrQ=",
+        "lastModified": 1793657827,
+        "narHash": "sha256-nUnwz/9NzZJu9Qxw9QLRP/yHC5ZmSZmNRFIZCkCkNX0=",
         "ref": "main",
-        "rev": "56f3df152d115c52c1ad671636e58b1c1bc9f91b",
-        "revCount": 10,
+        "rev": "96088b76da7e16e32f18944dc98470c293464b12",
+        "revCount": 29,
         "type": "git",
         "url": "ssh://git@github.com/thegeneralist01/crosspost"
       },
