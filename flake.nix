@@ -64,6 +64,11 @@
       url = "github:thegeneralist01/bookkeeper";
     };
 
+    archivr = {
+      url = "github:thegeneralist01/archivr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Private repo: git+ssh so fetching uses the evaluating user's SSH key (github: would need an access token).
     # No nixpkgs follows: the worker is built from crosspost's own pinned nixpkgs.
     crosspost.url = "git+ssh://git@github.com/thegeneralist01/crosspost?ref=main";

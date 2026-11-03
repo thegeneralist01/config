@@ -44,6 +44,26 @@
         "type": "github"
       }
     },
+    "archivr": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793731977,
+        "narHash": "sha256-sc95sd9Hew6ZegYC2mfcOuDu0O2izzoRPlkMGiN8H3I=",
+        "owner": "thegeneralist01",
+        "repo": "archivr",
+        "rev": "85b3c958bcd99ddc1788be2e7211460ec2683485",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thegeneralist01",
+        "repo": "archivr",
+        "type": "github"
+      }
+    },
     "brew-src": {
       "flake": false,
       "locked": {
@@ -561,6 +581,7 @@
       "inputs": {
         "aerospace-src": "aerospace-src",
         "agenix": "agenix",
+        "archivr": "archivr",
         "crosspost": "crosspost",
         "fenix": "fenix",
         "ghostty": "ghostty",
