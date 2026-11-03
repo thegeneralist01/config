@@ -58,8 +58,9 @@ in
         ${pkgs.coreutils}/bin/chown -R acme:nginx /var/lib/acme/${domain}
         ${pkgs.coreutils}/bin/chmod 0750 /var/lib/acme/${domain}
         ${pkgs.coreutils}/bin/chmod 0640 /var/lib/acme/${domain}/*
+        # --no-block: this unit is ordered before nginx, so a blocking reload would wait on this very job.
         if ${pkgs.systemd}/bin/systemctl is-active --quiet nginx.service; then
-          ${pkgs.systemd}/bin/systemctl reload nginx.service || true
+          ${pkgs.systemd}/bin/systemctl --no-block reload nginx.service || true
         fi
       '';
     };
