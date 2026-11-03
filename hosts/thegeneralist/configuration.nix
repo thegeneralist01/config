@@ -14,6 +14,7 @@
   imports = [
     ./hardware-configuration.nix
     ./site.nix
+    ./tailscale-ip.nix
     ./cache
     ./archive
     ./forgejo
