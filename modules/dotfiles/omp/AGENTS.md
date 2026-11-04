@@ -12,6 +12,12 @@
 - Do not traverse `node_modules/`, `.git/`, build outputs, or other large generated directories unless specifically needed.
 - When looking for config files, check known paths directly instead of scanning unrelated directories.
 
+## Browser
+
+Use only the browser inside Tern. Do not use Chrome MCP, headless Chromium, relay Chrome, or any other browser automation, unless the user directs otherwise or it's in your best interests to do so.
+
+Before any browser work, read `omp://tools/browser.md` for the in-Tern browser instructions (the Eval `browser` facade with `app.tern: true`), and follow them.
+
 ## Academic / preprint style
 
 When drafting or editing scientific papers and preprints:
