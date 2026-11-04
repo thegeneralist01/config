@@ -37,6 +37,10 @@ in
     requires = [ "archivr-data-ownership.service" ];
     after = [ "archivr-data-ownership.service" ];
     unitConfig.RequiresMountsFor = [ "/mnt/usb" ];
+    serviceConfig = {
+      Restart = lib.mkForce "always";
+      RestartSec = lib.mkForce "10s";
+    };
   };
 
   # Tailscale TLS certificate automation for HTTPS
