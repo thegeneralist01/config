@@ -224,6 +224,7 @@
       on-window-detected = [
         { "if".app-id = "net.imput.helium"; run = "move-node-to-workspace W"; }
         { "if".app-id = "com.stablyai.orca"; run = "move-node-to-workspace S"; }
+        { "if".app-id = "so.stencil.tern"; run = "move-node-to-workspace S"; }
         { "if".app-id = "md.obsidian"; run = "move-node-to-workspace Q"; }
         { "if".app-id = "com.openai.codex"; run = "move-node-to-workspace C"; }
         { "if".app-id = "com.anthropic.claudefordesktop"; run = "move-node-to-workspace F"; }
@@ -234,9 +235,11 @@
         { "if".app-id = "com.softissimo.ReversoContext.macosapp"; run = "move-node-to-workspace 9"; }
         { "if".app-id = "com.pais.handy"; run = "move-node-to-workspace 9"; }
         { "if".app-id = "com.superduper.superwhisper"; run = "move-node-to-workspace 9"; }
+        { "if".app-id = "app.bytrong.quotio.beta"; run = "move-node-to-workspace 9"; }
         { "if".app-id = "com.todoist.mac.Todoist"; run = "move-node-to-workspace T"; }
         { "if".app-id = "com.apple.finder"; run = "move-node-to-workspace A"; }
         { "if".app-id = "com.apple.iBooksX"; run = "move-node-to-workspace B"; }
+        { "if".app-id = "org.zotero.zotero"; run = "move-node-to-workspace Z"; }
       ];
     };
   };
